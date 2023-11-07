@@ -4571,7 +4571,7 @@ footer span {
 
 /* /////////////////////////////////////////////////////////////////////////////////////////// INSUMOS /////////////////////////////////////////////////////////////////////////////////////////// */
 /* LI MEDIDAS UNICAS BARRA SUPERIOR DE EL LISTADO DE INSUMOS */
-.li_cod_ins {
+.li_cod {
     width: 5%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -4589,16 +4589,16 @@ footer span {
     width: 11%;
 }
 
-.li_color {
-    width: 13%;
+.li_medida {
+    width: 7%;
 }
 
 .li_proveedor {
-    width: 8%;
+    width: 10%;
 }
 
 .li_modificado {
-    width: 5%;
+    width: 9%;
 }
 
 .li_valor {
@@ -4848,7 +4848,7 @@ footer span {
 }
 
 /* LISTADO FLOTANTE MEDIDAS UNICAS */
-.cod_ins_flotante {
+.cod_flotante {
     width: 14%;
 }
 
