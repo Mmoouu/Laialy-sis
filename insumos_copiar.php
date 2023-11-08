@@ -24,28 +24,18 @@ if ($login == "log"){
     $user_log = "Desconectado";
     $circulo_log = "circulo_log_red";
 }
-$insumos_laialy = ""; $where = ""; $titulo_sisint_activar = "";
-if(isset($_GET['activar'])){
-    $activar_desactivar = $_GET['activar'];
-    if ($activar_desactivar == "1"){
-        $titulo_sisint_activar = "Desactivar";
-        $modo_insumo = "0";
-    } else if ($activar_desactivar == "0"){
-        $titulo_sisint_activar = "Activar";
-        $modo_insumo = "1";
-    }
-} 
+$insumos_laialy = ""; $where = ""; 
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
     if ($nav == "insumos_laialy"){
-        $titulo_sisint = $titulo_sisint_activar." Insumo Laialy";
+        $titulo_sisint = "Copiar Insumo Laialy";
         $insumos_laialy = "active";
     }
 } 
-if(isset($_GET['id_insumo'])){
-    $get_id_insumo = $_GET['id_insumo'];
-    $where = "WHERE id_insumo ='".$get_id_insumo."'";
-} 
+if(isset($_GET['id'])){
+    $get_id_insumo = $_GET['id'];
+    $where = "WHERE id ='".$get_id_insumo."'";
+}  
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,6 +53,7 @@ if(isset($_GET['id_insumo'])){
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.min.js"></script> 
 <script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
     
 </head>   
    
@@ -78,16 +69,16 @@ if(isset($_GET['id_insumo'])){
     <div id="cabecera_sisint">
         <div class="historial_atras" title="Atras" onclick="javascript:history.back()"><li class="icons"><img src="img/historial_atras.svg"/></li></div>
         <h1><?php echo $titulo_sisint; ?></h1>
-    </div>
+    </div> 
     <?php
     require("../conexion.laialy.php");
     $consulta_de_insumos = mysqli_query($conexion, "SELECT * FROM $nav $where");
     $listado_de_insumos = mysqli_fetch_array($consulta_de_insumos);    
-    $consulta_insumo_bk_cod_ins = utf8_encode($listado_de_insumos['cod_ins']);
+    $consulta_insumo_bk_cod = utf8_encode($listado_de_insumos['cod']);
     $consulta_insumo_bk_insumo = utf8_encode($listado_de_insumos['insumo']);
     $consulta_insumo_bk_categoria = $listado_de_insumos['categoria'];
     $consulta_insumo_bk_subcategoria = $listado_de_insumos['subcategoria'];
-    $consulta_insumo_bk_color = $listado_de_insumos['color'];
+    $consulta_insumo_bk_medida = $listado_de_insumos['medida'];
     $consulta_insumo_bk_proveedor = $listado_de_insumos['proveedor'];
     $consulta_insumo_bk_valor = $listado_de_insumos['valor'];
     $consulta_insumo_bk_creacion = $listado_de_insumos['creacion'];
@@ -97,27 +88,35 @@ if(isset($_GET['id_insumo'])){
         <div class="linea_form_nuevo_ingreso"></div>
         <form class="fomulario_nuevo_ingreso" name="formulario_nuevo_ingreso" action="" method="post" enctype="multipart/form-data">
             <div class="fneworder_dos">
-                <label><p>Cod Ins</p></label>
-                <input type="text" name="cod_ins" value="<?php echo $consulta_insumo_bk_cod_ins; ?>" readonly/>
+                <label><p>Cod</p></label>
+                <input type="text" name="cod" value="<?php echo $consulta_insumo_bk_cod; ?>" required/>
             </div>
             <div class="espacio"><p></p></div>
-            <div class="fneworder_dos">
+            <div class="fneworder_cuatro">
+                <label><p>Activo</p></label>
+                <select type="text" name="activo">
+                    <option value="1" selected>Si</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="espacio"><p></p></div>
+            <div class="fneworder_cuatro">
                 <label><p>Valor</p></label>
-                <input type="text" name="valor" value="<?php echo $consulta_insumo_bk_valor; ?>" readonly/>
+                <input type="number" step="0.001" name="valor" value="<?php echo $consulta_insumo_bk_valor; ?>" required/>
             </div>
             <div class="fneworder">
                 <label><p>Insumo</p></label>
-                <input type="text" name="insumo" value="<?php echo $consulta_insumo_bk_insumo; ?>" readonly/>
+                <input type="text" name="insumo" value="<?php echo $consulta_insumo_bk_insumo; ?>" required/>
             </div>
             <div class="fneworder_dos">
                 <label><p>Categoria</p></label>
-                <select type="text" name="categoria" id="" onchange="from(document.formulario_nuevo_ingreso.categoria.value,'subcategoria','subcategoria_general.php')" readonly>
+                <select type="text" name="categoria" required id="" onchange="from(document.formulario_nuevo_ingreso.categoria.value,'subcategoria','subcategoria_general.php')">
                     <?php 
                     require("../conexion.laialy.php");
                     $consulta_de_categorias_sel = mysqli_query($conexion, "SELECT * FROM categorias WHERE id = '$consulta_insumo_bk_categoria'");
                     $listado_de_categorias_sel = mysqli_fetch_array($consulta_de_categorias_sel);                    
                     echo "<option value='".$listado_de_categorias_sel['id']."'>".utf8_encode($listado_de_categorias_sel['categoria'])."</option>";
-                    ///////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////////
                     $consulta_de_categorias = mysqli_query($conexion, "SELECT * FROM categorias WHERE id != '$consulta_insumo_bk_categoria'");
                     while($listado_de_categorias = mysqli_fetch_array($consulta_de_categorias)){
                         echo "<option value='".$listado_de_categorias['id']."'>".utf8_encode($listado_de_categorias['categoria'])."</option>";
@@ -129,13 +128,13 @@ if(isset($_GET['id_insumo'])){
             <div class="espacio"><p></p></div>
             <div class="fneworder_dos" id="subcategoria">
                 <label><p>Subcategoria</p></label>
-                <select type="text" name="subcategoria">
+                <select type="text" name="subcategoria" required>
                     <?php 
                     require("../conexion.laialy.php");
                     $consulta_de_subcategorias_sel = mysqli_query($conexion, "SELECT * FROM subcategorias WHERE id = '$consulta_insumo_bk_subcategoria'");
                     $listado_de_subcategorias_sel = mysqli_fetch_array($consulta_de_subcategorias_sel);                    
                     echo "<option value='".$listado_de_subcategorias_sel['id']."'>".utf8_encode($listado_de_subcategorias_sel['subcategoria'])."</option>";
-                    ////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////
                     $id_categoria_seleccinada_ = $listado_de_subcategorias_sel['id_categoria'];
                     $consulta_de_subcategorias = mysqli_query($conexion, "SELECT * FROM subcategorias WHERE id != '$consulta_insumo_bk_subcategoria' AND id_categoria = '$id_categoria_seleccinada_'");
                     while($listado_de_subcategorias = mysqli_fetch_array($consulta_de_subcategorias)){
@@ -146,13 +145,17 @@ if(isset($_GET['id_insumo'])){
                 </select>
             </div>
             <div class="fneworder_dos">
-                <label><p>Color</p></label>
-                <input type="text" name="color" value="<?php echo $consulta_insumo_bk_color; ?>"/> 
+                <label><p>Un Med</p></label>
+                <select type="text" name="medida"> 
+                    <option value='KG' <?php if ($consulta_insumo_bk_medida == "KG"){ echo "selected"; } ?>>Kilogramos</option>
+                    <option value='LT' <?php if ($consulta_insumo_bk_medida == "LT"){ echo "selected"; } ?>>Litros</option>
+                    <option value='UN' <?php if ($consulta_insumo_bk_medida == "UN"){ echo "selected"; } ?>>Unidades</option>                    
+                </select>   
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_dos last_item">
                 <label><p>Proveedor</p></label>
-                <select type="text" name="proveedor">                    
+                <select type="text" name="proveedor" required>                    
                     <?php 
                     require("../conexion.laialy.php");
                     ////////////////////////////////////////
@@ -168,21 +171,35 @@ if(isset($_GET['id_insumo'])){
                     ?>
                 </select>
             </div>
-            <button type="submit" input="submit" name="submit" value="Iniciar Sesión"><p><?php echo $titulo_sisint_activar; ?></p></button>
+            <button type="submit" input="submit" name="submit" value="Iniciar Sesión"><img src="img/flecha.svg"></button>
         </form>
         <div class="linea_form_nuevo_ingreso"></div>
         <?php      
             if (isset($_POST['submit'])){
+                $form_cod = utf8_decode($_POST['cod']);
+                $form_insumo = utf8_decode($_POST['insumo']);
+                $form_valor = $_POST['valor'];
+                $form_categoria = $_POST['categoria'];
+                $form_subcategoria = $_POST['subcategoria'];
+                $form_medida = $_POST['medida'];
+                $form_proveedor = $_POST['proveedor'];
+                $form_activo = $_POST['activo'];
+                $form_creacion = date("d-m-y");
+                $form_dia_mod = date("d");
+                $form_mes_mod = date("m");
+                $form_anio_mod = date("y");
+                $form_hora_mod = date('His');  
                 require("../conexion.laialy.php");
-                mysqli_query($conexion, "UPDATE $nav SET activo='$modo_insumo' $where");
+                mysqli_query($conexion, "INSERT INTO $nav (id, cod, insumo, categoria, subcategoria, medida, proveedor, valor, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$form_cod','$form_insumo','$form_categoria','$form_subcategoria','$form_medida','$form_proveedor','$form_valor','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
                 //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
-                $log_valor = $titulo_sisint;
-                $log_accion = " Insumo id: ".$get_id_insumo;
+                $log_valor = "Insumo ".$get_id_insumo;
+                $log_accion = "Copia";
                 require("log.php");
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
                 mysqli_close($conexion);
-                $pagina_regreso = $_GET['pagina'];
-                echo "<script language=Javascript> location.href=\"insumos.php?nav=$nav&mensaje=activo_".$modo_insumo."&pagina=$pagina_regreso#view_$get_id_insumo\";</script>";
+                $pagina_regreso = $_GET['pagina'];  
+                $busqueda_regreso = $_GET['busqueda'];
+                echo "<script language=Javascript> location.href=\"insumos.php?nav=$nav&mensaje=nuevo_insumo&busqueda=$busqueda_regreso&pagina=$pagina_regreso#view_$get_id_insumo\";</script>";
             }
         ?>
     </div>

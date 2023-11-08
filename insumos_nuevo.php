@@ -70,8 +70,8 @@ if(isset($_GET['nav'])){
         <div class="linea_form_nuevo_ingreso"></div>
         <form class="fomulario_nuevo_ingreso" name="formulario_nuevo_ingreso" action="" method="post" enctype="multipart/form-data">
             <div class="fneworder_dos">
-                <label><p>Cod Ins</p></label>
-                <input type="text" name="cod_ins" required/>
+                <label><p>Cod</p></label>
+                <input type="text" name="cod" required/>
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_cuatro">
@@ -112,8 +112,12 @@ if(isset($_GET['nav'])){
                 </select>
             </div>
             <div class="fneworder_dos">
-                <label><p>Color</p></label>
-                <input type="text" name="color" required/> 
+                <label><p>Un Med</p></label>
+                <select type="text" name="medida"> 
+                    <option value='KG'>Kilogramos</option>
+                    <option value='LT'>Litros</option>
+                    <option value='UN'>Unidades</option>                    
+                </select>  
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_dos last_item">
@@ -135,12 +139,12 @@ if(isset($_GET['nav'])){
         <div class="linea_form_nuevo_ingreso"></div>
         <?php      
             if (isset($_POST['submit'])){
-                $form_cod_ins = utf8_decode($_POST['cod_ins']);
+                $form_cod = utf8_decode($_POST['cod']);
                 $form_insumo = utf8_decode($_POST['insumo']);
                 $form_valor = $_POST['valor'];
                 $form_categoria = $_POST['categoria'];
                 $form_subcategoria = $_POST['subcategoria'];
-                $form_color = utf8_decode($_POST['color']);
+                $form_medida = utf8_decode($_POST['medida']);
                 $form_proveedor = $_POST['proveedor'];
                 $form_activo = $_POST['activo'];
                 $form_creacion = date("d-m-y");
@@ -149,7 +153,7 @@ if(isset($_GET['nav'])){
                 $form_anio_mod = date("y");
                 $form_hora_mod = date('His'); 
                 require("../conexion.laialy.php");
-                mysqli_query($conexion, "INSERT INTO $nav (id_insumo, cod_ins, insumo, categoria, subcategoria, color, proveedor, valor, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$form_cod_ins','$form_insumo','$form_categoria','$form_subcategoria','$form_color','$form_proveedor','$form_valor','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
+                mysqli_query($conexion, "INSERT INTO $nav (id, cod, insumo, categoria, subcategoria, medida, proveedor, valor, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$form_cod','$form_insumo','$form_categoria','$form_subcategoria','$form_medida','$form_proveedor','$form_valor','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
                 mysqli_close($conexion);
                 echo "<script language=Javascript> location.href=\"insumos.php?nav=$nav&mensaje=nuevo_insumo&pagina=1\";</script>";
             }

@@ -84,8 +84,8 @@ if(isset($_GET['busqueda'])){
         $estado_de_busqueda = "";
         $ver_activo_base = "1";
         $boton_ver = "<li class='icons'><img title='Ver Inactivos' onclick='location.href=\"insumos.php?nav=".$nav."&ver=0&pagina=1\"' src='img/inactivos.svg'></li>";
-        $boton_por = "<li class='icons'><img title='Aplicar Incremento' onclick='location.href=\"incremento.php?nav=".$nav."&pagina=1\"' src='img/por.svg'></li>"; 
-        $boton_nuevo_insumo = "<li class='icons'><img title='Nuevo Insumo' onclick='location.href=\"nuevo_insumo.php?nav=".$nav."&pagina=1\"' src='img/mas.svg'></li>";
+        $boton_por = "<li class='icons'><img title='Aplicar Incremento' onclick='location.href=\"insumos_incremento.php?nav=".$nav."&pagina=1\"' src='img/por.svg'></li>"; 
+        $boton_nuevo_insumo = "<li class='icons'><img title='Nuevo Insumo' onclick='location.href=\"insumos_nuevo.php?nav=".$nav."&pagina=1\"' src='img/mas.svg'></li>";
         $aclaracion_inactivo = "";    
     } 
     $where = "WHERE activo = ".$ver_activo_base." AND cod LIKE '%".utf8_decode($busqueda)."%' OR  activo = ".$ver_activo_base." AND insumo LIKE '%".utf8_decode($busqueda)."%'";
@@ -105,8 +105,8 @@ if(isset($_GET['busqueda'])){
         $estado_de_busqueda = "";
         $ver_activo_base = "1";
         $boton_ver = "<li class='icons'><img title='Ver Inactivos' onclick='location.href=\"insumos.php?nav=".$nav."&ver=0&pagina=1\"' src='img/inactivos.svg'></li>";
-        $boton_por = "<li class='icons'><img title='Aplicar Incremento' onclick='location.href=\"incremento.php?nav=".$nav."&pagina=1\"' src='img/por.svg'></li>"; 
-        $boton_nuevo_insumo = "<li class='icons'><img title='Nuevo Insumo' onclick='location.href=\"nuevo_insumo.php?nav=".$nav."&pagina=1\"' src='img/mas.svg'></li>";
+        $boton_por = "<li class='icons'><img title='Aplicar Incremento' onclick='location.href=\"insumos_incremento.php?nav=".$nav."&pagina=1\"' src='img/por.svg'></li>"; 
+        $boton_nuevo_insumo = "<li class='icons'><img title='Nuevo Insumo' onclick='location.href=\"insumos_nuevo.php?nav=".$nav."&pagina=1\"' src='img/mas.svg'></li>";
         $aclaracion_inactivo = "";
     } 
     $where = "WHERE activo = ".$ver_activo_base;        
@@ -208,14 +208,14 @@ if(isset($_GET['ord'])){
     </div>    
     <div id="sisint_insumos">
         <ul id="header_tabla_sisint">
-            <li class="li_cod"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=cod&pagina=<?php echo $_GET['pagina']; ?>"' style="cursor:pointer;<?php echo $style_cod; ?>">Cod</p></li>
-            <li class="li_insumo"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&pagina=<?php echo $_GET['pagina']; ?>"' style="cursor:pointer;<?php echo $style_insumo; ?>">Insumo</p></li>            
-            <li class="li_categoria"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=categoria&pagina=<?php echo $_GET['pagina']; ?>"' style="cursor:pointer;<?php echo $style_categoria; ?>">Categoria</p></li>
-            <li class="li_subcategoria"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=subcategoria&pagina=<?php echo $_GET['pagina']; ?>"' style="cursor:pointer;<?php echo $style_subcategoria; ?>">Subcategoria</p></li>
-            <li class="li_proveedor"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=proveedor&pagina=<?php echo $_GET['pagina']; ?>"' style="cursor:pointer;<?php echo $style_proveedor; ?>">Proveedor</p></li>            
+            <li class="li_cod"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=cod&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_cod; ?>">Cod</p></li>
+            <li class="li_insumo"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_insumo; ?>">Insumo</p></li>            
+            <li class="li_categoria"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=categoria&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_categoria; ?>">Categoria</p></li>
+            <li class="li_subcategoria"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=subcategoria&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_subcategoria; ?>">Subcategoria</p></li>
+            <li class="li_proveedor"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=proveedor&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_proveedor; ?>">Proveedor</p></li>            
             <li class="li_modificado"><p>Fecha</p></li>
-            <li class="li_medida"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=medida&pagina=<?php echo $_GET['pagina']; ?>"' style="cursor:pointer;<?php echo $style_medida; ?>">Un Med</p></li>
-            <li class="li_valor"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=valor&pagina=<?php echo $_GET['pagina']; ?>"' style="cursor:pointer;margin-left:21%;<?php echo $style_valor; ?>">Valor</p></li>
+            <li class="li_medida"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=medida&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_medida; ?>">Un Med</p></li>
+            <li class="li_valor"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=valor&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;margin-left:21%;<?php echo $style_valor; ?>">Valor</p></li>
             <li class="li_copiar_insumo"><p></p></li><li class="li_modificar_insumo"><p></p></li><li class="li_borrar_insumo"><p></p></li>
         </ul>
         <div id="tabla_sisint" class="tabla_sisint">            
@@ -245,7 +245,7 @@ if(isset($_GET['ord'])){
                     echo "<div style='width:500px; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>".$resultado_busqueda."</p></div>";
                 } else {
                     while($listado_de_insumos = mysqli_fetch_array($consulta_de_insumos)){
-                        $insumo_bk_id_insumo = $listado_de_insumos['id_insumo'];
+                        $insumo_bk_id = $listado_de_insumos['id'];
                         $insumo_bk_cod = $listado_de_insumos['cod'];
                         $insumo_bk_insumo = $listado_de_insumos['insumo'];
                         $insumo_bk_categoria = $listado_de_insumos['categoria'];
@@ -260,7 +260,7 @@ if(isset($_GET['ord'])){
                 ?>
                 <div style="margin-bottom:10px;" class='form_sisint'>
                      <ul>
-                        <li id="view_<?php echo $insumo_bk_id_insumo; ?>" title='<?php echo "Creado el ".$insumo_bk_creacion; ?>' class='li_cod li_grupal'><p><?php echo utf8_encode($insumo_bk_cod); ?></p></li>
+                        <li id="view_<?php echo $insumo_bk_id; ?>" title='<?php echo "Creado el ".$insumo_bk_creacion; ?>' class='li_cod li_grupal'><p><?php echo utf8_encode($insumo_bk_cod); ?></p></li>
                         <li class='li_insumo li_grupal'><p><?php echo utf8_encode($insumo_bk_insumo); ?></p></li>                    
                         <li class='li_categoria li_grupal'>
                             <p>
@@ -295,26 +295,26 @@ if(isset($_GET['ord'])){
                         <li class='li_modificado li_grupal'><p><?php echo $insumo_bk_modificado; ?></p></li>
                         <li class='li_medida li_grupal'><p><?php echo $insumo_bk_medida; ?></p></li>
                         <li class='li_valor li_grupal'>
-                            <img src="img/por_valor.svg" title="Cambio Numerico" onclick='location.href="modificar_insumo_precio.php?nav=<?php echo $nav; ?>&id_insumo=<?php echo $insumo_bk_id_insumo; ?>&pagina=<?php echo $_GET['pagina']; ?>&busqueda=<?php echo $guarda_busqueda; ?>"'>
+                            <img src="img/por_valor.svg" title="Cambio Numerico" onclick='location.href="insumos_modificar_precio.php?nav=<?php echo $nav; ?>&id=<?php echo $insumo_bk_id; ?>&pagina=<?php echo $_GET["pagina"]; ?>&busqueda=<?php echo $guarda_busqueda; ?>"'>
                             <p>$ <?php echo $insumo_bk_valor; ?></p>
-                            <img src="img/por_por.svg" title="Cambio Porcentual" onclick='location.href="modificar_insumo_por.php?nav=<?php echo $nav; ?>&id_insumo=<?php echo $insumo_bk_id_insumo; ?>&pagina=<?php echo $_GET['pagina']; ?>&busqueda=<?php echo $guarda_busqueda; ?>"'>
+                            <img src="img/por_por.svg" title="Cambio Porcentual" onclick='location.href="insumos_modificar_porcentual.php?nav=<?php echo $nav; ?>&id=<?php echo $insumo_bk_id; ?>&pagina=<?php echo $_GET["pagina"]; ?>&busqueda=<?php echo $guarda_busqueda; ?>"'>
                         </li>
                         <?php 
                         if ($insumo_bk_activo == "1"){
                         ?>
-                            <li class="li_modificar_insumo li_grupal" onclick='location.href="modificar_insumo.php?nav=<?php echo $nav; ?>&id_insumo=<?php echo $insumo_bk_id_insumo; ?>&pagina=<?php echo $_GET['pagina']; ?>&busqueda=<?php echo $guarda_busqueda; ?>"' title="Modificar"><img src="img/insumo_modificar.svg"></li>
-                            <li class="li_copiar_insumo li_grupal" onclick='location.href="copiar_insumo.php?nav=<?php echo $nav; ?>&id_insumo=<?php echo $insumo_bk_id_insumo; ?>&pagina=<?php echo $_GET['pagina']; ?>&busqueda=<?php echo $guarda_busqueda; ?>"' title="Copiar"><img src="img/insumo_copiar.svg"></li>
-                            <li class="li_desactivar_insumo li_grupal" onclick='location.href="activar_desactivar_insumo.php?nav=<?php echo $nav; ?>&id_insumo=<?php echo $insumo_bk_id_insumo; ?>&activar=<?php echo $insumo_bk_activo; ?>&pagina=<?php echo $_GET['pagina']; ?>&busqueda=<?php echo $guarda_busqueda; ?>"' title="Desactivar"><img src="img/insumo_desactivar.svg"></li>    
+                            <li class="li_modificar_insumo li_grupal" onclick='location.href="insumos_modificar.php?nav=<?php echo $nav; ?>&id=<?php echo $insumo_bk_id; ?>&pagina=<?php echo $_GET["pagina"]; ?>&busqueda=<?php echo $guarda_busqueda; ?>"' title="Modificar"><img src="img/insumo_modificar.svg"></li>
+                            <li class="li_copiar_insumo li_grupal" onclick='location.href="insumos_copiar.php?nav=<?php echo $nav; ?>&id=<?php echo $insumo_bk_id; ?>&pagina=<?php echo $_GET["pagina"]; ?>&busqueda=<?php echo $guarda_busqueda; ?>"' title="Copiar"><img src="img/insumo_copiar.svg"></li>
+                            <li class="li_desactivar_insumo li_grupal" onclick='location.href="insumos_activar_desactivar.php?nav=<?php echo $nav; ?>&id=<?php echo $insumo_bk_id; ?>&activar=<?php echo $insumo_bk_activo; ?>&pagina=<?php echo $_GET["pagina"]; ?>&busqueda=<?php echo $guarda_busqueda; ?>"' title="Desactivar"><img src="img/insumo_desactivar.svg"></li>    
                         <?php     
                         } else {
                         ?>                            
-                            <li class="li_activar_insumo li_grupal" onclick='location.href="activar_desactivar_insumo.php?nav=<?php echo $nav; ?>&id_insumo=<?php echo $insumo_bk_id_insumo; ?>&activar=<?php echo $insumo_bk_activo; ?>&pagina=<?php echo $_GET['pagina']; ?>&busqueda=<?php echo $guarda_busqueda; ?>"' title="Activar"><img src="img/insumo_activar.svg"></li>
+                            <li class="li_activar_insumo li_grupal" onclick='location.href="insumos_activar_desactivar.php?nav=<?php echo $nav; ?>&id=<?php echo $insumo_bk_id; ?>&activar=<?php echo $insumo_bk_activo; ?>&pagina=<?php echo $_GET["pagina"]; ?>&busqueda=<?php echo $guarda_busqueda; ?>"' title="Activar"><img src="img/insumo_activar.svg"></li>
                             <li class="li_nada li_grupal"></li>
                             <?php 
-                            $comprobar_estado = mysqli_query($conexion, "SELECT * FROM $nav_materiales WHERE insumos LIKE '$insumo_bk_id_insumo-%' OR insumos LIKE '%-$insumo_bk_id_insumo' OR insumos LIKE '%-$insumo_bk_id_insumo-%' OR insumos LIKE '$insumo_bk_id_insumo'");
+                            $comprobar_estado = mysqli_query($conexion, "SELECT * FROM $nav_materiales WHERE insumos LIKE '$insumo_bk_id-%' OR insumos LIKE '%-$insumo_bk_id' OR insumos LIKE '%-$insumo_bk_id-%' OR insumos LIKE '$insumo_bk_id'");
                             $ver_eliminados = mysqli_fetch_array($comprobar_estado);
                             if (is_null($ver_eliminados)){ 
-                                echo "<li class='li_desactivar_insumo li_grupal' onclick='location.href=\"eliminar_insumo.php?nav=".$nav."&id_insumo=".$insumo_bk_id_insumo."&pagina=".$_GET['pagina']."\"' title='Eliminar'><img src='img/insumo_borrar.svg'></li>";
+                                echo "<li class='li_desactivar_insumo li_grupal' onclick='location.href=\"insumos_eliminar.php?nav=".$nav."&id=".$insumo_bk_id."&pagina=".$_GET['pagina']."\"' title='Eliminar'><img src='img/insumo_borrar.svg'></li>";
                             } else {
                                 echo "<li class='li_nada li_grupal'></li>";  
                             }                                                       

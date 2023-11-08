@@ -30,15 +30,10 @@ $insumos_laialy = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
+    $nav_historial = $nav."_historial";
     if ($nav == "insumos_laialy"){
         $insumos_laialy = "active";
-    } else if ($nav == "insumos_belen"){
-        $insumos_belen = "active";
-    } else if ($nav == "insumos_lara"){
-        $insumos_lara = "active";
-    } else if ($nav == "insumos_sigry"){
-        $insumos_sigry = "active";
-    }
+    } 
 } 
 ?>
 <!DOCTYPE html>
@@ -91,12 +86,12 @@ if(isset($_GET['nav'])){
 
         while ($listado_de_insumos = mysqli_fetch_array($consulta_de_insumos)){
 
-            $id_insumo_seleccionado = $listado_de_insumos['id_insumo'];
-            $cod_ins_seleccionado = $listado_de_insumos['cod_ins'];
+            $id_insumo_seleccionado = $listado_de_insumos['id'];
+            $cod_seleccionado = $listado_de_insumos['cod'];
             $insumo_seleccionado = $listado_de_insumos['insumo'];
             $categoria_seleccionado = $listado_de_insumos['categoria'];
             $subcategoria_seleccionado = $listado_de_insumos['subcategoria'];
-            $color_seleccionado = $listado_de_insumos['color'];
+            $medida_seleccionado = $listado_de_insumos['medida'];
             $proveedor_seleccionado = $listado_de_insumos['proveedor'];
             $valor_seleccionado = $listado_de_insumos['valor'];
             $dia_mod_seleccionado = $listado_de_insumos['dia_mod'];
@@ -111,9 +106,9 @@ if(isset($_GET['nav'])){
             $valor_final = str_replace(',', '', ($valor+$porcentaje));
             $valor_final_formateado = str_replace(',', '', (number_format($valor_final,3)));        
 
-            mysqli_query($conexion, "UPDATE $nav SET valor='$valor_final_formateado', dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod' WHERE id_insumo='$id_insumo_seleccionado'");
+            mysqli_query($conexion, "UPDATE $nav SET valor='$valor_final_formateado', dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod' WHERE id='$id_insumo_seleccionado'");
 
-            mysqli_query($conexion, "INSERT INTO historial_$nav (id_historial, tipo, id_insumo, cod_ins, insumo, categoria, subcategoria, color, proveedor, valor, aplica, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'actualizacion','$id_insumo_seleccionado','$cod_ins_seleccionado','$insumo_seleccionado','$categoria_seleccionado','$subcategoria_seleccionado','$color_seleccionado','$proveedor_seleccionado','$valor_seleccionado','$formato_form_incremento','$valor_final_formateado','$fecha_seleccionado','$form_fecha','$hora_seleccionado','$form_hora_mod')");
+            mysqli_query($conexion, "INSERT INTO $nav_historial (id_historial, tipo, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, valor, aplica, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'actualizacion','$id_insumo_seleccionado','$cod_seleccionado','$insumo_seleccionado','$categoria_seleccionado','$subcategoria_seleccionado','$medida_seleccionado','$proveedor_seleccionado','$valor_seleccionado','$formato_form_incremento','$valor_final_formateado','$fecha_seleccionado','$form_fecha','$hora_seleccionado','$form_hora_mod')");
 
             if ($nav == "insumos_laialy"){$nav_materiales = "materiales_laialy"; $nav_productos = "productos_laialy";}
             $consulta_de_materiales = mysqli_query($conexion, "SELECT * FROM $nav_materiales WHERE insumos LIKE '$id_insumo_seleccionado-%' OR insumos LIKE '%-$id_insumo_seleccionado-%' OR insumos LIKE '%-$id_insumo_seleccionado' OR insumos LIKE '$id_insumo_seleccionado'");

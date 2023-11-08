@@ -139,7 +139,7 @@ if (isset($_GET['incremento']) & isset($_GET['proveedor'])){
                         <h1><?php echo $form_incremento;?>% sobre la lista del proveedor "<?php echo utf8_encode($ver_proveedor);?>".</h1>
                     </div>
                     <ul id="header_tabla_flotante">
-                        <li class="cod_ins_flotante"><p>Cod_ins</p></li>
+                        <li class="cod_flotante"><p>Cod</p></li>
                         <li class="insumo_flotante"><p>Insumo</p></li>
                         <li class="valor_flotante"><p>Valor</p></li>
                         <li class="resultado_flotante"><p>Resultado</p></li>
@@ -148,10 +148,11 @@ if (isset($_GET['incremento']) & isset($_GET['proveedor'])){
                         <?php
                             while ($listado_de_insumos = mysqli_fetch_array($consulta_de_insumos)){                        
                                 echo "<div class='form_flotante'><ul>";
-                                echo "<li class='cod_ins_flotante li_grupal'><p>".$listado_de_insumos['cod_ins']."</p></li>";
-                                echo "<li class='insumo_flotante li_grupal'><p>".$listado_de_insumos['insumo']."</p></li>";
+                                echo "<li class='cod_flotante li_grupal'><p>".$listado_de_insumos['cod']."</p></li>";
+                                echo "<li class='insumo_flotante li_grupal'><p>".utf8_encode($listado_de_insumos['insumo'])."</p></li>";
                                 $valor = $listado_de_insumos['valor'];
-                                echo "<li class='valor_flotante li_grupal'><p>".$valor."</p></li>";                            
+                                $medida = $listado_de_insumos['medida'];
+                                echo "<li class='valor_flotante li_grupal'><p>".$valor." ".$medida."</p></li>";                            
                                 $porcentaje = str_replace(',', '', ($valor*$form_incremento)/100);
                                 $valor_final = str_replace(',', '', ($valor+$porcentaje));
                                 echo "<li class='resultado_flotante li_grupal'><p>".str_replace(',', '', number_format($valor_final,3))."</p></li>";
@@ -162,7 +163,7 @@ if (isset($_GET['incremento']) & isset($_GET['proveedor'])){
                     </div>
                     <div class="para_botones_flotante">
                         <div class="boton_cancela_incremento" onclick="location.href='insumos.php?nav=<?php echo $nav; ?>&mensaje=no_incremento&pagina=1'"><p>Cancelar</p></div>
-                        <div class="boton_acepta_incremento" onclick="location.href='aplica_incremento.php?nav=<?php echo $nav; ?>&incremento=<?php echo $porcentaje_posteado; ?>&proveedor=<?php echo $id_proveedor_posteado; ?>'"><p>Aceptar</p></div>
+                        <div class="boton_acepta_incremento" onclick="location.href='insumos_aplica_incremento.php?nav=<?php echo $nav; ?>&incremento=<?php echo $porcentaje_posteado; ?>&proveedor=<?php echo $id_proveedor_posteado; ?>'"><p>Aceptar</p></div>
                     </div>
                 </div>
                 <?php

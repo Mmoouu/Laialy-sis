@@ -27,14 +27,15 @@ if ($login == "log"){
 $insumos_laialy = ""; $where = ""; 
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
+    $nav_historial = $nav."_historial";
     if ($nav == "insumos_laialy"){
         $titulo_sisint = "Modificación Insumo Laialy";
         $insumos_laialy = "active";
     } 
 } 
-if(isset($_GET['id_insumo'])){
-    $get_id_insumo = $_GET['id_insumo'];
-    $where = "WHERE id_insumo ='".$get_id_insumo."'";
+if(isset($_GET['id'])){
+    $get_id_insumo = $_GET['id'];
+    $where = "WHERE id ='".$get_id_insumo."'";
 }  
 ?>
 <!DOCTYPE html>
@@ -74,11 +75,11 @@ if(isset($_GET['id_insumo'])){
     require("../conexion.laialy.php");
     $consulta_de_insumos = mysqli_query($conexion, "SELECT * FROM $nav $where");
     $listado_de_insumos = mysqli_fetch_array($consulta_de_insumos);    
-    $consulta_insumo_bk_cod_ins = utf8_encode($listado_de_insumos['cod_ins']);
+    $consulta_insumo_bk_cod = utf8_encode($listado_de_insumos['cod']);
     $consulta_insumo_bk_insumo = utf8_encode($listado_de_insumos['insumo']);
     $consulta_insumo_bk_categoria = $listado_de_insumos['categoria'];
     $consulta_insumo_bk_subcategoria = $listado_de_insumos['subcategoria'];
-    $consulta_insumo_bk_color = utf8_encode($listado_de_insumos['color']);
+    $consulta_insumo_bk_medida = $listado_de_insumos['medida'];
     $consulta_insumo_bk_proveedor = $listado_de_insumos['proveedor'];
     $consulta_insumo_bk_valor = $listado_de_insumos['valor'];
     $consulta_insumo_bk_creacion = $listado_de_insumos['creacion'];
@@ -94,8 +95,8 @@ if(isset($_GET['id_insumo'])){
         <div class="linea_form_nuevo_ingreso"></div>
         <form class="fomulario_nuevo_ingreso" name="formulario_nuevo_ingreso" action="" method="post" enctype="multipart/form-data">
             <div class="fneworder_dos">
-                <label><p>Cod Ins</p></label>
-                <input type="text" name="cod_ins" value="<?php echo $consulta_insumo_bk_cod_ins; ?>"/>
+                <label><p>Cod</p></label>
+                <input type="text" name="cod" value="<?php echo $consulta_insumo_bk_cod; ?>"/>
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_cuatro">
@@ -150,8 +151,12 @@ if(isset($_GET['id_insumo'])){
                 </select>
             </div>
             <div class="fneworder_dos">
-                <label><p>Color</p></label>
-                <input type="text" name="color" value="<?php echo $consulta_insumo_bk_color; ?>"/> 
+            <label><p>Un Med</p></label>
+                <select type="text" name="medida"> 
+                    <option value='KG' <?php if ($consulta_insumo_bk_medida == "KG"){ echo "selected"; } ?>>Kilogramos</option>
+                    <option value='LT' <?php if ($consulta_insumo_bk_medida == "LT"){ echo "selected"; } ?>>Litros</option>
+                    <option value='UN' <?php if ($consulta_insumo_bk_medida == "UN"){ echo "selected"; } ?>>Unidades</option>                    
+                </select>                  
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_dos last_item">
@@ -177,12 +182,12 @@ if(isset($_GET['id_insumo'])){
         <div class="linea_form_nuevo_ingreso"></div>
         <?php      
             if (isset($_POST['submit'])){
-                $form_cod_ins = utf8_decode($_POST['cod_ins']);
+                $form_cod = utf8_decode($_POST['cod']);
                 $form_insumo = utf8_decode($_POST['insumo']);
                 $form_valor = $_POST['valor'];
                 $form_categoria = $_POST['categoria'];
                 $form_subcategoria = $_POST['subcategoria'];
-                $form_color = utf8_decode($_POST['color']);
+                $form_medida = $_POST['medida'];
                 $form_proveedor = $_POST['proveedor'];
                 $form_activo = $_POST['activo'];                
                 $form_dia_mod = date("d");
@@ -190,12 +195,12 @@ if(isset($_GET['id_insumo'])){
                 $form_anio_mod = date("y");
                 $form_hora_mod = date('His'); 
                 
-                if ($form_cod_ins !== $consulta_insumo_bk_cod_ins || $form_insumo !== $consulta_insumo_bk_insumo || $form_categoria !== $consulta_insumo_bk_categoria || $form_subcategoria !== $consulta_insumo_bk_subcategoria || $form_color !== $consulta_insumo_bk_color || $form_proveedor !== $consulta_insumo_bk_proveedor || $form_valor !== $consulta_insumo_bk_valor){                    
+                if ($form_cod !== $consulta_insumo_bk_cod || $form_insumo !== $consulta_insumo_bk_insumo || $form_categoria !== $consulta_insumo_bk_categoria || $form_subcategoria !== $consulta_insumo_bk_subcategoria || $form_medida !== $consulta_insumo_bk_medida || $form_proveedor !== $consulta_insumo_bk_proveedor || $form_valor !== $consulta_insumo_bk_valor){                    
                 
                     require("../conexion.laialy.php");
-                    mysqli_query($conexion, "UPDATE $nav SET cod_ins='$form_cod_ins', insumo='$form_insumo', valor='$form_valor', categoria='$form_categoria', subcategoria='$form_subcategoria', color='$form_color', proveedor='$form_proveedor', activo='$form_activo', dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod' $where");
+                    mysqli_query($conexion, "UPDATE $nav SET cod='$form_cod', insumo='$form_insumo', valor='$form_valor', categoria='$form_categoria', subcategoria='$form_subcategoria', medida='$form_medida', proveedor='$form_proveedor', activo='$form_activo', dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod' $where");
                 
-                    if ($form_cod_ins !== $consulta_insumo_bk_cod_ins){ $historial_cod_ins = "<cod_ins>"; } else { $historial_cod_ins = ""; }
+                    if ($form_cod !== $consulta_insumo_bk_cod){ $historial_cod = "<cod>"; } else { $historial_cod = ""; }
 
                     if ($form_insumo !== $consulta_insumo_bk_insumo){ $historial_insumo = "<nombre>"; } else { $historial_insumo = ""; }
 
@@ -203,15 +208,15 @@ if(isset($_GET['id_insumo'])){
 
                     if ($form_subcategoria !== $consulta_insumo_bk_subcategoria){ $historial_subcategoria = "<subcategoria>"; } else { $historial_subcategoria = ""; }
 
-                    if ($form_color !== $consulta_insumo_bk_color){ $historial_color = "<color>"; } else { $historial_color = ""; }
+                    if ($form_medida !== $consulta_insumo_bk_medida){ $historial_medida = "<medida>"; } else { $historial_medida = ""; }
 
                     if ($form_proveedor !== $consulta_insumo_bk_proveedor){ $historial_proveedor = "<proveedor>"; } else { $historial_proveedor = ""; }
                     
-                    $cambio_modificacion = $historial_cod_ins.$historial_insumo.$historial_categoria.$historial_subcategoria.$historial_color.$historial_proveedor;
+                    $cambio_modificacion = $historial_cod.$historial_insumo.$historial_categoria.$historial_subcategoria.$historial_medida.$historial_proveedor;
 
                     $nueva_fecha = $form_dia_mod."-".$form_mes_mod."-".$form_anio_mod;
 
-                    mysqli_query($conexion, "INSERT INTO historial_$nav (id_historial, tipo, id_insumo, cod_ins, insumo, categoria, subcategoria, color, proveedor, valor, aplica, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'datos','$get_id_insumo','$consulta_insumo_bk_cod_ins','$consulta_insumo_bk_insumo','$consulta_insumo_bk_categoria','$consulta_insumo_bk_subcategoria','$consulta_insumo_bk_color','$consulta_insumo_bk_proveedor','$consulta_insumo_bk_valor','Cambio','$cambio_modificacion','$consulta_insumo_bk_fecha','$nueva_fecha','$consulta_insumo_bk_hora_mod','$form_hora_mod')");
+                    mysqli_query($conexion, "INSERT INTO $nav_historial (id_historial, tipo, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, valor, aplica, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'datos','$get_id_insumo','$consulta_insumo_bk_cod','$consulta_insumo_bk_insumo','$consulta_insumo_bk_categoria','$consulta_insumo_bk_subcategoria','$consulta_insumo_bk_medida','$consulta_insumo_bk_proveedor','$consulta_insumo_bk_valor','Cambio','$cambio_modificacion','$consulta_insumo_bk_fecha','$nueva_fecha','$consulta_insumo_bk_hora_mod','$form_hora_mod')");
                     
                     if ($nav == "insumos_laialy"){$nav_materiales = "materiales_laialy"; $nav_productos = "productos_laialy";}                  
                     $consulta_de_materiales = mysqli_query($conexion, "SELECT * FROM $nav_materiales WHERE insumos LIKE '$get_id_insumo-%' OR insumos LIKE '%-$get_id_insumo-%' OR insumos LIKE '%-$get_id_insumo' OR insumos LIKE '$get_id_insumo'");                    

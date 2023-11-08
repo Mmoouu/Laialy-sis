@@ -162,7 +162,7 @@ if (isset($_GET['incremento']) & isset($_GET['proveedor'])){
                     </div>
                     <div class="para_botones_flotante">
                         <div class="boton_cancela_incremento" onclick="location.href='insumos.php?nav=<?php echo $nav; ?>&mensaje=no_incremento&pagina=1'"><p>Cancelar</p></div>
-                        <div class="boton_acepta_incremento" onclick="location.href='aplica_incremento.php?nav=<?php echo $nav; ?>&incremento=<?php echo $porcentaje_posteado; ?>&proveedor=<?php echo $id_proveedor_posteado; ?>'"><p>Aceptar</p></div>
+                        <div class="boton_acepta_incremento" onclick="location.href='aplica_insumos_incremento.php?nav=<?php echo $nav; ?>&incremento=<?php echo $porcentaje_posteado; ?>&proveedor=<?php echo $id_proveedor_posteado; ?>'"><p>Aceptar</p></div>
                     </div>
                 </div>
                 <?php

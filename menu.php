@@ -17,7 +17,7 @@ if ($permiso_costos == "1"){
         echo "<li><div></div><p onclick=\"location.href='insumos_uss.php?nav=insumos_uss_laialy&pagina=01'\">Laialy</p></li>";
         echo "</ul>";
     }
-    if ($posicion_pagina == "insumos" || $posicion_pagina == "nuevo_insumo" || $posicion_pagina == "copiar_insumo" || $posicion_pagina == "modificar_insumo" || $posicion_pagina == "activar_desactivar_insumo" || $posicion_pagina == "incremento" || $posicion_pagina == "modificar_insumo_precio" || $posicion_pagina == "modificar_insumo_por" || $posicion_pagina == "eliminar_insumo" || $posicion_pagina == "aplica_incremento"){
+    if ($posicion_pagina == "insumos" || $posicion_pagina == "insumos_nuevo" || $posicion_pagina == "insumos_copiar" || $posicion_pagina == "insumos_modificar" || $posicion_pagina == "insumos_activar_desactivar" || $posicion_pagina == "insumos_incremento" || $posicion_pagina == "insumos_modificar_precio" || $posicion_pagina == "insumos_modificar_porcentual" || $posicion_pagina == "insumos_eliminar" || $posicion_pagina == "insumos_aplica_incremento"){
         echo "<div id='btn_navegacion' class='active'><div></div><p>Insumos</p></div>";
         echo "<ul class='insumos active'>";
         echo "<li class='".$insumos_laialy."'><div></div><p onclick=\"location.href='insumos.php?nav=insumos_laialy&pagina=01'\">Laialy</p>".$img."</li>";
