@@ -26,14 +26,14 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$productos_laialy = "";
+$platos_laialy = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "productos_laialy"){
-        $titulo_sisint = "Productos Laialy";
-        $productos_laialy = "active";
-        $resultado_busqueda = "Consulta de Productos sin resultados";
+    if ($nav == "platos_laialy"){
+        $titulo_sisint = "Platos Laialy";
+        $platos_laialy = "active";
+        $resultado_busqueda = "Consulta de platos sin resultados";
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,33 +43,33 @@ if(isset($_GET['ver'])){
     $ver_ver = "&ver=".$ver;
     if ($ver == "0"){
         $where = "WHERE activo = 0";
-        $boton_ver = "<li class='icons'><img title='Ver Activos' onclick='location.href=\"productos.php?nav=".$nav."\"' src='img/activos.svg'></li>";
+        $boton_ver = "<li class='icons'><img title='Ver Activos' onclick='location.href=\"platos.php?nav=".$nav."\"' src='img/activos.svg'></li>";
         $boton_act = "";
         $boton_cos = "";
         $boton_fijar = "";
         $boton_taller = "";
         $boton_talleres = "";
-        $boton_nuevo_producto = "";
+        $boton_nuevo_plato = "";
         $aclaracion_inactivo = " Inactivos";
     } 
 } else {
     $where = "WHERE activo = 1";
-    $boton_ver = "<li class='icons'><img title='Ver Inactivos' onclick='location.href=\"productos.php?nav=".$nav."&ver=0\"' src='img/inactivos.svg'></li>";
+    $boton_ver = "<li class='icons'><img title='Ver Inactivos' onclick='location.href=\"platos.php?nav=".$nav."&ver=0\"' src='img/inactivos.svg'></li>";
     $boton_cos = "<li class='icons'><img title='Ganancia / Perdida' onclick='location.href=\"costos.php?nav=".$nav."\"' src='img/costo.svg'></li>";
-    $boton_fijar = "<li class='icons'><img title='Fijar Lista' onclick='location.href=\"fijar_productos.php?nav=".$nav."\"' src='img/fijar.svg'></li>";
+    $boton_fijar = "<li class='icons'><img title='Fijar Lista' onclick='location.href=\"fijar_platos.php?nav=".$nav."\"' src='img/fijar.svg'></li>";
     $boton_taller = "<li class='icons'><img title='Aumento Talleres' onclick='location.href=\"incremento_taller.php?nav=".$nav."\"' src='img/taller.svg'></li>";
     $boton_talleres = "<li class='icons'><img title='Aumento Talleres Global' onclick='location.href=\"modificar_taller_global.php?nav=".$nav."\"' src='img/taller_global.svg'></li>";
     //////////////////////////////////////////////////////////////////////////////////////////////////
     require("../conexion.laialy.php");             
-    $consulta_de_act = mysqli_query($conexion,  "SELECT * FROM $nav WHERE activo='1' ORDER BY producto ASC");
+    $consulta_de_act = mysqli_query($conexion,  "SELECT * FROM $nav WHERE activo='1' ORDER BY plato ASC");
     mysqli_close($conexion);
     if(!$consulta_de_act || mysqli_num_rows($consulta_de_act) == 0){
         $boton_act = "";
     } else {
-        $boton_act = "<li class='icons'><img title='Actualizar Todo' onclick='location.href=\"productos.php?nav=".$nav."&pop_up=actualizar_todo\"' src='img/actualizar.svg'></li>";    
+        $boton_act = "<li class='icons'><img title='Actualizar Todo' onclick='location.href=\"platos.php?nav=".$nav."&pop_up=actualizar_todo\"' src='img/actualizar.svg'></li>";    
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////
-    $boton_nuevo_producto = "<li class='icons'><img title='Nuevo Producto' onclick='location.href=\"productos_nuevo.php?nav=".$nav."\"' src='img/mas.svg'></li>";
+    $boton_nuevo_plato = "<li class='icons'><img title='Nuevo plato' onclick='location.href=\"platos_nuevo.php?nav=".$nav."\"' src='img/mas.svg'></li>";
     $aclaracion_inactivo = "";
     $ver_ver = "";
 }
@@ -107,7 +107,7 @@ if(isset($_GET['ver'])){
         <h1><?php echo $titulo_sisint.$aclaracion_inactivo; ?></h1>
         <?php
         echo "<div class='icon_group'>";        
-        echo $boton_nuevo_producto;        
+        echo $boton_nuevo_plato;        
         echo $boton_act;
         echo $boton_cos;        
         echo $boton_taller;
@@ -118,88 +118,88 @@ if(isset($_GET['ver'])){
         echo "</div>";      
         ?> 
     </div>    
-    <div id="columna_1_productos">
+    <div id="columna_1_platos">
         <ul id="header_tabla_sisint">
-            <li class="li_productos_txt"><p>Producto</p></li>
-            <li class="li_productos_txt"><p>Suma</p></li>            
-            <li class="li_productos_txt"><p>Taller</p></li>
-            <li class="li_productos_txt"><p>Total</p></li>
-            <li class="li_productos_txt"><p>Perdidas</p></li>
-            <li class="li_productos_txt"><p>Costo</p></li>
-            <li class="li_productos_txt"><p>Venta</p></li>
-            <li class="li_productos_alerta"></li>
-            <li class="li_productos_ver"></li>
+            <li class="li_platos_txt"><p>Plato</p></li>
+            <li class="li_platos_txt"><p>Suma</p></li>            
+            <li class="li_platos_txt"><p>Taller</p></li>
+            <li class="li_platos_txt"><p>Total</p></li>
+            <li class="li_platos_txt"><p>Perdidas</p></li>
+            <li class="li_platos_txt"><p>Costo</p></li>
+            <li class="li_platos_txt"><p>Venta</p></li>
+            <li class="li_platos_alerta"></li>
+            <li class="li_platos_ver"></li>
         </ul>
         <div id="tabla_sisint" class="tabla_sisint"> 
             <?php
             require("../conexion.laialy.php");             
-            $consulta_de_productos = mysqli_query($conexion,  "SELECT * FROM $nav $where ORDER BY producto ASC");
+            $consulta_de_platos = mysqli_query($conexion,  "SELECT * FROM $nav $where ORDER BY plato ASC");
             mysqli_close($conexion);
-            if(!$consulta_de_productos || mysqli_num_rows($consulta_de_productos) == 0){            
+            if(!$consulta_de_platos || mysqli_num_rows($consulta_de_platos) == 0){            
                 echo "<div style='width:500px; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>".$resultado_busqueda."</p></div>";
             } else {
-                while ($listado_de_productos = mysqli_fetch_array($consulta_de_productos)){ 
-                    $a_l_id_producto = $listado_de_productos['id_producto'];
-                    $a_l_producto = $listado_de_productos['producto'];
-                    $a_l_suma = $listado_de_productos['suma'];
-                    $a_l_taller = $listado_de_productos['taller'];
-                    $a_l_total = $listado_de_productos['total'];
-                    $a_l_por_perdidas = $listado_de_productos['por_perdidas'];
-                    $a_l_perdidas = $listado_de_productos['perdidas'];
-                    $a_l_por_costo = $listado_de_productos['por_costo'];
-                    $a_l_costo = $listado_de_productos['costo'];
-                    $a_l_venta = $listado_de_productos['venta'];
-                    $a_l_redondeo = $listado_de_productos['redondeo'];
-                    $a_l_activo = $listado_de_productos['activo'];
-                    $a_l_mod_txt = $listado_de_productos['mod_txt'];
-                    $a_l_mod_val = $listado_de_productos['mod_val'];                   
-                    $a_l_creacion = $listado_de_productos['creacion'];
-                    $a_l_mod_ultima = $listado_de_productos['dia_mod']."-".$listado_de_productos['mes_mod']."-".$listado_de_productos['anio_mod'];
+                while ($listado_de_platos = mysqli_fetch_array($consulta_de_platos)){ 
+                    $a_l_id_plato = $listado_de_platos['id'];
+                    $a_l_plato = $listado_de_platos['plato'];
+                    $a_l_suma = $listado_de_platos['suma'];
+                    $a_l_taller = $listado_de_platos['taller'];
+                    $a_l_total = $listado_de_platos['total'];
+                    $a_l_por_perdidas = $listado_de_platos['por_perdidas'];
+                    $a_l_perdidas = $listado_de_platos['perdidas'];
+                    $a_l_por_costo = $listado_de_platos['por_costo'];
+                    $a_l_costo = $listado_de_platos['costo'];
+                    $a_l_venta = $listado_de_platos['venta'];
+                    $a_l_redondeo = $listado_de_platos['redondeo'];
+                    $a_l_activo = $listado_de_platos['activo'];
+                    $a_l_mod_txt = $listado_de_platos['mod_txt'];
+                    $a_l_mod_val = $listado_de_platos['mod_val'];                   
+                    $a_l_creacion = $listado_de_platos['creacion'];
+                    $a_l_mod_ultima = $listado_de_platos['dia_mod']."-".$listado_de_platos['mes_mod']."-".$listado_de_platos['anio_mod'];
                 ?>
                 <div style="margin-bottom:10px;" class='form_sisint'>
                     <ul>
-                        <li id="view_<?php echo $a_l_id_producto; ?>" class="li_productos_txt li_grupal"><p title="Creado el <?php echo $a_l_creacion."&#10Modificado el ".$a_l_mod_ultima; ?>"><?php echo $a_l_producto; ?></p></li>
-                        <li class="li_productos_txt li_grupal"><p>$ <?php echo $a_l_suma; ?></p></li>            
-                        <li class="li_productos_txt li_grupal"><p>$ <?php echo $a_l_taller; ?></p></li>
-                        <li class="li_productos_txt li_grupal"><p>$ <?php echo $a_l_total; ?></p></li>
-                        <li class="li_productos_txt li_grupal"><p title="<?php echo $a_l_por_perdidas; ?> %">$ <?php echo $a_l_perdidas; ?></p></li>
-                        <li class="li_productos_txt li_grupal"><p title="<?php echo $a_l_por_costo; ?> %">$ <?php echo $a_l_costo; ?></p></li>
-                        <li class="li_productos_txt li_grupal"><p title="$ <?php echo $a_l_venta; ?>">$ <?php echo $a_l_redondeo; ?></p></li>
-                        <li class="li_productos_alerta li_grupal"><img class="edit_round" src="img/sobreesc.svg" title="Modificar Redondeo" onclick='location.href="modificar_redondeo.php?nav=<?php echo $nav; ?>&id_producto=<?php echo $a_l_id_producto; ?>"'></li>
+                        <li id="view_<?php echo $a_l_id_plato; ?>" class="li_platos_txt li_grupal"><p title="Creado el <?php echo $a_l_creacion."&#10Modificado el ".$a_l_mod_ultima; ?>"><?php echo $a_l_plato; ?></p></li>
+                        <li class="li_platos_txt li_grupal"><p>$ <?php echo $a_l_suma; ?></p></li>            
+                        <li class="li_platos_txt li_grupal"><p>$ <?php echo $a_l_taller; ?></p></li>
+                        <li class="li_platos_txt li_grupal"><p>$ <?php echo $a_l_total; ?></p></li>
+                        <li class="li_platos_txt li_grupal"><p title="<?php echo $a_l_por_perdidas; ?> %">$ <?php echo $a_l_perdidas; ?></p></li>
+                        <li class="li_platos_txt li_grupal"><p title="<?php echo $a_l_por_costo; ?> %">$ <?php echo $a_l_costo; ?></p></li>
+                        <li class="li_platos_txt li_grupal"><p title="$ <?php echo $a_l_venta; ?>">$ <?php echo $a_l_redondeo; ?></p></li>
+                        <li class="li_platos_alerta li_grupal"><img class="edit_round" src="img/sobreesc.svg" title="Modificar Redondeo" onclick='location.href="modificar_redondeo.php?nav=<?php echo $nav; ?>&id=<?php echo $a_l_id_plato; ?>"'></li>
                         <?php
                         require("../conexion.laialy.php");
                         $especial = $nav."_especiales";
-                        $seleccionar_art_especiales = mysqli_query($conexion,  "SELECT * FROM $especial WHERE id_producto = '$a_l_id_producto' AND activo = '1'");
+                        $seleccionar_art_especiales = mysqli_query($conexion,  "SELECT * FROM $especial WHERE id = '$a_l_id_plato' AND activo = '1'");
                         $ver_art_especiales = mysqli_fetch_array($seleccionar_art_especiales);
                         
                         if ($ver_art_especiales) {
-                            $consulta_del_por_producto = $ver_art_especiales['costo'];
-                            $consulta_la_per_producto = $ver_art_especiales['perdida'];
+                            $consulta_del_por_plato = $ver_art_especiales['costo'];
+                            $consulta_la_per_plato = $ver_art_especiales['perdida'];
                         } else {             
                             $seleccionar_el_por_del_art = mysqli_query($conexion,  "SELECT * FROM porcentaje WHERE marca = '$nav' AND activo ='1'");
                             $consulta_del_por_art = mysqli_fetch_array($seleccionar_el_por_del_art);
-                            $consulta_del_por_producto = $consulta_del_por_art['porcentaje'];
+                            $consulta_del_por_plato = $consulta_del_por_art['porcentaje'];
                             /////////////////////////////////////////////////////////////////////////////////////////////////
                             $seleccionar_la_per_del_art = mysqli_query($conexion,  "SELECT * FROM perdida WHERE marca = '$nav' AND activo ='1'");
                             $consulta_la_per_art = mysqli_fetch_array($seleccionar_la_per_del_art);
-                            $consulta_la_per_producto = $consulta_la_per_art['porcentaje'];
+                            $consulta_la_per_plato = $consulta_la_per_art['porcentaje'];
                         }
                         mysqli_close($conexion);                    
                         /////////////////////////////////////////////////////////////////////////////////////////////////
-                        if ($a_l_mod_txt == "1" or $a_l_mod_val == "1" or $a_l_por_costo !== $consulta_del_por_producto or $a_l_por_perdidas !== $consulta_la_per_producto){
-                            echo "<li class='li_productos_alerta li_grupal' title='Revisar Producto'><img src='img/producto_alerta.svg'></li>";
+                        if ($a_l_mod_txt == "1" or $a_l_mod_val == "1" or $a_l_por_costo !== $consulta_del_por_plato or $a_l_por_perdidas !== $consulta_la_per_plato){
+                            echo "<li class='li_platos_alerta li_grupal' title='Revisar plato'><img src='img/plato_alerta.svg'></li>";
                         } else {
-                            echo "<li class='li_productos_alerta li_grupal' title='Estado Correcto'><img src='img/producto_bien.svg'></li>";
+                            echo "<li class='li_platos_alerta li_grupal' title='Estado Correcto'><img src='img/plato_bien.svg'></li>";
                         }                     
-                        if(isset($_GET['id_producto'])){
-                            $art_sel = $_GET['id_producto'];
-                            if ($art_sel == $a_l_id_producto){
-                             echo "<li class='li_productos_visto li_grupal' onclick='location.href=\"productos.php?nav=".$nav.$ver_ver."\"'><img src='img/producto_flecha.svg'></li>";    
+                        if(isset($_GET['id_plato'])){
+                            $art_sel = $_GET['id_plato'];
+                            if ($art_sel == $a_l_id_plato){
+                             echo "<li class='li_platos_visto li_grupal' onclick='location.href=\"platos.php?nav=".$nav.$ver_ver."\"'><img src='img/plato_flecha.svg'></li>";    
                             } else {
-                                echo "<li class='li_productos_ver li_grupal' onclick='location.href=\"productos.php?nav=".$nav."&id_producto=".$a_l_id_producto.$ver_ver."\"'><img src='img/producto_flecha.svg'></li>";     
+                                echo "<li class='li_platos_ver li_grupal' onclick='location.href=\"platos.php?nav=".$nav."&id=".$a_l_id_plato.$ver_ver."\"'><img src='img/plato_flecha.svg'></li>";     
                             }
                         } else {
-                            echo "<li class='li_productos_ver li_grupal' onclick='location.href=\"productos.php?nav=".$nav."&id_producto=".$a_l_id_producto.$ver_ver."\"'><img src='img/producto_flecha.svg'></li>";       
+                            echo "<li class='li_platos_ver li_grupal' onclick='location.href=\"platos.php?nav=".$nav."&id=".$a_l_id_plato.$ver_ver."\"'><img src='img/plato_flecha.svg'></li>";       
                         }
                         ?> 
                     </ul>
@@ -211,12 +211,12 @@ if(isset($_GET['ver'])){
         </div>
     </div>
     <?php
-        if(isset($_GET['pop_up']) and !isset($_GET['id_producto'])){
+        if(isset($_GET['pop_up']) and !isset($_GET['id'])){
             $pop_up = $_GET['pop_up'];
             if ($pop_up == "actualizar_todo"){
-                $mensaje_pop_up = "¿Esta seguro que quiere Actualizar todos los productos?";
+                $mensaje_pop_up = "¿Esta seguro que quiere Actualizar todos los platos?";
                 $class_pop_up = "ver_pregunta_todo";
-                $link_acepta = "location.href=\"actualizar_producto_todo.php?nav=".$nav."\"";
+                $link_acepta = "location.href=\"actualizar_plato_todo.php?nav=".$nav."\"";
                 $link_cancela = "javascript:history.back()";
             }
             echo "<div class='".$class_pop_up."' id='mensaje_pregunta'>";
@@ -229,13 +229,13 @@ if(isset($_GET['ver'])){
         }
     ?> 
     <?php
-    if(isset($_GET['id_producto'])){
-        $art_sel = $_GET['id_producto'];
+    if(isset($_GET['id'])){
+        $art_sel = $_GET['id'];
 
-        if ($nav == "productos_laialy"){$nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
+        if ($nav == "platos_laialy"){$nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
         require("../conexion.laialy.php");             
-        $seleccionar_el_producto = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id_producto = '$art_sel'");
-        $ver_el_producto = mysqli_fetch_array($seleccionar_el_producto);
+        $seleccionar_el_plato = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id = '$art_sel'");
+        $ver_el_plato = mysqli_fetch_array($seleccionar_el_plato);
         if (isset($_GET['id_material'])){
             $mat_sel = $_GET['id_material'];
             $selec_mat = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id_material = '$mat_sel'");
@@ -243,23 +243,23 @@ if(isset($_GET['ver'])){
         }      
         
     
-        if(isset($_GET['pop_up']) and isset($_GET['id_producto'])){
+        if(isset($_GET['pop_up']) and isset($_GET['id'])){
             $pop_up = $_GET['pop_up'];
-            $art_sel = $_GET['id_producto'];
+            $art_sel = $_GET['id'];
             if ($pop_up == "actualizar"){
-                $mensaje_pop_up = "¿Esta seguro que quiere Actualizar el Producto ".$ver_el_producto['producto']."?";
+                $mensaje_pop_up = "¿Esta seguro que quiere Actualizar el plato ".$ver_el_plato['plato']."?";
                 $class_pop_up = "ver_pregunta";
-                $link_acepta = "location.href=\"actualizar_producto_solo.php?nav=".$nav."&id_producto=".$ver_el_producto['id_producto']."\"";
+                $link_acepta = "location.href=\"actualizar_plato_solo.php?nav=".$nav."&id=".$ver_el_plato['id']."\"";
                 $link_cancela = "javascript:history.back()";
             } else if ($pop_up == "eliminar"){
-                $mensaje_pop_up = "¿Esta seguro que quiere Eliminar el Producto ".$ver_el_producto['producto']."?";
+                $mensaje_pop_up = "¿Esta seguro que quiere Eliminar el plato ".$ver_el_plato['plato']."?";
                 $class_pop_up = "ver_pregunta";
-                $link_acepta = "location.href=\"eliminar_producto.php?nav=".$nav."&id_producto=".$ver_el_producto['id_producto']."\"";
+                $link_acepta = "location.href=\"eliminar_plato.php?nav=".$nav."&id=".$ver_el_plato['id']."\"";
                 $link_cancela = "javascript:history.back()";
             } else if ($pop_up == "eliminar_material"){                                                
-                $mensaje_pop_up = "¿Esta seguro que quiere Eliminar el Material ".$ver_mat['material']." del Producto ".$ver_el_producto['producto']."?";
+                $mensaje_pop_up = "¿Esta seguro que quiere Eliminar el Material ".$ver_mat['material']." del plato ".$ver_el_plato['plato']."?";
                 $class_pop_up = "ver_pregunta";
-                $link_acepta = "location.href=\"eliminar_material.php?nav=".$nav."&id_producto=".$ver_el_producto['id_producto']."&id_material=".$ver_mat['id_material']."\"";  
+                $link_acepta = "location.href=\"eliminar_material.php?nav=".$nav."&id_plato=".$ver_el_plato['id_plato']."&id_material=".$ver_mat['id_material']."\"";  
                 $link_cancela = "javascript:history.back()";                                 
             } 
             
@@ -275,84 +275,84 @@ if(isset($_GET['ver'])){
         mysqli_close($conexion);
 
     ?>     
-    <div id="columna_2_productos">   
-        <div id="header_de_producto">
-            <div id="num_de_producto">
+    <div id="columna_2_platos">   
+        <div id="header_de_plato">
+            <div id="num_de_plato">
                 
                 <?php 
                 require("../conexion.laialy.php");
                 $especial = $nav."_especiales"; 
-                $seleccionar_productos_especiales = mysqli_query($conexion,  "SELECT * FROM $especial WHERE id_producto = '$art_sel' AND activo = '1'");
-                $ver_productos_especiales = mysqli_fetch_array($seleccionar_productos_especiales);
+                $seleccionar_platos_especiales = mysqli_query($conexion,  "SELECT * FROM $especial WHERE id = '$art_sel' AND activo = '1'");
+                $ver_platos_especiales = mysqli_fetch_array($seleccionar_platos_especiales);
                 
-                if ($ver_productos_especiales) {
-                    $ver_los_porcentajes_producto = $ver_productos_especiales['costo'];
-                    $ver_las_perdidas_producto = $ver_productos_especiales['perdida'];
+                if ($ver_platos_especiales) {
+                    $ver_los_porcentajes_plato = $ver_platos_especiales['costo'];
+                    $ver_las_perdidas_plato = $ver_platos_especiales['perdida'];
                 } else {
                     $seleccionar_los_porcentajes = mysqli_query($conexion,  "SELECT * FROM porcentaje WHERE marca = '$nav' AND activo = '1'");
                     $ver_los_porcentajes = mysqli_fetch_array($seleccionar_los_porcentajes);
-                    $ver_los_porcentajes_producto = $ver_los_porcentajes['porcentaje'];                    
+                    $ver_los_porcentajes_plato = $ver_los_porcentajes['porcentaje'];                    
                     /////////////////////////////////////////////////////////////////////////
                     $seleccionar_las_perdidas = mysqli_query($conexion,  "SELECT * FROM perdida WHERE marca = '$nav' AND activo = '1'");
                     $ver_las_perdidas = mysqli_fetch_array($seleccionar_las_perdidas); 
-                    $ver_las_perdidas_producto = $ver_las_perdidas['porcentaje'];
+                    $ver_las_perdidas_plato = $ver_las_perdidas['porcentaje'];
                 }
                 
                 /////////////////////////////////////////
-                if ($ver_productos_especiales) { 
-                    $producto_especial = " -> <span style='font-size:10px; padding:3px; padding-bottom:1px; background-color: #000; color: #fff; border-radius:5px;'>ESP</span>";
+                if ($ver_platos_especiales) { 
+                    $plato_especial = " -> <span style='font-size:10px; padding:3px; padding-bottom:1px; background-color: #000; color: #fff; border-radius:5px;'>ESP</span>";
                 } else {
-                    $producto_especial = "";
+                    $plato_especial = "";
                 }
                 mysqli_close($conexion);
                 ?>
-                <p>PRODUCTO <?php echo $ver_el_producto['producto'].$producto_especial; ?></p>
+                <p>plato <?php echo $ver_el_plato['plato'].$plato_especial; ?></p>
             </div>
-            <div id="img_de_producto"> 
+            <div id="img_de_plato"> 
                 <?php
-                if ($ver_el_producto['activo'] == "0"){
-                    echo "<img title='Activar' onclick='location.href=\"activar_desactivar_producto.php?nav=".$nav."&id_producto=".$ver_el_producto['id_producto']."&activar=".$ver_el_producto['activo']."\"' class='imagen_activa' src='img/activar.svg'/>";
+                if ($ver_el_plato['activo'] == "0"){
+                    echo "<img title='Activar' onclick='location.href=\"activar_desactivar_plato.php?nav=".$nav."&id=".$ver_el_plato['id']."&activar=".$ver_el_plato['activo']."\"' class='imagen_activa' src='img/activar.svg'/>";
                 } else {
-                    echo "<img title='Desactivar' onclick='location.href=\"activar_desactivar_producto.php?nav=".$nav."&id_producto=".$ver_el_producto['id_producto']."&activar=".$ver_el_producto['activo']."\"' class='imagen_activa' src='img/desactivar.svg'/>";
+                    echo "<img title='Desactivar' onclick='location.href=\"activar_desactivar_plato.php?nav=".$nav."&id=".$ver_el_plato['id']."&activar=".$ver_el_plato['activo']."\"' class='imagen_activa' src='img/desactivar.svg'/>";
                 }
                 /////////////////////////////////////////////////////////////////////////////////////
-                echo "<img title='Modificar' onclick='location.href=\"modificar_descripcion.php?nav=".$nav."&id_producto=".$ver_el_producto['id_producto']."\"' class='imagen_activa' src='img/modificar.svg'/>";
-                echo "<img title='Descargar' onclick='location.href=\"guarda_producto.php?nav=".$nav."&id_producto=".$ver_el_producto['id_producto']."\"' class='imagen_activa' src='img/excel.svg'/>";
+                echo "<img title='Modificar' onclick='location.href=\"modificar_descripcion.php?nav=".$nav."&id=".$ver_el_plato['id']."\"' class='imagen_activa' src='img/modificar.svg'/>";
+                echo "<img title='Descargar' onclick='location.href=\"guarda_plato.php?nav=".$nav."&id=".$ver_el_plato['id']."\"' class='imagen_activa' src='img/excel.svg'/>";
                 /////////////////////////////////////////////////////////////////////////////////////
-                if ($ver_el_producto['mod_val'] == '1' or $ver_el_producto['mod_txt'] == '1' or $ver_el_producto['por_costo'] !== $ver_los_porcentajes_producto or $ver_el_producto['por_perdidas'] !== $ver_las_perdidas_producto and $ver_el_producto['activo'] == "1"){ 
-                    echo "<img title='Actualizar' onclick='location.href=\"productos.php?nav=".$nav."&id_producto=".$ver_el_producto['id_producto']."&pop_up=actualizar\"' class='imagen_activa' src='img/actualizar_solo.svg'/>";
+                if ($ver_el_plato['mod_val'] == '1' or $ver_el_plato['mod_txt'] == '1' or $ver_el_plato['por_costo'] !== $ver_los_porcentajes_plato or $ver_el_plato['por_perdidas'] !== $ver_las_perdidas_plato and $ver_el_plato['activo'] == "1"){ 
+                    echo "<img title='Actualizar' onclick='location.href=\"platos.php?nav=".$nav."&id=".$ver_el_plato['id']."&pop_up=actualizar\"' class='imagen_activa' src='img/actualizar_solo.svg'/>";
                 } else {
                     echo "<img title='Actualizar' class='imagen_inactiva' src='img/actualizar_solo.svg'/>";
                 }
                 /////////////////////////////////////////////////////////////////////////////////////
                 
-                echo "<img title='Imprimir' onclick='location.href=\"imprime_producto.php?nav=".$nav."&id_producto=".$ver_el_producto['id_producto']."\"' class='imagen_activa' src='img/imprimir.svg'/>";        
+                echo "<img title='Imprimir' onclick='location.href=\"imprime_plato.php?nav=".$nav."&id=".$ver_el_plato['id']."\"' class='imagen_activa' src='img/imprimir.svg'/>";        
                 /////////////////////////////////////////////////////////////////////////////////////
-                if ($ver_el_producto['activo'] == "0"){
-                    echo "<img title='Eliminar' onclick='location.href=\"productos.php?nav=".$nav."&id_producto=".$ver_el_producto['id_producto']."&pop_up=eliminar&ver=0\"' class='imagen_activa' src='img/eliminar.svg'/>";
+                if ($ver_el_plato['activo'] == "0"){
+                    echo "<img title='Eliminar' onclick='location.href=\"platos.php?nav=".$nav."&id=".$ver_el_plato['id']."&pop_up=eliminar&ver=0\"' class='imagen_activa' src='img/eliminar.svg'/>";
                 } else {
                     echo "<img title='Eliminar' class='imagen_inactiva' src='img/eliminar.svg'/>";
                 }                
                 ?>
             </div>  
-            <div id="dat_de_producto">                              
-                <p>Creado: <?php echo $ver_el_producto['creacion']; ?><br>Último cambio: <?php echo $ver_el_producto['dia_mod']."-".$ver_el_producto['mes_mod']."-".$ver_el_producto['anio_mod']; ?></p>
+            <div id="dat_de_plato">                              
+                <p>Creado: <?php echo $ver_el_plato['creacion']; ?><br>Último cambio: <?php echo $ver_el_plato['dia_mod']."-".$ver_el_plato['mes_mod']."-".$ver_el_plato['anio_mod']; ?></p>
             </div>
         </div>
-        <div id="desarr_de_producto">
+        <div id="desarr_de_plato">
             <h1 class="titulo_desarrollo">DESCRIPCION</h1>
-            <p class="texto_desarollo"><?php echo $ver_el_producto['descripcion']; ?></p>
+            <p class="texto_desarollo"><?php echo $ver_el_plato['descripcion']; ?></p>
             <p class="corte"></p>
             <div class="titulo_sec_desarrollo_div">
             <h1 class="titulo_sec_desarrollo">TALLES</h1>
             <h1 class="titulo_sec_desarrollo">COLORES</h1>
             </div>
-            <p class="texto_sec_desarollo"><?php echo $ver_el_producto['talles']; ?></p>            
-            <p class="texto_sec_desarollo"><?php echo $ver_el_producto['colores']; ?></p>
+            <p class="texto_sec_desarollo"><?php echo $ver_el_plato['talles']; ?></p>            
+            <p class="texto_sec_desarollo"><?php echo $ver_el_plato['colores']; ?></p>
             <p class="corte"></p>
             <table>
                 <tr class="class_titulos">
-                    <td><p>MATERIALES<span onclick='location.href="nuevo_material.php?nav=<?php echo $nav; ?>&id_producto=<?php echo $art_sel; ?>"'>+</span></p></td>
+                    <td><p>MATERIALES<span onclick='location.href="nuevo_material.php?nav=<?php echo $nav; ?>&id=<?php echo $art_sel; ?>"'>+</span></p></td>
                     <td><p>CONSUMO</p></td>
                     <td><p>VALOR</p></td>
                     <td><p>TOTAL</p></td>                    
@@ -362,7 +362,7 @@ if(isset($_GET['ver'])){
                 require("../conexion.laialy.php");
                 
                 /////////////////////////////////////////////////////////////////////////            
-                $seleccionar_los_materiales = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id_producto = '$art_sel'");
+                $seleccionar_los_materiales = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id = '$art_sel'");
                 mysqli_close($conexion);
                 $comprobar_suma = "0";                
                 while ($ver_los_materiales = mysqli_fetch_array($seleccionar_los_materiales)){
@@ -375,8 +375,8 @@ if(isset($_GET['ver'])){
                     </tr>                 
                     <tr class="class_materiales">
                         <td><p><?php echo $ver_los_materiales['material']; ?>
-                            <span onclick='location.href="modificar_material.php?nav=<?php echo $nav; ?>&id_producto=<?php echo $art_sel; ?>&id_material=<?php echo $ver_los_materiales["id_material"]; ?>"'>-</span>
-                            <span onclick='location.href="productos.php?nav=<?php echo $nav; ?>&id_producto=<?php echo $art_sel; ?>&id_material=<?php echo $ver_los_materiales["id_material"]; ?>&pop_up=eliminar_material"'>x</span>
+                            <span onclick='location.href="modificar_material.php?nav=<?php echo $nav; ?>&id=<?php echo $art_sel; ?>&id_material=<?php echo $ver_los_materiales["id_material"]; ?>"'>-</span>
+                            <span onclick='location.href="platos.php?nav=<?php echo $nav; ?>&id=<?php echo $art_sel; ?>&id_material=<?php echo $ver_los_materiales["id_material"]; ?>&pop_up=eliminar_material"'>x</span>
                         </p></td>
                         <td><p><?php echo $ver_los_materiales['consumo']; ?></p></td>
                         <td><p><?php echo $ver_los_materiales['suma']; ?></p></td>
@@ -421,11 +421,11 @@ if(isset($_GET['ver'])){
                     }
                     // original  //
                     $comprobar_suma = str_replace(',', '', $comprobar_suma) + str_replace(',', '', $comprobar_total_insumo);
-                    $comprobar_total = str_replace(',', '', ($comprobar_suma + $ver_el_producto['taller']));
-                    $comprobar_perdidas = (str_replace(',', '', number_format($comprobar_total, 3)) * str_replace(',', '', number_format($ver_las_perdidas_producto, 3))) / 100;
+                    $comprobar_total = str_replace(',', '', ($comprobar_suma + $ver_el_plato['taller']));
+                    $comprobar_perdidas = (str_replace(',', '', number_format($comprobar_total, 3)) * str_replace(',', '', number_format($ver_las_perdidas_plato, 3))) / 100;
                     $comprobar_costo = str_replace(',', '', number_format($comprobar_total, 3)) + str_replace(',', '', number_format($comprobar_perdidas, 3));
-                    $comprobar_ganancia = (str_replace(',', '', number_format($comprobar_costo, 3)) * str_replace(',', '', number_format($ver_los_porcentajes_producto, 3))) / 100;
-                    $comprobar_venta = ((str_replace(',', '', number_format($comprobar_costo, 3)) * str_replace(',', '', number_format($ver_los_porcentajes_producto, 3))) / 100) + str_replace(',', '', number_format($comprobar_costo, 3));
+                    $comprobar_ganancia = (str_replace(',', '', number_format($comprobar_costo, 3)) * str_replace(',', '', number_format($ver_los_porcentajes_plato, 3))) / 100;
+                    $comprobar_venta = ((str_replace(',', '', number_format($comprobar_costo, 3)) * str_replace(',', '', number_format($ver_los_porcentajes_plato, 3))) / 100) + str_replace(',', '', number_format($comprobar_costo, 3));
                     // original  //
                     
                     require("../conexion.laialy.php");
@@ -445,7 +445,7 @@ if(isset($_GET['ver'])){
                             $color_p_val = "";
                             $mensaje_val = ""; 
                             
-                            if ($ver_el_producto['mod_txt'] == '1'){
+                            if ($ver_el_plato['mod_txt'] == '1'){
                                 $cambios_insumos_dat = $ver_los_materiales['dat'];
                                 if ($ver_los_materiales['dat'] !== '0'){
                                     ////////////////////////////////////////////////////////////////////////////////
@@ -456,7 +456,7 @@ if(isset($_GET['ver'])){
                                         ////////////////////////////////////////////////////////////////////////////////
                                         /////////////////////  ANTES ESTABA ACA INSUMO INACTIVO  ///////////////////////
                                         ////////////////////////////////////////////////////////////////////////////////
-                                        if ($ver_el_producto['mod_txt'] == '1' and $ver_los_insumos_dos['id_insumo'] == $ver_el_hist_txt['id_insumo']){
+                                        if ($ver_el_plato['mod_txt'] == '1' and $ver_los_insumos_dos['id_insumo'] == $ver_el_hist_txt['id_insumo']){
                                             $color_p_txt = " class='line_red_in'";
                                             $mensaje_txt = " - CAMBIO: ".str_replace('<', '(', str_replace('>', ')', $ver_el_hist_txt['cambio']));
                                         }     
@@ -474,7 +474,7 @@ if(isset($_GET['ver'])){
                              
                             //if ($ver_los_materiales['suma'] !== str_replace(',', '', number_format($comprobar, 3)) or $ver_los_materiales['total'] !== str_replace(',', '', number_format($comprobar_total_insumo, 3))){
                                 
-                                if ($ver_el_producto['mod_val'] == '1'){
+                                if ($ver_el_plato['mod_val'] == '1'){
                                     $cambios_insumos_act = $ver_los_materiales['act'];                                    
                                     if ($ver_los_materiales['act'] !== '0'){ 
                                         ////////////////////////////////////////////////////////////////////////////////
@@ -536,7 +536,7 @@ if(isset($_GET['ver'])){
                     <td><p>DETALLE</p></td>
                     <td><p></p></td>
                     <?php                
-                    if ($ver_el_producto['mod_val'] == "1"){                       
+                    if ($ver_el_plato['mod_val'] == "1"){                       
                         echo "<td><p>TOTAL</p></td>";
                         echo "<td><p>CAMBIO</p></td>";
                     } else {                       
@@ -549,32 +549,32 @@ if(isset($_GET['ver'])){
                     <td><p>SUMA</p></td>
                     <td><p></p></td>
                     <?php                
-                    if (str_replace(',', '', number_format($comprobar_suma, 3)) == $ver_el_producto['suma']){                       
+                    if (str_replace(',', '', number_format($comprobar_suma, 3)) == $ver_el_plato['suma']){                       
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['suma']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['suma']."</p></td>";
                     } else {                       
-                        echo "<td><p>".$ver_el_producto['suma']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['suma']."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_suma, 3))."</p></td>";
                     }
                     ?>                   
                 </tr>
                 <tr class="class_totales">
                     <td><p>TALLER</p></td>
-                    <td><a class="boton_taller" onclick='location.href="modificar_taller.php?nav=<?php echo $nav; ?>&id_producto=<?php echo $ver_el_producto["id_producto"]; ?>"'><img src="img/modificar.svg"></a></td>
+                    <td><a class="boton_taller" onclick='location.href="modificar_taller.php?nav=<?php echo $nav; ?>&id=<?php echo $ver_el_plato["id"]; ?>"'><img src="img/modificar.svg"></a></td>
                     <?php  
-                    $taller_viejo = $ver_el_producto['total'] - $ver_el_producto['suma'];
-                    if ( number_format($taller_viejo, 3) == $ver_el_producto['taller']){                        
+                    $taller_viejo = $ver_el_plato['total'] - $ver_el_plato['suma'];
+                    if ( number_format($taller_viejo, 3) == $ver_el_plato['taller']){                        
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['taller']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['taller']."</p></td>";
                     } else {                        
                         
                         require("../conexion.laialy.php");
-                        $seleccionar_historial_taller = mysqli_query($conexion, "SELECT * FROM historial_$nav WHERE id_producto='$art_sel' ORDER BY id_historial DESC");
+                        $seleccionar_historial_taller = mysqli_query($conexion, "SELECT * FROM historial_$nav WHERE id='$art_sel' ORDER BY id_historial DESC");
                         $ver_historial_taller = mysqli_fetch_array($seleccionar_historial_taller);
                         mysqli_close($conexion);
                         $historial_taller = $ver_historial_taller['taller'];
                         echo "<td><p>".$historial_taller."</p></td>";
-                        echo "<td><p class='red_in'>".$ver_el_producto['taller']."</p></td>";
+                        echo "<td><p class='red_in'>".$ver_el_plato['taller']."</p></td>";
                     }
                     ?>                                  
                 </tr>
@@ -582,11 +582,11 @@ if(isset($_GET['ver'])){
                     <td><p>TOTAL</p></td>
                     <td><p></p></td>
                     <?php                
-                    if (str_replace(',', '', number_format($comprobar_total, 3)) == $ver_el_producto['total']){                        
+                    if (str_replace(',', '', number_format($comprobar_total, 3)) == $ver_el_plato['total']){                        
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['total']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['total']."</p></td>";
                     } else {                        
-                        echo "<td><p>".$ver_el_producto['total']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['total']."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_total, 3))."</p></td>";
                     }
                     ?>                   
@@ -596,22 +596,22 @@ if(isset($_GET['ver'])){
                 <tr class="class_totales">
                     <td><p>PERDIDAS</p></td>
                     <?php
-                    $perdidas_del_producto = ($ver_el_producto['total'] * $ver_el_producto['por_perdidas']) / 100; 
-                    if (str_replace(',', '', number_format($comprobar_perdidas, 3)) == number_format($perdidas_del_producto, 3)){
-                        if (str_replace(',', '', number_format($ver_las_perdidas_producto, 3)) == $ver_el_producto['por_perdidas']){
-                            echo "<td><p>".$ver_el_producto['por_perdidas']." %</p></td>";
+                    $perdidas_del_plato = ($ver_el_plato['total'] * $ver_el_plato['por_perdidas']) / 100; 
+                    if (str_replace(',', '', number_format($comprobar_perdidas, 3)) == number_format($perdidas_del_plato, 3)){
+                        if (str_replace(',', '', number_format($ver_las_perdidas_plato, 3)) == $ver_el_plato['por_perdidas']){
+                            echo "<td><p>".$ver_el_plato['por_perdidas']." %</p></td>";
                         } else {
-                            echo "<td><p>".$ver_el_producto['por_perdidas']." % > ".str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3))." %</p></td>";
+                            echo "<td><p>".$ver_el_plato['por_perdidas']." % > ".str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3))." %</p></td>";
                         }
                         echo "<td><p></p></td>";
-                        echo "<td><p>".number_format($perdidas_del_producto, 3)."</p></td>";
+                        echo "<td><p>".number_format($perdidas_del_plato, 3)."</p></td>";
                     } else {
-                        if (str_replace(',', '', number_format($ver_las_perdidas_producto, 3)) == $ver_el_producto['por_perdidas']){
-                            echo "<td><p>".$ver_el_producto['por_perdidas']." %</p></td>";
+                        if (str_replace(',', '', number_format($ver_las_perdidas_plato, 3)) == $ver_el_plato['por_perdidas']){
+                            echo "<td><p>".$ver_el_plato['por_perdidas']." %</p></td>";
                         } else {
-                            echo "<td><p>".$ver_el_producto['por_perdidas']." % > ".str_replace(',', '', number_format($ver_las_perdidas_producto, 3))." %</p></td>";
+                            echo "<td><p>".$ver_el_plato['por_perdidas']." % > ".str_replace(',', '', number_format($ver_las_perdidas_plato, 3))." %</p></td>";
                         }
-                        echo "<td><p>".number_format($perdidas_del_producto, 3)."</p></td>";
+                        echo "<td><p>".number_format($perdidas_del_plato, 3)."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_perdidas, 3))."</p></td>";                       
                     }
                     ?>
@@ -620,11 +620,11 @@ if(isset($_GET['ver'])){
                     <td><p>COSTO</p></td>
                     <td><p></p></td>
                     <?php                
-                    if (str_replace(',', '', number_format($comprobar_costo, 3)) == $ver_el_producto['costo']){                         
+                    if (str_replace(',', '', number_format($comprobar_costo, 3)) == $ver_el_plato['costo']){                         
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['costo']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['costo']."</p></td>";
                     } else {                       
-                        echo "<td><p>".$ver_el_producto['costo']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['costo']."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_costo, 3))."</p></td>";                        
                     }
                     ?>
@@ -632,22 +632,22 @@ if(isset($_GET['ver'])){
                 <tr class="class_totales">
                     <td><p>GANANCIA</p></td>
                     <?php
-                    $ganancia_del_producto = ($ver_el_producto['costo'] * $ver_el_producto['por_costo']) / 100; 
-                    if (str_replace(',', '', number_format($comprobar_ganancia, 3)) == number_format($ganancia_del_producto, 3)){
-                        if (str_replace(',', '', number_format($ver_los_porcentajes_producto, 3)) == $ver_el_producto['por_costo']){
-                            echo "<td><p>".$ver_el_producto['por_costo']." %</p></td>";
+                    $ganancia_del_plato = ($ver_el_plato['costo'] * $ver_el_plato['por_costo']) / 100; 
+                    if (str_replace(',', '', number_format($comprobar_ganancia, 3)) == number_format($ganancia_del_plato, 3)){
+                        if (str_replace(',', '', number_format($ver_los_porcentajes_plato, 3)) == $ver_el_plato['por_costo']){
+                            echo "<td><p>".$ver_el_plato['por_costo']." %</p></td>";
                         } else {
-                            echo "<td><p>".$ver_el_producto['por_costo']." % > ".str_replace(',', '', number_format($ver_los_porcentajes_producto, 3))." %</p></td>";
+                            echo "<td><p>".$ver_el_plato['por_costo']." % > ".str_replace(',', '', number_format($ver_los_porcentajes_plato, 3))." %</p></td>";
                         }
                         echo "<td><p></p></td>";
-                        echo "<td><p>".number_format($ganancia_del_producto, 3)."</p></td>";
+                        echo "<td><p>".number_format($ganancia_del_plato, 3)."</p></td>";
                     } else {
-                        if (str_replace(',', '', number_format($ver_los_porcentajes_producto, 3)) == $ver_el_producto['por_costo']){
-                            echo "<td><p>".$ver_el_producto['por_costo']." %</p></td>";
+                        if (str_replace(',', '', number_format($ver_los_porcentajes_plato, 3)) == $ver_el_plato['por_costo']){
+                            echo "<td><p>".$ver_el_plato['por_costo']." %</p></td>";
                         } else {
-                            echo "<td><p>".$ver_el_producto['por_costo']." % > ".str_replace(',', '', number_format($ver_los_porcentajes_producto, 3))." %</p></td>";
+                            echo "<td><p>".$ver_el_plato['por_costo']." % > ".str_replace(',', '', number_format($ver_los_porcentajes_plato, 3))." %</p></td>";
                         }
-                        echo "<td><p>".number_format($ganancia_del_producto, 3)."</p></td>";
+                        echo "<td><p>".number_format($ganancia_del_plato, 3)."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_ganancia, 3))."</p></td>";                       
                     }
                     ?>
@@ -656,11 +656,11 @@ if(isset($_GET['ver'])){
                     <td><p>VENTA</p></td>
                     <td><p></p></td>
                     <?php                
-                    if (str_replace(',', '', number_format($comprobar_venta, 3)) == $ver_el_producto['venta']){                        
+                    if (str_replace(',', '', number_format($comprobar_venta, 3)) == $ver_el_plato['venta']){                        
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['venta']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['venta']."</p></td>";
                     } else {                        
-                        echo "<td><p>".$ver_el_producto['venta']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['venta']."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_venta, 3))."</p></td>";
                     }
                     ?>                                      
@@ -669,26 +669,26 @@ if(isset($_GET['ver'])){
                     <td><p>FINAL VENTA (redondeo)</p></td>
                     <td><p></p></td>
                     <?php                
-                    if (str_replace(',', '', round($comprobar_venta)) == $ver_el_producto['redondeo']){ 
+                    if (str_replace(',', '', round($comprobar_venta)) == $ver_el_plato['redondeo']){ 
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['redondeo']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['redondeo']."</p></td>";
                     } else {                        
-                        echo "<td><p>".$ver_el_producto['redondeo']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['redondeo']."</p></td>";
                         echo "<td><p class='round_in'>".str_replace(',', '', round($comprobar_venta))."</p></td>";
                     }
                     ?>                                      
                 </tr>
                 <?php
-                //if (str_replace(',', '', round(number_format($comprobar_venta, 3))) == $ver_el_producto['redondeo']){}
+                //if (str_replace(',', '', round(number_format($comprobar_venta, 3))) == $ver_el_plato['redondeo']){}
                 //else {
                 ?>
                 <!--<tr class="class_totales_final">
                    <td><p>GANANCIA REAL</p></td>
                     <td><p></p></td>-->
                     <?php 
-                    //    $ganancia_numero_real = (str_replac(',', '', round(number_format($comprobar_venta, 3)))) - ($ver_el_producto['costo']);
-                    //    $ganancia_por_real = str_replac(',', '', round(number_format($ganancia_numero_real, 3))) * 100 - $ver_el_producto['costo'];
-                    //    echo "<td><p>".$ver_el_producto['redondeo']."</p></td>";
+                    //    $ganancia_numero_real = (str_replac(',', '', round(number_format($comprobar_venta, 3)))) - ($ver_el_plato['costo']);
+                    //    $ganancia_por_real = str_replac(',', '', round(number_format($ganancia_numero_real, 3))) * 100 - $ver_el_plato['costo'];
+                    //    echo "<td><p>".$ver_el_plato['redondeo']."</p></td>";
                     //    echo "<td><p class='round_in'>".str_replace(',', '', round(number_format($comprobar_venta, 3)))."</p></td>";
                     ?>                                      
                 <!--</tr>-->
@@ -697,31 +697,31 @@ if(isset($_GET['ver'])){
                 ?>
             </table>
         </div>
-        <div id="footer_de_producto">
-            <div class="est_de_producto">
+        <div id="footer_de_plato">
+            <div class="est_de_plato">
                 <h1>Texto Insumos</h1>
                 <?php                
-                if ($ver_el_producto['mod_txt'] == '0'){                        
+                if ($ver_el_plato['mod_txt'] == '0'){                        
                     echo "<p class='estado_verde'>Actualizado</p>";                    
                 } else { 
                     echo "<p class='estado_rojo'>Sufrió Modificaciones</p>";
                 }
                 ?>                 
             </div>
-            <div class="est_de_producto">
+            <div class="est_de_plato">
                 <h1>Valores</h1>
                 <?php                
-                if ($ver_el_producto['mod_val'] == '0'){                        
+                if ($ver_el_plato['mod_val'] == '0'){                        
                     echo "<p class='estado_verde'>Actualizado</p>";                    
                 } else { 
                     echo "<p class='estado_rojo'>Desactualizados</p>";
                 }
                 ?>  
             </div>
-            <div class="est_de_producto">
+            <div class="est_de_plato">
                 <h1>% Ganacia / Perdida</h1>
                 <?php                
-                if ($ver_el_producto['por_costo'] !== number_format($ver_los_porcentajes_producto, 3) or $ver_el_producto['por_perdidas'] !== number_format($ver_las_perdidas_producto, 3)){                        
+                if ($ver_el_plato['por_costo'] !== number_format($ver_los_porcentajes_plato, 3) or $ver_el_plato['por_perdidas'] !== number_format($ver_las_perdidas_plato, 3)){                        
                      echo "<p class='estado_rojo'>Fue Modificado</p>";                   
                 } else {                    
                     echo "<p class='estado_verde'>Actualizado</p>";     

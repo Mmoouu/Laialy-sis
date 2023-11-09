@@ -24,13 +24,13 @@ if ($login == "log"){
     $user_log = "Desconectado";
     $circulo_log = "circulo_log_red";
 }
-$productos_laialy = ""; $where = ""; $nav_materiales = ""; 
-if(isset($_GET['nav']) AND isset($_GET['id_producto'])){
+$platos_laialy = ""; $where = ""; $nav_materiales = ""; 
+if(isset($_GET['nav']) AND isset($_GET['id_plato'])){
     $nav = $_GET['nav'];
-    $art_id = $_GET['id_producto'];
-    if ($nav == "productos_laialy"){
+    $art_id = $_GET['id_plato'];
+    if ($nav == "platos_laialy"){
         $titulo_sisint = "Nuevo Material Laialy";
-        $productos_laialy = "active";
+        $platos_laialy = "active";
         $nav_materiales = "materiales_laialy";
     }
 } 
@@ -74,14 +74,14 @@ if(isset($_GET['nav']) AND isset($_GET['id_producto'])){
 
             <?php 
             require("../conexion.laialy.php");
-            $consulta_de_productos = mysqli_query($conexion, "SELECT * FROM $nav WHERE id_producto = '$art_id' AND activo = '1'");
-            $listado_de_productos = mysqli_fetch_array($consulta_de_productos); 
+            $consulta_de_platos = mysqli_query($conexion, "SELECT * FROM $nav WHERE id_plato = '$art_id' AND activo = '1'");
+            $listado_de_platos = mysqli_fetch_array($consulta_de_platos); 
             mysqli_close($conexion);
             ?>
 
             <div class="fneworder_tres">
-                <label><p>Producto</p></label>
-                <input type="text" value="<?php echo $listado_de_productos['producto']; ?>" name="producto" required readonly/>
+                <label><p>plato</p></label>
+                <input type="text" value="<?php echo $listado_de_platos['plato']; ?>" name="plato" required readonly/>
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_cuatro">
@@ -99,7 +99,7 @@ if(isset($_GET['nav']) AND isset($_GET['id_producto'])){
         <?php      
             if (isset($_POST['submit'])){
                 
-                $form_producto = $_POST['producto'];
+                $form_plato = $_POST['plato'];
                 $form_material = utf8_decode($_POST['material']);
                 $form_consumo = $_POST['consumo'];
                 
@@ -111,20 +111,20 @@ if(isset($_GET['nav']) AND isset($_GET['id_producto'])){
 
                 require("../conexion.laialy.php");
                 
-                mysqli_query($conexion, "INSERT INTO $nav_materiales (id_material, material, insumos, consumo, cantidad, suma, total, creacion, dia_mod, mes_mod, anio_mod, hora_mod, id_producto, dat, val, act) VALUES (null,'$form_material','0','$form_consumo','1','0','0','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$art_id','0','0','0')");
+                mysqli_query($conexion, "INSERT INTO $nav_materiales (id_material, material, insumos, consumo, cantidad, suma, total, creacion, dia_mod, mes_mod, anio_mod, hora_mod, id_plato, dat, val, act) VALUES (null,'$form_material','0','$form_consumo','1','0','0','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$art_id','0','0','0')");
                 
-                mysqli_query($conexion, "UPDATE $nav SET mod_val = '1' WHERE producto = '$form_producto' AND id_producto = '$art_id' AND activo = '1'");
+                mysqli_query($conexion, "UPDATE $nav SET mod_val = '1' WHERE plato = '$form_plato' AND id_plato = '$art_id' AND activo = '1'");
 
                 //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
                 $log_accion = "Agrega Material"; 
-                $log_valor = "art ".$form_producto." - Material: ".$form_material;
-                //$log_valor = "art ".$cambio_taller_producto." de ".$form_taller." - ".$form_por_cambio_taller." (".$form_cambio_taller."%)";                    
+                $log_valor = "art ".$form_plato." - Material: ".$form_material;
+                //$log_valor = "art ".$cambio_taller_plato." de ".$form_taller." - ".$form_por_cambio_taller." (".$form_cambio_taller."%)";                    
                 require("log.php");
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////      
 
                 mysqli_close($conexion);
 
-                echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&mensaje=nuevo_material&&id_producto=$art_id\";</script>";
+                echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&mensaje=nuevo_material&&id_plato=$art_id\";</script>";
             }
         ?>
     </div>

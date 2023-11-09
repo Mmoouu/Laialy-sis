@@ -1,6 +1,7 @@
 ##
 ## PHPExcel
-##
+##
+
 ## Copyright (c) 2006 - 2013 PHPExcel
 ##
 ## This library is free software; you can redistribute it and/or
@@ -121,7 +122,7 @@ IMLN			= IM.LN					##	Devuelve el logaritmo natural (neperiano) de un número co
 IMLOG10			= IM.LOG10				##	Devuelve el logaritmo en base 10 de un número complejo.
 IMLOG2			= IM.LOG2				##	Devuelve el logaritmo en base 2 de un número complejo.
 IMPOWER			= IM.POT				##	Devuelve un número complejo elevado a una potencia entera.
-IMPRODUCT		= IM.PRODUCT				##	Devuelve el producto de números complejos.
+IMPRODUCT		= IM.PRODUCT				##	Devuelve el plato de números complejos.
 IMREAL			= IM.REAL				##	Devuelve el coeficiente real de un número complejo.
 IMSIN			= IM.SENO				##	Devuelve el seno de un número complejo.
 IMSQRT			= IM.RAIZ2				##	Devuelve la raíz cuadrada de un número complejo.
@@ -275,14 +276,14 @@ LOG			= LOG					##	Devuelve el logaritmo de un número en una base especificada.
 LOG10			= LOG10					##	Devuelve el logaritmo en base 10 de un número.
 MDETERM			= MDETERM				##	Devuelve la determinante matricial de una matriz.
 MINVERSE		= MINVERSA				##	Devuelve la matriz inversa de una matriz.
-MMULT			= MMULT					##	Devuelve el producto de matriz de dos matrices.
+MMULT			= MMULT					##	Devuelve el plato de matriz de dos matrices.
 MOD			= RESIDUO				##	Devuelve el resto de la división.
 MROUND			= REDOND.MULT				##	Devuelve un número redondeado al múltiplo deseado.
 MULTINOMIAL		= MULTINOMIAL				##	Devuelve el polinomio de un conjunto de números.
 ODD			= REDONDEA.IMPAR			##	Redondea un número hacia arriba hasta el entero impar más próximo.
 PI			= PI					##	Devuelve el valor de pi.
 POWER			= POTENCIA				##	Devuelve el resultado de elevar un número a una potencia.
-PRODUCT			= PRODUCTO				##	Multiplica sus argumentos.
+PRODUCT			= plato				##	Multiplica sus argumentos.
 QUOTIENT		= COCIENTE				##	Devuelve la parte entera de una división.
 RADIANS			= RADIANES				##	Convierte grados en radianes.
 RAND			= ALEATORIO				##	Devuelve un número aleatorio entre 0 y 1.
@@ -301,7 +302,7 @@ SUBTOTAL		= SUBTOTALES				##	Devuelve un subtotal en una lista o base de datos.
 SUM			= SUMA					##	Suma sus argumentos.
 SUMIF			= SUMAR.SI				##	Suma las celdas especificadas que cumplen unos criterios determinados.
 SUMIFS			= SUMAR.SI.CONJUNTO			##	Suma las celdas de un rango que cumplen varios criterios.
-SUMPRODUCT		= SUMAPRODUCTO				##	Devuelve la suma de los productos de los correspondientes componentes de matriz.
+SUMPRODUCT		= SUMAplato				##	Devuelve la suma de los platos de los correspondientes componentes de matriz.
 SUMSQ			= SUMA.CUADRADOS			##	Devuelve la suma de los cuadrados de los argumentos.
 SUMX2MY2		= SUMAX2MENOSY2				##	Devuelve la suma de la diferencia de los cuadrados de los valores correspondientes de dos matrices.
 SUMX2PY2		= SUMAX2MASY2				##	Devuelve la suma de la suma de los cuadrados de los valores correspondientes de dos matrices.
@@ -332,7 +333,7 @@ COUNTA			= CONTARA				##	Cuenta cuántos valores hay en la lista de argumentos.
 COUNTBLANK		= CONTAR.BLANCO				##	Cuenta el número de celdas en blanco de un rango.
 COUNTIF			= CONTAR.SI				##	Cuenta el número de celdas, dentro del rango, que cumplen el criterio especificado.
 COUNTIFS		= CONTAR.SI.CONJUNTO			##	Cuenta el número de celdas, dentro del rango, que cumplen varios criterios.
-COVAR			= COVAR					##	Devuelve la covarianza, que es el promedio de los productos de las desviaciones para cada pareja de puntos de datos.
+COVAR			= COVAR					##	Devuelve la covarianza, que es el promedio de los platos de las desviaciones para cada pareja de puntos de datos.
 CRITBINOM		= BINOM.CRIT				##	Devuelve el menor valor cuya distribución binomial acumulativa es menor o igual a un valor de criterio.
 DEVSQ			= DESVIA2				##	Devuelve la suma de los cuadrados de las desviaciones.
 EXPONDIST		= DISTR.EXP				##	Devuelve la distribución exponencial.
@@ -368,7 +369,7 @@ NORMDIST		= DISTR.NORM				##	Devuelve la distribución normal acumulativa.
 NORMINV			= DISTR.NORM.INV			##	Devuelve la función inversa de la distribución normal acumulativa.
 NORMSDIST		= DISTR.NORM.ESTAND			##	Devuelve la distribución normal estándar acumulativa.
 NORMSINV		= DISTR.NORM.ESTAND.INV			##	Devuelve la función inversa de la distribución normal estándar acumulativa.
-PEARSON			= PEARSON				##	Devuelve el coeficiente de momento de correlación de producto Pearson.
+PEARSON			= PEARSON				##	Devuelve el coeficiente de momento de correlación de plato Pearson.
 PERCENTILE		= PERCENTIL				##	Devuelve el k-ésimo percentil de los valores de un rango.
 PERCENTRANK		= RANGO.PERCENTIL			##	Devuelve el rango porcentual de un valor de un conjunto de datos.
 PERMUT			= PERMUTACIONES				##	Devuelve el número de permutaciones de un número determinado de objetos.
@@ -376,7 +377,7 @@ POISSON			= POISSON				##	Devuelve la distribución de Poisson.
 PROB			= PROBABILIDAD				##	Devuelve la probabilidad de que los valores de un rango se encuentren entre dos límites.
 QUARTILE		= CUARTIL				##	Devuelve el cuartil de un conjunto de datos.
 RANK			= JERARQUIA				##	Devuelve la jerarquía de un número en una lista de números.
-RSQ			= COEFICIENTE.R2			##	Devuelve el cuadrado del coeficiente de momento de correlación de producto Pearson.
+RSQ			= COEFICIENTE.R2			##	Devuelve el cuadrado del coeficiente de momento de correlación de plato Pearson.
 SKEW			= COEFICIENTE.ASIMETRIA			##	Devuelve la asimetría de una distribución.
 SLOPE			= PENDIENTE				##	Devuelve la pendiente de la línea de regresión lineal.
 SMALL			= K.ESIMO.MENOR				##	Devuelve el k-ésimo menor valor de un conjunto de datos.

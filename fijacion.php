@@ -48,13 +48,13 @@ if(isset($_GET['dia']) and isset($_GET['mes']) and isset($_GET['ano']) and isset
     
     $con = 0;
     require("../conexion.laialy.php");             
-    $seleccionar_productos = mysqli_query($conexion,  "SELECT * FROM $nav WHERE activo = 1 ORDER BY producto ASC");
-    while($ver_productos = mysqli_fetch_array($seleccionar_productos)){
+    $seleccionar_platos = mysqli_query($conexion,  "SELECT * FROM $nav WHERE activo = 1 ORDER BY plato ASC");
+    while($ver_platos = mysqli_fetch_array($seleccionar_platos)){
         
-        $numero_de_producto = $ver_productos['producto'];
-        $redondeo_de_producto = $redondeo[$con];
+        $numero_de_plato = $ver_platos['plato'];
+        $redondeo_de_plato = $redondeo[$con];
         
-        mysqli_query($conexion, "INSERT INTO lista_productos (id, producto, marca, lista, redondeo, dia_mod, mes_mod, anio_mod, hora_mod) VALUES (null,'$numero_de_producto','$nav','$lista_verla','$redondeo_de_producto','$get_dia','$get_mes','$ano','$hora')");
+        mysqli_query($conexion, "INSERT INTO lista_platos (id, plato, marca, lista, redondeo, dia_mod, mes_mod, anio_mod, hora_mod) VALUES (null,'$numero_de_plato','$nav','$lista_verla','$redondeo_de_plato','$get_dia','$get_mes','$ano','$hora')");
         //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
         $log_valor = "Lista N-".$lista_verla;
         $log_accion = "Fija lista ".$nav;
@@ -63,8 +63,8 @@ if(isset($_GET['dia']) and isset($_GET['mes']) and isset($_GET['ano']) and isset
         $con++;
     }
     mysqli_close($conexion);
-    echo "<script language=Javascript> location.href=\"fijar_productos.php?nav=$nav&mensaje=lista_si\";</script>";
+    echo "<script language=Javascript> location.href=\"fijar_platos.php?nav=$nav&mensaje=lista_si\";</script>";
 } else {
-    echo "<script language=Javascript> location.href=\"fijar_productos.php?nav=$nav&mensaje=lista_no\";</script>";            
+    echo "<script language=Javascript> location.href=\"fijar_platos.php?nav=$nav&mensaje=lista_no\";</script>";            
 }
 ?>   

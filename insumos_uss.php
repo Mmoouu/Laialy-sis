@@ -297,9 +297,9 @@ if(isset($_GET['ord'])){
                         <?php
                         //////////////////////////////////////////////////////////////////////////////////////////////////
                         if (!$listado_de_insumos_p_activo == "1"){
-                            echo "<li class='li_insumos_uss_alerta li_grupal' title='Revisar Producto'><img src='img/producto_alerta.svg'></li>";
+                            echo "<li class='li_insumos_uss_alerta li_grupal' title='Revisar plato'><img src='img/plato_alerta.svg'></li>";
                         } else {
-                            echo "<li class='li_insumos_uss_alerta li_grupal' title='Estado Correcto'><img src='img/producto_bien.svg'></li>";
+                            echo "<li class='li_insumos_uss_alerta li_grupal' title='Estado Correcto'><img src='img/plato_bien.svg'></li>";
                         }
                         //////////////////////////////////////////////////////////////////////////////////////////////////
                         ?>

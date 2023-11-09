@@ -449,7 +449,7 @@ nav {
     height: -moz-calc([33px * 4]); */
 }
 
-#botonera_nav ul.active.productos {
+#botonera_nav ul.active.platos {
     height: calc(33px * 1);
     /* height: -webkit-calc([33px * 4]);
     height: -moz-calc([33px * 4]); */
@@ -491,7 +491,7 @@ nav {
     height: -moz-calc([33px * 1]); */
 }
 
-#botonera_nav ul.active.reporte_productos {
+#botonera_nav ul.active.reporte_platos {
     height: calc(33px * 1);
     /* height: -webkit-calc([33px * 1]);
     height: -moz-calc([33px * 1]); */
@@ -1189,7 +1189,7 @@ input:-webkit-autofill {
     overflow: hidden;
 }
 
-#columna_1_productos {
+#columna_1_platos {
     position: absolute;
     left: 20px;
     right: 52%;
@@ -1199,7 +1199,7 @@ input:-webkit-autofill {
     overflow: hidden;
 }
 
-#columna_2_productos {
+#columna_2_platos {
     position: absolute;
     right: 20px;
     left: 49.2%;
@@ -1251,7 +1251,7 @@ input:-webkit-autofill {
     overflow-y: scroll;
 }
 
-#columna_listas_productos {
+#columna_listas_platos {
     position: absolute;
     left: 20px;
     width: 355px;
@@ -1452,7 +1452,7 @@ input:-webkit-autofill {
     margin-left: 16px;
 }
 
-.cp_producto {
+.cp_plato {
     background-color: #505050;
     color: #fff;
 }
@@ -1467,7 +1467,7 @@ input:-webkit-autofill {
     color: #505050;
 }
 
-.cp_producto p {
+.cp_plato p {
     width: 45px;
     line-height: 19px;
 }
@@ -2969,7 +2969,7 @@ input:-webkit-autofill {
     -webkit-transition: 0.5s;
 }
 
-#columna_listas_productos {
+#columna_listas_platos {
     position: absolute;
     left: 20px;
     width: 355px;
@@ -3015,13 +3015,13 @@ input:-webkit-autofill {
     line-height: 40px;
 }
 
-/* /////////////////////////////////////////////////////////////////////////////////////////// productos /////////////////////////////////////////////////////////////////////////////////////////// */
-/* LI MEDIDAS UNICAS BARRA SUPERIOR DE EL LISTADO DE productos //// COLUMNA 1*/
-.li_productos_txt {
+/* /////////////////////////////////////////////////////////////////////////////////////////// platos /////////////////////////////////////////////////////////////////////////////////////////// */
+/* LI MEDIDAS UNICAS BARRA SUPERIOR DE EL LISTADO DE platos //// COLUMNA 1*/
+.li_platos_txt {
     width: 13.3%;    
 }
 
-.li_productos_txt:first-child {
+.li_platos_txt:first-child {
     width: 8%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -3037,27 +3037,27 @@ input:-webkit-autofill {
     opacity: 1;
 }
 
-.li_productos_alerta {
+.li_platos_alerta {
     width: 4%;
 }
 
-.li_productos_alerta img {
+.li_platos_alerta img {
     height: 33px;
     display: block;
     margin: 0 auto;
 }
 
-.li_productos_estado {
+.li_platos_estado {
     width: 4%;
 }
 
-.li_productos_estado img {
+.li_platos_estado img {
     height: 33px;
     display: block;
     margin: 0 auto;
 }
 
-.li_productos_ver {
+.li_platos_ver {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     width: 4.2%;
@@ -3070,13 +3070,13 @@ input:-webkit-autofill {
     -webkit-transition: 0.5s;
 }
 
-.li_productos_ver img {
+.li_platos_ver img {
     height: 33px;
     display: block;
     margin: 0 auto;
 }
 
-.li_productos_ver:hover {
+.li_platos_ver:hover {
     background-color: #5d98d4;
     transition: 0.5s;
     -o-transition: 0.5s;
@@ -3085,7 +3085,7 @@ input:-webkit-autofill {
     -webkit-transition: 0.5s;
 }
 
-.li_productos_visto {
+.li_platos_visto {
     width: 4.2%;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -3098,7 +3098,7 @@ input:-webkit-autofill {
     -webkit-transition: 0.5s;
 }
 
-.li_productos_visto img {
+.li_platos_visto img {
     height: 33px;
     display: block;
     margin: 0 auto;
@@ -3109,7 +3109,7 @@ input:-webkit-autofill {
     -webkit-transition: 0.5s;
 }
 
-.li_productos_visto:hover {
+.li_platos_visto:hover {
     background-color: #5d98d4;
     transition: 0.5s;
     -o-transition: 0.5s;
@@ -3118,7 +3118,7 @@ input:-webkit-autofill {
     -webkit-transition: 0.5s;
 }
 
-.li_productos_visto:hover img {
+.li_platos_visto:hover img {
     transform: rotate(180deg);
     transition: 0.5s;
     -o-transition: 0.5s;
@@ -3127,8 +3127,8 @@ input:-webkit-autofill {
     -webkit-transition: 0.5s;
 }
 
-/* COLUMNA 2 DETALLE DE productos */
-#header_de_producto {
+/* COLUMNA 2 DETALLE DE platos */
+#header_de_plato {
     position: absolute;
     top: 0px;
     height: 50px;
@@ -3139,14 +3139,14 @@ input:-webkit-autofill {
     display: flex;
 }
 
-#num_de_producto {
+#num_de_plato {
     width: 30%;
     overflow: hidden;
     float: left;
     text-indent: 15px;
 }
 
-#num_de_producto p {
+#num_de_plato p {
     font-family: bold;
     color: #3b3b3b;
     line-height: 51px;
@@ -3154,7 +3154,7 @@ input:-webkit-autofill {
     text-align: left;
 }
 
-#img_de_producto {
+#img_de_plato {
     align-items: center;
     height: 32px;
     margin-top: 8px;
@@ -3169,7 +3169,7 @@ input:-webkit-autofill {
     padding: 0px 0 0 5%;
 }
 
-#img_de_producto img {
+#img_de_plato img {
     width: 14.5%;
     height: 25px;
     display: flex;
@@ -3191,14 +3191,14 @@ input:-webkit-autofill {
     cursor: not-allowed;
 }
 
-#dat_de_producto {
+#dat_de_plato {
     height: 50px;
     width: 30%;
     overflow: hidden;
     padding-right: 20px;
 }
 
-#dat_de_producto p {
+#dat_de_plato p {
     font-family: text;
     color: #3b3b3b;
     line-height: 20px;
@@ -3207,8 +3207,8 @@ input:-webkit-autofill {
     padding: 5px 10px;
 }
 
-/* COLUMNA 2 DATOS DE productos */
-#desarr_de_producto {
+/* COLUMNA 2 DATOS DE platos */
+#desarr_de_plato {
     position: absolute;
     top: 65px;
     bottom: 80px;
@@ -3219,25 +3219,25 @@ input:-webkit-autofill {
     overflow-y: scroll;
 }
 
-#desarr_de_producto table {
+#desarr_de_plato table {
     width: 100%;
     height: auto;
     border-radius: 15px;
 }
 
-#desarr_de_producto table tr td {
+#desarr_de_plato table tr td {
     text-align: center;
 }
 
-#desarr_de_producto table tr td:first-child {
+#desarr_de_plato table tr td:first-child {
     text-align: left;
 }
 
-#desarr_de_producto table tr td:first-child p {
+#desarr_de_plato table tr td:first-child p {
     text-align: left;
 }
 
-#desarr_de_producto table tr td p {
+#desarr_de_plato table tr td p {
     color: #393939;
     line-height: 30px;
     padding: 7px 5px 3px 5px;
@@ -3400,7 +3400,7 @@ height: 30px;
     background-color: #cff4d3;
 }
 
-#footer_de_producto {
+#footer_de_plato {
     position: absolute;
     height: 65px;
     bottom: 0px;
@@ -3411,18 +3411,18 @@ height: 30px;
     border-top: 1px solid #f3f3f3;
 }
 
-.est_de_producto {
+.est_de_plato {
     width: 33.3%;
     height: 65px;
     text-align: center;
 }
 
-.est_de_producto:nth-child(2) {
+.est_de_plato:nth-child(2) {
     border-left: 1px solid #f3f3f3;
     border-right: 1px solid #f3f3f3;
 }
 
-.est_de_producto h1 {
+.est_de_plato h1 {
     font-family: medium;
     margin: 0 auto;
     padding: 15px 0px 5px 0px;
@@ -3430,7 +3430,7 @@ height: 30px;
     font-size: 14px;
 }
 
-.est_de_producto p {
+.est_de_plato p {
     font-family: text;
     margin: 0 auto;
     padding: 0px 0px 15px 0px;
@@ -3522,32 +3522,32 @@ height: 30px;
     cursor: pointer;
 }
 
-/* productos IMPRIMIR */
-#desarr_de_producto_imp {
+/* platos IMPRIMIR */
+#desarr_de_plato_imp {
     display: block;
     width: 650px;
     margin: 0 auto;
     font-size: 10px;
 }
 
-#desarr_de_producto_imp table {
+#desarr_de_plato_imp table {
     width: 100%;
     height: auto;
 }
 
-#desarr_de_producto_imp table tr td {
+#desarr_de_plato_imp table tr td {
     text-align: center;
 }
 
-#desarr_de_producto_imp table tr td:first-child {
+#desarr_de_plato_imp table tr td:first-child {
     text-align: left;
 }
 
-#desarr_de_producto_imp table tr td:first-child p {
+#desarr_de_plato_imp table tr td:first-child p {
     text-align: left;
 }
 
-#desarr_de_producto_imp table tr td p {
+#desarr_de_plato_imp table tr td p {
     color: #393939;
     line-height: auto;
     padding: 0px 5px 0px 5px;
@@ -3591,7 +3591,7 @@ height: 30px;
     border: 1px solid #c4c4c4;
 }
 
-#footer_de_producto_imp {
+#footer_de_plato_imp {
     position: absolute;
     height: 65px;
     bottom: 0px;
@@ -3602,18 +3602,18 @@ height: 30px;
     border-top: 1px solid #d3d3d3;
 }
 
-.est_de_producto_imp {
+.est_de_plato_imp {
     width: 33.3%;
     height: 65px;
     text-align: center;
 }
 
-.est_de_producto_imp:nth-child(2) {
+.est_de_plato_imp:nth-child(2) {
     border-left: 1px solid #d3d3d3;
     border-right: 1px solid #d3d3d3;
 }
 
-.est_de_producto_imp h1 {
+.est_de_plato_imp h1 {
     font-family: medium;
     margin: 0 auto;
     padding: 15px 0px 5px 0px;
@@ -3621,7 +3621,7 @@ height: 30px;
     font-size: 9px;
 }
 
-.est_de_producto_imp p {
+.est_de_plato_imp p {
     font-family: text;
     margin: 0 auto;
     padding: 0px 0px 15px 0px;
@@ -3761,8 +3761,8 @@ height: 30px;
     background-color: #7b1e1e;
 }
 
-/* NUEVO producto */
-#nuevo_producto_marca {
+/* NUEVO plato */
+#nuevo_plato_marca {
     position: absolute;
     left: 20px;
     right: 20px;
@@ -3820,7 +3820,7 @@ height: 30px;
     margin-bottom: 10px;
 }
 
-.fomulario_nuevo_producto {
+.fomulario_nuevo_plato {
     display: block;
     width: 100%;
     height: auto;
@@ -4221,8 +4221,8 @@ height: 30px;
     outline: 0px;
 }
 
-/* BOTONES productos */
-.boton_producto_adelante {
+/* BOTONES platos */
+.boton_plato_adelante {
     position: absolute;
     width: 48%;
     cursor: pointer;
@@ -4237,22 +4237,22 @@ height: 30px;
     font-size: 100%;
 }
 
-.boton_producto_adelante img {
+.boton_plato_adelante img {
     display: block;
     height: 15px;
     margin: 0 auto;
     padding: 12px;
 }
 
-.boton_producto_adelante:hover {
+.boton_plato_adelante:hover {
     background-color: #407596;
 }
 
-.boton_producto_adelante:focus {
+.boton_plato_adelante:focus {
     outline: 0px;
 }
 
-.boton_producto_atras {
+.boton_plato_atras {
     position: absolute;
     width: 48%;
     cursor: pointer;
@@ -4267,7 +4267,7 @@ height: 30px;
     font-size: 100%;
 }
 
-.boton_producto_atras img {
+.boton_plato_atras img {
     display: block;
     height: 15px;
     margin: 0 auto;
@@ -4275,11 +4275,11 @@ height: 30px;
     transform: rotate(180deg);
 }
 
-.boton_producto_atras:hover {
+.boton_plato_atras:hover {
     background-color: #b14531;
 }
 
-.boton_producto_terminar {
+.boton_plato_terminar {
     position: absolute;
     width: 48%;
     cursor: pointer;
@@ -4294,7 +4294,7 @@ height: 30px;
     font-size: 100%;
 }
 
-.boton_producto_terminar p {
+.boton_plato_terminar p {
     width: 100%;
     height: 100%;
     line-height: 39px;
@@ -4303,11 +4303,11 @@ height: 30px;
     text-align: center;
 }
 
-.boton_producto_terminar:hover {
+.boton_plato_terminar:hover {
     background-color: #1f8e28;
 }
 
-.boton_producto_terminar_inactivo {
+.boton_plato_terminar_inactivo {
     position: absolute;
     width: 48%;
     height: 40px;
@@ -4321,7 +4321,7 @@ height: 30px;
     border: 1px solid #d0d0d0;
 }
 
-.boton_producto_terminar_inactivo p {
+.boton_plato_terminar_inactivo p {
     width: 100%;
     height: 100%;
     line-height: 39px;
@@ -4506,7 +4506,7 @@ height: 30px;
 }
 
 /* LI MEDIDAS UNICAS BARRA SUPERIOR DE EL LISTADO DE PEDIDOS LIBRERIA */
-#cajon_productos_libreria {
+#cajon_platos_libreria {
     width: 67.9%;
     height: auto;
     margin-top: 15px;
@@ -4514,7 +4514,7 @@ height: 30px;
     margin-left: 4%;
 }
 
-.productos_libreria {
+.platos_libreria {
     width: 100%;
     height: 40px;
     border-bottom: 1px solid #c4c4c4;
@@ -4522,11 +4522,11 @@ height: 30px;
     border-right: 1px solid #c4c4c4;
 }
 
-.productos_libreria:first-child {
+.platos_libreria:first-child {
     border-top: 1px solid #c4c4c4;
 }
 
-.productos_libreria p {
+.platos_libreria p {
     float: left;
     height: 30px;
     margin-top: 5px;
@@ -4536,7 +4536,7 @@ height: 30px;
     justify-content: center;
 }
 
-.productos_libreria p:first-child {
+.platos_libreria p:first-child {
     width: 66.6%;
     justify-content: flex-start;
     padding-left: 2%;
@@ -4545,7 +4545,7 @@ height: 30px;
     margin-right: -1px;
 }
 
-.productos_libreria p:last-child {
+.platos_libreria p:last-child {
     width: 11.7%;
     border-left: 1px solid #c4c4c4;
     margin-left: -1px;

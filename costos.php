@@ -26,26 +26,26 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$productos_laialy = "";
+$platos_laialy = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "productos_laialy"){
+    if ($nav == "platos_laialy"){
         $titulo_sisint = "% Ganancia / Perdida Laialy";
-        $productos_laialy = "active";
-        $resultado_busqueda = "Consulta de Productos sin resultados";
-    } else if ($nav == "productos_belen"){
+        $platos_laialy = "active";
+        $resultado_busqueda = "Consulta de platos sin resultados";
+    } else if ($nav == "platos_belen"){
         $titulo_sisint = "% Ganancia / Perdida Belen";
-        $productos_belen = "active";
-        $resultado_busqueda = "Consulta de Productos sin resultados";
-    } else if ($nav == "productos_lara"){
+        $platos_belen = "active";
+        $resultado_busqueda = "Consulta de platos sin resultados";
+    } else if ($nav == "platos_lara"){
         $titulo_sisint = "% Ganancia / Perdida Lara";
-        $productos_lara = "active";
-        $resultado_busqueda = "Consulta de Productos sin resultados";
-    } else if ($nav == "productos_sigry"){
+        $platos_lara = "active";
+        $resultado_busqueda = "Consulta de platos sin resultados";
+    } else if ($nav == "platos_sigry"){
         $titulo_sisint = "% Ganancia / Perdida Sigry";
-        $productos_sigry = "active";
-        $resultado_busqueda = "Consulta de Productos sin resultados";
+        $platos_sigry = "active";
+        $resultado_busqueda = "Consulta de platos sin resultados";
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -155,7 +155,7 @@ if(isset($_GET['nav'])){
                 require("log.php");
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
                 mysqli_close($conexion);
-                echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&mensaje=cambio_ganancia\";</script>";
+                echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&mensaje=cambio_ganancia\";</script>";
             }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if (isset($_POST['cambio_perdida'])){
@@ -169,7 +169,7 @@ if(isset($_GET['nav'])){
                 require("log.php");
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
                 mysqli_close($conexion);
-                echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&mensaje=cambio_perdida\";</script>";
+                echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&mensaje=cambio_perdida\";</script>";
             }        
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if (isset($_POST['nuevo_costo'])){

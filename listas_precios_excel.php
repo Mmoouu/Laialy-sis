@@ -68,7 +68,7 @@ if(isset($_GET['nav'])){
             $marca = $_GET['marca'];
             $fecha = explode("-",$_GET['fecha']);
             
-            if ($marca == "productos_laialy"){ $marca_guardar = "laialy"; }             
+            if ($marca == "platos_laialy"){ $marca_guardar = "laialy"; }             
             
             $fecha_hoy = date("d-m-y");
             $hora_mod = date('His');
@@ -103,13 +103,13 @@ if(isset($_GET['nav'])){
             
             $rige = "RIGE A PARTIR DE ".$fecha[2]." DE ".$mes." DE ".$fecha[0];
                         
-            if ($marca == "productos_laialy"){
+            if ($marca == "platos_laialy"){
                 $svg = "";
                 // $svg = "<img style='height:40px;width:75px;' src='http://10.0.0.186/sistema_interno/img/laialy.png'/>";
             } 
 
             require("../conexion.laialy.php");             
-            $seleccionar_productos = mysqli_query($conexion,  "SELECT * FROM $marca WHERE activo='1' ORDER BY producto ASC");
+            $seleccionar_platos = mysqli_query($conexion,  "SELECT * FROM $marca WHERE activo='1' ORDER BY plato ASC");
             mysqli_close($conexion);            
             ?>
                 <table style="width:700px;margin: 0px auto; font-family:text;color:#535353;">
@@ -151,25 +151,25 @@ if(isset($_GET['nav'])){
                 </tr>
                 <?php
                 $color = 1;
-                while($ver_productos = mysqli_fetch_array($seleccionar_productos)){
+                while($ver_platos = mysqli_fetch_array($seleccionar_platos)){
                     if($color%2==0){ $b_c = "#e5e5e5"; } else { $b_c = "#f2f2f2"; }
                 ?>
                     <tr>
-                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"><p><?php echo $ver_productos['producto']; ?></p></td>
-                        <td style="font-size:12px;vertical-align:bottom;text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_productos['descripcion']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"><p><?php echo $ver_platos['plato']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:bottom;text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_platos['descripcion']; ?></p></td>
                         <?php
                         if($_GET['lista']=="1"){
-                            $precio = $ver_productos['redondeo'];
+                            $precio = $ver_platos['redondeo'];
                         }
                         if($_GET['lista']=="2"){
-                            $precio_original = ($ver_productos['redondeo'] * 9.5) / 100;
-                            $precio = round($ver_productos['redondeo'] + $precio_original, 2);
+                            $precio_original = ($ver_platos['redondeo'] * 9.5) / 100;
+                            $precio = round($ver_platos['redondeo'] + $precio_original, 2);
                         }
                         ?>
                         <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"> <p>$ <?php echo $precio; ?></p></td>                
                     </tr>
                     <tr>
-                        <td style="font-size:12px;vertical-align:top; text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_productos['talles']." - ".$ver_productos['colores']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:top; text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_platos['talles']." - ".$ver_platos['colores']; ?></p></td>
                     </tr>
                 <?php 
                 $color++;

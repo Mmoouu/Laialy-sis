@@ -26,7 +26,7 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$resumen_productos = ""; $comparar_listas = ""; $listas_precios = "";
+$resumen_platos = ""; $comparar_listas = ""; $listas_precios = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];    
@@ -38,9 +38,9 @@ if(isset($_GET['nav'])){
         $titulo_sisint = "Comparar Listas";
         $comparar_listas = "active";
         $resultado_busqueda = "Seleccione una Marca.";
-    } else if ($nav == "resumen_productos"){
-        $titulo_sisint = "Resumen De Productos";
-        $resumen_productos = "active";
+    } else if ($nav == "resumen_platos"){
+        $titulo_sisint = "Resumen De platos";
+        $resumen_platos = "active";
         $resultado_busqueda = "Seleccione una Marca y su fecha de vigencia.";
     }
 }
@@ -79,7 +79,7 @@ if(isset($_GET['nav'])){
     $checked_laialy = ""; $fecha_selec = ""; $catalogo = ""; $precio_catalogo = ""; $checked_lista1 = ""; $checked_lista2 = "";
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(isset($_GET['marca']) and isset($_GET['fecha']) and isset($_GET['catalogo']) and isset($_GET['precio_catalogo'])){
-        if($_GET['marca']=="productos_laialy"){
+        if($_GET['marca']=="platos_laialy"){
             $checked_laialy = "checked='checked'";
             $fecha_selec = $_GET['fecha'];
             $catalogo = $_GET['catalogo'];
@@ -99,7 +99,7 @@ if(isset($_GET['nav'])){
         <form class="form_costos" name="form_costos" action="" method="get" enctype="multipart/form-data">   
             <p class="p_costos">Seleccione una Marca</p>
             <div class='radio_input'> 
-                <input type='radio' name='marca' value='productos_laialy' required <?php echo $checked_laialy; ?> />                       
+                <input type='radio' name='marca' value='platos_laialy' required <?php echo $checked_laialy; ?> />                       
                 <p>Laialy</p>
             </div>
             <br><br>
@@ -154,17 +154,17 @@ if(isset($_GET['nav'])){
             
             $rige = "RIGE A PARTIR DE ".$fecha[2]." DE ".$mes." DE ".$fecha[0];
                         
-            if ($marca == "productos_laialy"){
+            if ($marca == "platos_laialy"){
                 $svg = "";
                 // $svg = "<img style='height:40px;width:75px;' src='http://10.0.0.186/sistema_interno/img/laialy.png'/>";
             } 
         
             require("../conexion.laialy.php");             
-            $seleccionar_productos = mysqli_query($conexion,  "SELECT * FROM $marca WHERE activo='1' ORDER BY producto ASC");
+            $seleccionar_platos = mysqli_query($conexion,  "SELECT * FROM $marca WHERE activo='1' ORDER BY plato ASC");
             mysqli_close($conexion);
             
-            if (!$seleccionar_productos || mysqli_num_rows($seleccionar_productos) == 0){
-                echo "<div style='width:100%; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>No existen productos activos para realizar la consulta</p></div>";
+            if (!$seleccionar_platos || mysqli_num_rows($seleccionar_platos) == 0){
+                echo "<div style='width:100%; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>No existen platos activos para realizar la consulta</p></div>";
             } else { 
                 ?>                
                 <table style="width:700px;margin: 0px auto; font-family:text;color:#535353;">
@@ -214,25 +214,25 @@ if(isset($_GET['nav'])){
                     }
                 }
                 $color = 1;
-                while($ver_productos = mysqli_fetch_array($seleccionar_productos)){
+                while($ver_platos = mysqli_fetch_array($seleccionar_platos)){
                     if($color%2==0){ $b_c = "#e5e5e5"; } else { $b_c = "#f2f2f2"; }
                 ?>
                     <tr>
-                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"><p><?php echo $ver_productos['producto']; ?></p></td>
-                        <td style="font-size:12px;vertical-align:bottom;text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_productos['descripcion']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"><p><?php echo $ver_platos['plato']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:bottom;text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_platos['descripcion']; ?></p></td>
                         <?php
                         if($_GET['lista']=="1"){
-                            $precio = $ver_productos['redondeo'];
+                            $precio = $ver_platos['redondeo'];
                         }
                         if($_GET['lista']=="2"){
-                            $precio_original = ($ver_productos['redondeo'] * 9.5) / 100;
-                            $precio = round($ver_productos['redondeo'] + $precio_original, 2);
+                            $precio_original = ($ver_platos['redondeo'] * 9.5) / 100;
+                            $precio = round($ver_platos['redondeo'] + $precio_original, 2);
                         }
                         ?>                        
                         <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"> <p>$ <?php echo $precio; ?></p></td>                
                     </tr>
                     <tr>
-                        <td style="font-size:12px;vertical-align:top; text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_productos['talles']." / ".$ver_productos['colores']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:top; text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_platos['talles']." / ".$ver_platos['colores']; ?></p></td>
                     </tr>
                 <?php 
                 $color++;

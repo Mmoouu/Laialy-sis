@@ -38,6 +38,7 @@ if(isset($_GET['nav'])){
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////
+$total_paginas = "";
 
 require("../conexion.laialy.php");
 //Evitamos que salgan errores por variables vacías

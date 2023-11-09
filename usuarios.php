@@ -32,7 +32,7 @@ if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
     if ($nav == "usuarios"){
         $titulo_sisint = "Usuarios";
-        $resultado_busqueda = "Consulta de Productos sin resultados";
+        $resultado_busqueda = "Consulta de platos sin resultados";
         $usuarios = "active";
     }    
 }

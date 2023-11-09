@@ -26,13 +26,13 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$productos_laialy = "";
+$platos_laialy = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "productos_laialy"){
-        $titulo_sisint = "Editar Material Productos Laialy";
-        $productos_laialy = "active";
+    if ($nav == "platos_laialy"){
+        $titulo_sisint = "Editar Material platos Laialy";
+        $platos_laialy = "active";
         $resultado_busqueda = "Consulta de Materiales sin resultados";
     }
 }
@@ -73,10 +73,10 @@ if(isset($_GET['nav'])){
             <form class="fomulario_modifica_material1" name="formulario_quita_material" action="" method="POST" enctype="multipart/form-data">
                 
                 <?php 
-                $art_sel = $_GET['id_producto'];
+                $art_sel = $_GET['id_plato'];
                 $mat_sel = $_GET['id_material'];
                 /////////////////////////////////////////////////////////////////////////
-                if ($nav == "productos_laialy"){$nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
+                if ($nav == "platos_laialy"){$nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
                 /////////////////////////////////////////////////////////////////////////
                 require("../conexion.laialy.php");            
                 $seleccionar_los_materiales = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id_material = '$mat_sel'");                      
@@ -166,11 +166,11 @@ if(isset($_GET['nav'])){
 
                     mysqli_query($conexion, "UPDATE $nav_materiales SET insumos='$check_de_insumo', cantidad='$cantidad_real', consumo='$consumo_cambio', val='1' WHERE id_material = '$mat_sel'");
 
-                    mysqli_query($conexion, "UPDATE $nav SET mod_val='1' WHERE id_producto = '$art_sel'");                
+                    mysqli_query($conexion, "UPDATE $nav SET mod_val='1' WHERE id_plato = '$art_sel'");                
                     
                     mysqli_close($conexion);
 
-                    echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&id_producto=$art_sel&mensaje=estructura_material_si#view_$art_sel\";</script>";
+                    echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&id_plato=$art_sel&mensaje=estructura_material_si#view_$art_sel\";</script>";
                     
                 } else if ($cantidad_real !== $material_cantidad_xbase and $consumo_cambio == $material_consumo_xbase){
                     //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
@@ -183,11 +183,11 @@ if(isset($_GET['nav'])){
 
                     mysqli_query($conexion, "UPDATE $nav_materiales SET insumos='$check_de_insumo', cantidad='$cantidad_real', val='1' WHERE id_material = '$mat_sel'");
 
-                    mysqli_query($conexion, "UPDATE $nav SET mod_val='1' WHERE id_producto = '$art_sel'");                
+                    mysqli_query($conexion, "UPDATE $nav SET mod_val='1' WHERE id_plato = '$art_sel'");                
                     
                     mysqli_close($conexion);
 
-                    echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&id_producto=$art_sel&mensaje=estructura_material_si#view_$art_sel\";</script>";
+                    echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&id_plato=$art_sel&mensaje=estructura_material_si#view_$art_sel\";</script>";
                     
                 } else if ($cantidad_real == $material_cantidad_xbase and $consumo_cambio !== $material_consumo_xbase){
                     //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
@@ -200,14 +200,14 @@ if(isset($_GET['nav'])){
 
                     mysqli_query($conexion, "UPDATE $nav_materiales SET insumos='$check_de_insumo', consumo='$consumo_cambio', val='1' WHERE id_material = '$mat_sel'");
 
-                    mysqli_query($conexion, "UPDATE $nav SET mod_val='1' WHERE id_producto = '$art_sel'");                
+                    mysqli_query($conexion, "UPDATE $nav SET mod_val='1' WHERE id_plato = '$art_sel'");                
                     
                     mysqli_close($conexion);
 
-                    echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&id_producto=$art_sel&mensaje=estructura_material_si#view_$art_sel\";</script>";
+                    echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&id_plato=$art_sel&mensaje=estructura_material_si#view_$art_sel\";</script>";
                     
                 } else {
-                    echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&id_producto=$art_sel&mensaje=estructura_material_no\";</script>";
+                    echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&id_plato=$art_sel&mensaje=estructura_material_no\";</script>";
                 }
             }
             ?>

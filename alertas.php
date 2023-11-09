@@ -21,12 +21,12 @@ if(isset($_GET['mensaje'])){
             echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El pedido fue duplicado con exito.</p><script type='text/javascript'>
             $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
             break; 
-        case "borra_productos_si":
-            echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto fue eliminado con exito.</p><script type='text/javascript'>
+        case "borra_platos_si":
+            echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato fue eliminado con exito.</p><script type='text/javascript'>
             $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
             break;
-        case "borra_productos_no":
-            echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto no pudo ser eliminado.</p><script type='text/javascript'>
+        case "borra_platos_no":
+            echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato no pudo ser eliminado.</p><script type='text/javascript'>
             $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
             break; 
         
@@ -142,12 +142,12 @@ if(isset($_GET['mensaje'])){
         echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>La lista no puso ser eliminada.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
-        case "producto_imp_no":
-        echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto no pudo ser impreso.</p><script type='text/javascript'>
+        case "plato_imp_no":
+        echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato no pudo ser impreso.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
-        case "producto_imp_si":
-        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto fue impreso con exito.</p><script type='text/javascript'>
+        case "plato_imp_si":
+        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato fue impreso con exito.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;  
         case "restauracion.si":
@@ -186,44 +186,44 @@ if(isset($_GET['mensaje'])){
         echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>La nueva orden fue creada con exito</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
-        case "producto_actualizado":
-        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto Fue actualizado correctamente</p><script type='text/javascript'>
+        case "plato_actualizado":
+        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato Fue actualizado correctamente</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
         case "activo_1":
         echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El insumo fue activado exitosamente.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
-        case "producto_activo_1":
-        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto fue activado exitosamente.</p><script type='text/javascript'>
+        case "plato_activo_1":
+        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato fue activado exitosamente.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
         case "activo_0":
         echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El insumo fue desactivado.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
-        case "producto_activo_0":
-        echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto fue desactivado.</p><script type='text/javascript'>
+        case "plato_activo_0":
+        echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato fue desactivado.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
-        case "producto_eliminado":
-        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto fue eliminado.</p><script type='text/javascript'>
+        case "plato_eliminado":
+        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato fue eliminado.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
         case "insumo_eliminado":
         echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El Insumo fue eliminado.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
-        case "producto_no_eliminado":
-        echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto no pudo ser eliminado.</p><script type='text/javascript'>
+        case "plato_no_eliminado":
+        echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato no pudo ser eliminado.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
-        case "producto_descarga_si":
-        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto fue Descargado con exito.</p><script type='text/javascript'>
+        case "plato_descarga_si":
+        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato fue Descargado con exito.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
-        case "producto_descarga_no":
-        echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto no pudo ser descargado.</p><script type='text/javascript'>
+        case "plato_descarga_no":
+        echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato no pudo ser descargado.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
         case "cambio_ganancia":
@@ -242,8 +242,8 @@ if(isset($_GET['mensaje'])){
         echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>Se agregó con éxito un nuevo porcentaje.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
-        case "nuevo_producto":
-        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El producto fue creado con exito.</p><script type='text/javascript'>
+        case "nuevo_plato":
+        echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El plato fue creado con exito.</p><script type='text/javascript'>
         $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
         break;
         case "incremento_aplicado":

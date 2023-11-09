@@ -26,25 +26,25 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$productos_laialy = "";
+$platos_laialy = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "productos_laialy"){
-        $titulo_sisint = "Nuevo Producto Laialy";
-        $productos_laialy = "active";
+    if ($nav == "platos_laialy"){
+        $titulo_sisint = "Nuevo plato Laialy";
+        $platos_laialy = "active";
         $resultado_busqueda = "Consulta de insumos sin resultados";
-    } else if ($nav == "productos_belen"){
-        $titulo_sisint = "Productos Belen";
-        $productos_belen = "active";
+    } else if ($nav == "platos_belen"){
+        $titulo_sisint = "platos Belen";
+        $platos_belen = "active";
         $resultado_busqueda = "Consulta de insumos sin resultados";
-    } else if ($nav == "productos_lara"){
-        $titulo_sisint = "Productos Lara";
-        $productos_lara = "active";
+    } else if ($nav == "platos_lara"){
+        $titulo_sisint = "platos Lara";
+        $platos_lara = "active";
         $resultado_busqueda = "Consulta de insumos sin resultados";
-    } else if ($nav == "productos_sigry"){
-        $titulo_sisint = "Productos Sigry";
-        $productos_sigry = "active";
+    } else if ($nav == "platos_sigry"){
+        $titulo_sisint = "platos Sigry";
+        $platos_sigry = "active";
         $resultado_busqueda = "Consulta de insumos sin resultados";
     }
 }
@@ -77,35 +77,35 @@ if(isset($_GET['nav'])){
     <?php require("loader.php");?>
     <p style="width:200px; height: 30px; position:absolute; top:50%; margin-top:50px; left:50%; margin-left:-100px; font-family: text; text-align:center; line-height:30px; color:#a5a5a5;">Procesando</p>
     <?php
-    if(isset($_GET['id_producto']) and isset($_GET['nav'])){
-        $art_sel = $_GET['id_producto'];
+    if(isset($_GET['id_plato']) and isset($_GET['nav'])){
+        $art_sel = $_GET['id_plato'];
         $nav = $_GET['nav'];
         require("../conexion.laialy.php");             
-        $seleccionar_el_producto = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id_producto = '$art_sel'");
+        $seleccionar_el_plato = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id_plato = '$art_sel'");
         mysqli_close($conexion);
-        $ver_el_producto = mysqli_fetch_array($seleccionar_el_producto);
+        $ver_el_plato = mysqli_fetch_array($seleccionar_el_plato);
         //////////////////////////////////////////////////////////////////////////////////////////////
-        if ($nav == "productos_laialy"){$nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
-        else if ($nav == "productos_belen"){$nav_materiales = "materiales_belen"; $nav_insumos = "insumos_belen"; $nhi = "historial_insumos_belen";}
-        else if ($nav == "productos_lara"){$nav_materiales = "materiales_lara"; $nav_insumos = "insumos_lara"; $nhi = "historial_insumos_lara";}
-        else if ($nav == "productos_sigry"){$nav_materiales = "materiales_sigry"; $nav_insumos = "insumos_sigry"; $nhi = "historial_insumos_sigry";}
+        if ($nav == "platos_laialy"){$nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
+        else if ($nav == "platos_belen"){$nav_materiales = "materiales_belen"; $nav_insumos = "insumos_belen"; $nhi = "historial_insumos_belen";}
+        else if ($nav == "platos_lara"){$nav_materiales = "materiales_lara"; $nav_insumos = "insumos_lara"; $nhi = "historial_insumos_lara";}
+        else if ($nav == "platos_sigry"){$nav_materiales = "materiales_sigry"; $nav_insumos = "insumos_sigry"; $nhi = "historial_insumos_sigry";}
         require("../conexion.laialy.php");  
         
         $especial = $nav."_especiales"; 
-        $seleccionar_productos_especiales = mysqli_query($conexion,  "SELECT * FROM $especial WHERE id_producto = '$art_sel' AND activo = '1'");
-        $ver_productos_especiales = mysqli_fetch_array($seleccionar_productos_especiales);
+        $seleccionar_platos_especiales = mysqli_query($conexion,  "SELECT * FROM $especial WHERE id_plato = '$art_sel' AND activo = '1'");
+        $ver_platos_especiales = mysqli_fetch_array($seleccionar_platos_especiales);
         
-        if ($ver_productos_especiales) {
-            $ver_los_porcentajes_producto = $ver_productos_especiales['costo'];
-            $ver_las_perdidas_producto = $ver_productos_especiales['perdida'];
+        if ($ver_platos_especiales) {
+            $ver_los_porcentajes_plato = $ver_platos_especiales['costo'];
+            $ver_las_perdidas_plato = $ver_platos_especiales['perdida'];
         } else {
             $seleccionar_los_porcentajes = mysqli_query($conexion,  "SELECT * FROM porcentaje WHERE marca = '$nav' AND activo = '1'");
             $ver_los_porcentajes = mysqli_fetch_array($seleccionar_los_porcentajes);
-            $ver_los_porcentajes_producto = $ver_los_porcentajes['porcentaje'];                    
+            $ver_los_porcentajes_plato = $ver_los_porcentajes['porcentaje'];                    
             /////////////////////////////////////////////////////////////////////////
             $seleccionar_las_perdidas = mysqli_query($conexion,  "SELECT * FROM perdida WHERE marca = '$nav' AND activo = '1'");
             $ver_las_perdidas = mysqli_fetch_array($seleccionar_las_perdidas); 
-            $ver_las_perdidas_producto = $ver_las_perdidas['porcentaje'];
+            $ver_las_perdidas_plato = $ver_las_perdidas['porcentaje'];
         }
 
         // $seleccionar_los_porcentajes = mysqli_query($conexion,  "SELECT * FROM porcentaje WHERE marca = '$nav' AND activo = '1'");
@@ -114,7 +114,7 @@ if(isset($_GET['nav'])){
         // $seleccionar_las_perdidas = mysqli_query($conexion,  "SELECT * FROM perdida WHERE marca = '$nav' AND activo = '1'");
         // $ver_las_perdidas = mysqli_fetch_array($seleccionar_las_perdidas);
         /////////////////////////////////////////////////////////////////////////
-        $seleccionar_los_materiales = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id_producto = '$art_sel'");
+        $seleccionar_los_materiales = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id_plato = '$art_sel'");
         mysqli_close($conexion);
         $comprobar_suma = "0";
         while ($ver_los_materiales = mysqli_fetch_array($seleccionar_los_materiales)){
@@ -161,71 +161,71 @@ if(isset($_GET['nav'])){
             mysqli_close($conexion);
 
             $comprobar_suma = str_replace(',', '', $comprobar_suma) + str_replace(',', '', $comprobar_total_insumo);
-            $comprobar_total = str_replace(',', '', ($comprobar_suma + $ver_el_producto['taller']));
-            $comprobar_perdidas = (str_replace(',', '', number_format($comprobar_total, 3)) * str_replace(',', '', number_format($ver_las_perdidas_producto, 3))) / 100;
+            $comprobar_total = str_replace(',', '', ($comprobar_suma + $ver_el_plato['taller']));
+            $comprobar_perdidas = (str_replace(',', '', number_format($comprobar_total, 3)) * str_replace(',', '', number_format($ver_las_perdidas_plato, 3))) / 100;
             $comprobar_costo = str_replace(',', '', number_format($comprobar_total, 3)) + str_replace(',', '', number_format($comprobar_perdidas, 3));
-            $comprobar_ganancia = (str_replace(',', '', number_format($comprobar_costo, 3)) * str_replace(',', '', number_format($ver_los_porcentajes_producto, 3))) / 100;
-            $comprobar_venta = ((str_replace(',', '', number_format($comprobar_costo, 3)) * str_replace(',', '', number_format($ver_los_porcentajes_producto, 3))) / 100) + str_replace(',', '', number_format($comprobar_costo, 3));
+            $comprobar_ganancia = (str_replace(',', '', number_format($comprobar_costo, 3)) * str_replace(',', '', number_format($ver_los_porcentajes_plato, 3))) / 100;
+            $comprobar_venta = ((str_replace(',', '', number_format($comprobar_costo, 3)) * str_replace(',', '', number_format($ver_los_porcentajes_plato, 3))) / 100) + str_replace(',', '', number_format($comprobar_costo, 3));
 
             // $comprobar_suma = str_replace(',', '', ($comprobar_suma + $comprobar_total_insumo));
-            // $comprobar_total = str_replace(',', '', ($comprobar_suma + $ver_el_producto['taller']));
-            // $comprobar_perdidas = str_replace(',', '', ((number_format($comprobar_total, 3) * number_format($ver_las_perdidas_producto, 3)) / 100));
+            // $comprobar_total = str_replace(',', '', ($comprobar_suma + $ver_el_plato['taller']));
+            // $comprobar_perdidas = str_replace(',', '', ((number_format($comprobar_total, 3) * number_format($ver_las_perdidas_plato, 3)) / 100));
             // $comprobar_costo = str_replace(',', '', (number_format($comprobar_total, 3) + number_format($comprobar_perdidas, 3)));
-            // $comprobar_ganancia = str_replace(',', '', (number_format($comprobar_costo, 3) * number_format($ver_los_porcentajes_producto, 3)) / 100);
-            // $comprobar_venta = str_replace(',', '', (((number_format($comprobar_costo, 3) * number_format($ver_los_porcentajes_producto, 3)) / 100) + number_format($comprobar_costo, 3)));
+            // $comprobar_ganancia = str_replace(',', '', (number_format($comprobar_costo, 3) * number_format($ver_los_porcentajes_plato, 3)) / 100);
+            // $comprobar_venta = str_replace(',', '', (((number_format($comprobar_costo, 3) * number_format($ver_los_porcentajes_plato, 3)) / 100) + number_format($comprobar_costo, 3)));
         }                 
 
-        $producto_producto_xbase = $ver_el_producto['producto'];
-        $producto_descripcion_xbase = $ver_el_producto['descripcion'];
-        $producto_talles_xbase = $ver_el_producto['talles'];        
-        $producto_colores_xbase = $ver_el_producto['colores'];
-        $producto_suma_xbase = $ver_el_producto['suma'];
-        $producto_taller_xbase = $ver_el_producto['taller'];        
-        $producto_total_xbase = $ver_el_producto['total'];
-        $producto_por_perdidas_xbase = $ver_el_producto['por_perdidas'];
-        $producto_perdidas_xbase = $ver_el_producto['perdidas'];    
-        $producto_por_costo_xbase = $ver_el_producto['por_costo'];
+        $plato_plato_xbase = $ver_el_plato['plato'];
+        $plato_descripcion_xbase = $ver_el_plato['descripcion'];
+        $plato_talles_xbase = $ver_el_plato['talles'];        
+        $plato_colores_xbase = $ver_el_plato['colores'];
+        $plato_suma_xbase = $ver_el_plato['suma'];
+        $plato_taller_xbase = $ver_el_plato['taller'];        
+        $plato_total_xbase = $ver_el_plato['total'];
+        $plato_por_perdidas_xbase = $ver_el_plato['por_perdidas'];
+        $plato_perdidas_xbase = $ver_el_plato['perdidas'];    
+        $plato_por_costo_xbase = $ver_el_plato['por_costo'];
 
-        $producto_por_costo = $ver_los_porcentajes['porcentaje'];
-        $producto_por_perdidas = $ver_las_perdidas['porcentaje'];
+        $plato_por_costo = $ver_los_porcentajes['porcentaje'];
+        $plato_por_perdidas = $ver_las_perdidas['porcentaje'];
 
-        $producto_costo_xbase = $ver_el_producto['costo'];
-        $producto_venta_xbase = $ver_el_producto['venta'];
-        $producto_redondeo_xbase = $ver_el_producto['redondeo'];        
-        $producto_fecha_xbase = $ver_el_producto['dia_mod']."-".$ver_el_producto['mes_mod']."-".$ver_el_producto['anio_mod'];
-        $producto_hora_xbase = $ver_el_producto['hora_mod'];
+        $plato_costo_xbase = $ver_el_plato['costo'];
+        $plato_venta_xbase = $ver_el_plato['venta'];
+        $plato_redondeo_xbase = $ver_el_plato['redondeo'];        
+        $plato_fecha_xbase = $ver_el_plato['dia_mod']."-".$ver_el_plato['mes_mod']."-".$ver_el_plato['anio_mod'];
+        $plato_hora_xbase = $ver_el_plato['hora_mod'];
 
-        $producto_fecha_cambio = date("d-m-y");
-        $producto_hora_cambio = date('His');
+        $plato_fecha_cambio = date("d-m-y");
+        $plato_hora_cambio = date('His');
 
-        $producto_dia_mod = date("d");
-        $producto_mes_mod = date("m");
-        $producto_anio_mod = date("y");
+        $plato_dia_mod = date("d");
+        $plato_mes_mod = date("m");
+        $plato_anio_mod = date("y");
 
         $comprobar_redondeo_para_base = round($comprobar_venta);
 
-        if ($producto_por_costo_xbase !== $producto_por_costo){ $co = "<costo>"; } else { $co = ""; }
-        if ($producto_suma_xbase !== $comprobar_suma){ $s = "<suma>"; } else { $s = ""; } 
-        if ($producto_venta_xbase !== $comprobar_venta){ $v = "<venta>"; } else { $v = ""; }    
+        if ($plato_por_costo_xbase !== $plato_por_costo){ $co = "<costo>"; } else { $co = ""; }
+        if ($plato_suma_xbase !== $comprobar_suma){ $s = "<suma>"; } else { $s = ""; } 
+        if ($plato_venta_xbase !== $comprobar_venta){ $v = "<venta>"; } else { $v = ""; }    
         $tipo_art = $co.$s.$v; 
 
         require("../conexion.laialy.php");
 
-        mysqli_query($conexion, "INSERT INTO historial_$nav (id_historial, tipo, id_producto, producto, descripcion, talles, colores, suma, taller, total, por_perdidas, perdidas, por_costo, costo, venta, redondeo, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'actualizacion','$art_sel','$producto_producto_xbase','$producto_descripcion_xbase','$producto_talles_xbase','$producto_colores_xbase','$producto_suma_xbase','$producto_taller_xbase','$producto_total_xbase','$producto_por_perdidas_xbase','$producto_perdidas_xbase','$producto_por_costo_xbase','$producto_costo_xbase','$producto_venta_xbase','$producto_redondeo_xbase','$tipo_art','$producto_fecha_xbase','$producto_fecha_cambio','$producto_hora_xbase','$producto_hora_cambio')");          
+        mysqli_query($conexion, "INSERT INTO historial_$nav (id_historial, tipo, id_plato, plato, descripcion, talles, colores, suma, taller, total, por_perdidas, perdidas, por_costo, costo, venta, redondeo, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'actualizacion','$art_sel','$plato_plato_xbase','$plato_descripcion_xbase','$plato_talles_xbase','$plato_colores_xbase','$plato_suma_xbase','$plato_taller_xbase','$plato_total_xbase','$plato_por_perdidas_xbase','$plato_perdidas_xbase','$plato_por_costo_xbase','$plato_costo_xbase','$plato_venta_xbase','$plato_redondeo_xbase','$tipo_art','$plato_fecha_xbase','$plato_fecha_cambio','$plato_hora_xbase','$plato_hora_cambio')");          
 
-        mysqli_query($conexion, "UPDATE $nav SET suma='$comprobar_suma', taller='$producto_taller_xbase', total='$comprobar_total', por_perdidas='$producto_por_perdidas', perdidas='$comprobar_perdidas', por_costo='$producto_por_costo', costo='$comprobar_costo', venta='$comprobar_venta', redondeo='$comprobar_redondeo_para_base', dia_mod='$producto_dia_mod', mes_mod='$producto_mes_mod', anio_mod='$producto_anio_mod', hora_mod='$producto_hora_cambio', activo='1' , mod_txt='0', mod_val='0' WHERE id_producto = '$art_sel'");
+        mysqli_query($conexion, "UPDATE $nav SET suma='$comprobar_suma', taller='$plato_taller_xbase', total='$comprobar_total', por_perdidas='$plato_por_perdidas', perdidas='$comprobar_perdidas', por_costo='$plato_por_costo', costo='$comprobar_costo', venta='$comprobar_venta', redondeo='$comprobar_redondeo_para_base', dia_mod='$plato_dia_mod', mes_mod='$plato_mes_mod', anio_mod='$plato_anio_mod', hora_mod='$plato_hora_cambio', activo='1' , mod_txt='0', mod_val='0' WHERE id_plato = '$art_sel'");
 
         //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
         $log_valor = "unico";
-        $log_accion = "Actualiza producto ".$ver_el_producto['producto']." ID ".$art_sel;
+        $log_accion = "Actualiza plato ".$ver_el_plato['plato']." ID ".$art_sel;
         require("log.php");
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         mysqli_close($conexion);
-        echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&id_producto=$art_sel&mensaje=producto_actualizado#view_$art_sel\";</script>";
+        echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&id_plato=$art_sel&mensaje=plato_actualizado#view_$art_sel\";</script>";
 
         } else {
-        echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&id_producto=$art_sel&mensaje=producto_no_actualizado#view_$art_sel\";</script>";
+        echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&id_plato=$art_sel&mensaje=plato_no_actualizado#view_$art_sel\";</script>";
     }
     ?>
     </section>

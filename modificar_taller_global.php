@@ -26,16 +26,16 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$productos_laialy = "";
+$platos_laialy = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    // $id_p_round = $_GET['id_producto'];
-    $where = "WHERE activo = 1 ORDER BY producto ASC";
-    if ($nav == "productos_laialy"){
-        $titulo_sisint = "Modifica Talleres Productos Laialy";
-        $productos_laialy = "active";
-        $resultado_busqueda = "Consulta de Productos sin resultados";
+    // $id_p_round = $_GET['id_plato'];
+    $where = "WHERE activo = 1 ORDER BY plato ASC";
+    if ($nav == "platos_laialy"){
+        $titulo_sisint = "Modifica Talleres platos Laialy";
+        $platos_laialy = "active";
+        $resultado_busqueda = "Consulta de platos sin resultados";
     }
 }
 ?>
@@ -77,7 +77,7 @@ if(isset($_GET['nav'])){
     <?php
 
     echo    "<div class='fneworder_dos'>
-    <label><p>Producto</p></label>    
+    <label><p>plato</p></label>    
     </div>
     <div class='espacio'><p></p></div>
     <div class='fneworder_cuatro'>
@@ -90,13 +90,13 @@ if(isset($_GET['nav'])){
     
     require("../conexion.laialy.php");  
     $count = 0;
-    $consulta_de_productos = mysqli_query($conexion, "SELECT * FROM $nav $where");
-    while ($productos_seleccionados = mysqli_fetch_array($consulta_de_productos)){
-        $cambio_taller_producto = $productos_seleccionados['producto'];
-        $cambio_taller_taller = $productos_seleccionados['taller'];        
+    $consulta_de_platos = mysqli_query($conexion, "SELECT * FROM $nav $where");
+    while ($platos_seleccionados = mysqli_fetch_array($consulta_de_platos)){
+        $cambio_taller_plato = $platos_seleccionados['plato'];
+        $cambio_taller_taller = $platos_seleccionados['taller'];        
 
         echo    "<div class='fneworder_dos'>
-                    <input type='text' name='producto_".$count."' value='".$cambio_taller_producto."' readonly/>
+                    <input type='text' name='plato_".$count."' value='".$cambio_taller_plato."' readonly/>
                 </div>
                 <div class='espacio'><p></p></div>
                 <div class='fneworder_cuatro'>
@@ -132,46 +132,46 @@ if(isset($_GET['nav'])){
                 
                     for ($elemento=0; $elemento<$count; $elemento++){
 
-                        $form_producto = $_POST['producto_'.$elemento];
+                        $form_plato = $_POST['plato_'.$elemento];
                         $form_taller = $_POST['taller_'.$elemento];
                         $form_cambio_taller = $_POST['cambio_taller_'.$elemento];
                         $form_por_cambio_taller = number_format($form_cambio_taller, 3);
 
                         if ($form_cambio_taller !== ""){
                             
-                            $consulta_de_productos_listados = mysqli_query($conexion, "SELECT * FROM $nav WHERE producto='$form_producto' AND active = '1'");  
+                            $consulta_de_platos_listados = mysqli_query($conexion, "SELECT * FROM $nav WHERE plato='$form_plato' AND active = '1'");  
 
-                            $producto_seleccionado = mysqli_fetch_array($consulta_de_productos_listados);
-                            $art_sel = $productos_seleccionados['id_producto'];
-                            $art_producto = $productos_seleccionados['producto'];
-                            $art_descripcion = $productos_seleccionados['descripcion'];
-                            $art_talles = $productos_seleccionados['talles'];
-                            $art_colores = $productos_seleccionados['colores'];
-                            $art_suma = $productos_seleccionados['suma'];
-                            $art_taller = $productos_seleccionados['taller'];
-                            $art_total = $productos_seleccionados['total'];
-                            $art_por_perdidas = $productos_seleccionados['por_perdidas'];
-                            $art_perdidas = $productos_seleccionados['perdidas'];
-                            $art_por_costo = $productos_seleccionados['por_costo'];
-                            $art_costo = $productos_seleccionados['costo'];
-                            $art_venta = $productos_seleccionados['venta'];
-                            $art_redondeo = $productos_seleccionados['redondeo'];
-                            $art_creacion = $productos_seleccionados['creacion'];
-                            $art_dia_mod = $productos_seleccionados['dia_mod'];
-                            $art_mes_mod = $productos_seleccionados['mes_mod'];
-                            $art_anio_mod = $productos_seleccionados['anio_mod'];
-                            $art_hora_mod = $productos_seleccionados['hora_mod'];
-                            $art_activo = $productos_seleccionados['activo'];
-                            $art_mod_txt = $productos_seleccionados['mod_txt'];
-                            $art_mod_val = $productos_seleccionados['mod_val'];
+                            $plato_seleccionado = mysqli_fetch_array($consulta_de_platos_listados);
+                            $art_sel = $platos_seleccionados['id_plato'];
+                            $art_plato = $platos_seleccionados['plato'];
+                            $art_descripcion = $platos_seleccionados['descripcion'];
+                            $art_talles = $platos_seleccionados['talles'];
+                            $art_colores = $platos_seleccionados['colores'];
+                            $art_suma = $platos_seleccionados['suma'];
+                            $art_taller = $platos_seleccionados['taller'];
+                            $art_total = $platos_seleccionados['total'];
+                            $art_por_perdidas = $platos_seleccionados['por_perdidas'];
+                            $art_perdidas = $platos_seleccionados['perdidas'];
+                            $art_por_costo = $platos_seleccionados['por_costo'];
+                            $art_costo = $platos_seleccionados['costo'];
+                            $art_venta = $platos_seleccionados['venta'];
+                            $art_redondeo = $platos_seleccionados['redondeo'];
+                            $art_creacion = $platos_seleccionados['creacion'];
+                            $art_dia_mod = $platos_seleccionados['dia_mod'];
+                            $art_mes_mod = $platos_seleccionados['mes_mod'];
+                            $art_anio_mod = $platos_seleccionados['anio_mod'];
+                            $art_hora_mod = $platos_seleccionados['hora_mod'];
+                            $art_activo = $platos_seleccionados['activo'];
+                            $art_mod_txt = $platos_seleccionados['mod_txt'];
+                            $art_mod_val = $platos_seleccionados['mod_val'];
                             $art_fecha = $art_dia_mod."-".$art_mes_mod."-".$art_anio_mod;
                             $fecha = date("d-m-y");
                             $hora = date('His');
-                            mysqli_query($conexion, "INSERT INTO historial_$nav (id_historial, tipo, id_producto, producto, descripcion, talles, colores, suma, taller, total, por_perdidas, perdidas, por_costo, costo, venta, redondeo, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'taller','$art_sel','$art_producto','$art_descripcion','$art_talles','$art_colores','$art_suma','$art_taller','$art_total','$art_por_perdidas','$art_perdidas','$art_por_costo','$art_costo','$art_venta','$art_redondeo','$form_por_cambio_taller','$art_fecha','$fecha','$art_hora_mod','$hora')");
-                            mysqli_query($conexion, "UPDATE $nav SET taller='$form_por_cambio_taller', mod_val='1' WHERE producto = '$form_producto' AND activo = '1'");
+                            mysqli_query($conexion, "INSERT INTO historial_$nav (id_historial, tipo, id_plato, plato, descripcion, talles, colores, suma, taller, total, por_perdidas, perdidas, por_costo, costo, venta, redondeo, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'taller','$art_sel','$art_plato','$art_descripcion','$art_talles','$art_colores','$art_suma','$art_taller','$art_total','$art_por_perdidas','$art_perdidas','$art_por_costo','$art_costo','$art_venta','$art_redondeo','$form_por_cambio_taller','$art_fecha','$fecha','$art_hora_mod','$hora')");
+                            mysqli_query($conexion, "UPDATE $nav SET taller='$form_por_cambio_taller', mod_val='1' WHERE plato = '$form_plato' AND activo = '1'");
                             //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
                             $log_accion = "cambia taller global"; 
-                            $log_valor = "art ".$form_producto." de ".$form_taller." a ".$form_por_cambio_taller;                    
+                            $log_valor = "art ".$form_plato." de ".$form_taller." a ".$form_por_cambio_taller;                    
                             require("log.php");
                             //////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -180,7 +180,7 @@ if(isset($_GET['nav'])){
                     }
 
                     mysqli_close($conexion);
-                    echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&mensaje=si_taller\";</script>";
+                    echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&mensaje=si_taller\";</script>";
                     
             } 
         ?>

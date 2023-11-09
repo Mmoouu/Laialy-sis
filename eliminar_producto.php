@@ -26,18 +26,18 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-if(isset($_GET['id_producto']) and isset($_GET['nav'])){
-    $art_sel = $_GET['id_producto'];
+if(isset($_GET['id_plato']) and isset($_GET['nav'])){
+    $art_sel = $_GET['id_plato'];
     $nav = $_GET['nav'];
     require("../conexion.laialy.php");             
-    $seleccionar_el_producto = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id_producto = '$art_sel'");
+    $seleccionar_el_plato = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id_plato = '$art_sel'");
     mysqli_close($conexion);
-    $ver_el_producto = mysqli_fetch_array($seleccionar_el_producto);
+    $ver_el_plato = mysqli_fetch_array($seleccionar_el_plato);
     //////////////////////////////////////////////////////////////////////////////////////////////
-    if ($nav == "productos_laialy"){$nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
+    if ($nav == "platos_laialy"){$nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
     require("../conexion.laialy.php");             
     /////////////////////////////////////////////////////////////////////////            
-    $seleccionar_los_materiales = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id_producto = '$art_sel'");
+    $seleccionar_los_materiales = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id_plato = '$art_sel'");
     mysqli_close($conexion);
     while ($ver_los_materiales = mysqli_fetch_array($seleccionar_los_materiales)){                
         
@@ -69,50 +69,50 @@ if(isset($_GET['id_producto']) and isset($_GET['nav'])){
                                                             
     }                 
                 
-    $producto_producto_xbase = $ver_el_producto['producto'];
-    $producto_descripcion_xbase = $ver_el_producto['descripcion'];
-    $producto_talles_xbase = $ver_el_producto['talles'];        
-    $producto_colores_xbase = $ver_el_producto['colores'];
-    $producto_suma_xbase = $ver_el_producto['suma'];
-    $producto_taller_xbase = $ver_el_producto['taller'];        
-    $producto_total_xbase = $ver_el_producto['total'];
-    $producto_por_perdidas_xbase = $ver_el_producto['por_perdidas'];
-    $producto_perdidas_xbase = $ver_el_producto['perdidas'];    
-    $producto_por_costo_xbase = $ver_el_producto['por_costo'];
+    $plato_plato_xbase = $ver_el_plato['plato'];
+    $plato_descripcion_xbase = $ver_el_plato['descripcion'];
+    $plato_talles_xbase = $ver_el_plato['talles'];        
+    $plato_colores_xbase = $ver_el_plato['colores'];
+    $plato_suma_xbase = $ver_el_plato['suma'];
+    $plato_taller_xbase = $ver_el_plato['taller'];        
+    $plato_total_xbase = $ver_el_plato['total'];
+    $plato_por_perdidas_xbase = $ver_el_plato['por_perdidas'];
+    $plato_perdidas_xbase = $ver_el_plato['perdidas'];    
+    $plato_por_costo_xbase = $ver_el_plato['por_costo'];
     
-    $producto_costo_xbase = $ver_el_producto['costo'];
-    $producto_venta_xbase = $ver_el_producto['venta'];
-    $producto_redondeo_xbase = $ver_el_producto['redondeo'];        
-    $producto_fecha_xbase = $ver_el_producto['dia_mod']."-".$ver_el_producto['mes_mod']."-".$ver_el_producto['anio_mod'];
-    $producto_hora_xbase = $ver_el_producto['hora_mod'];
+    $plato_costo_xbase = $ver_el_plato['costo'];
+    $plato_venta_xbase = $ver_el_plato['venta'];
+    $plato_redondeo_xbase = $ver_el_plato['redondeo'];        
+    $plato_fecha_xbase = $ver_el_plato['dia_mod']."-".$ver_el_plato['mes_mod']."-".$ver_el_plato['anio_mod'];
+    $plato_hora_xbase = $ver_el_plato['hora_mod'];
         
-    $producto_fecha_cambio = date("d-m-y");
-    $producto_hora_cambio = date('His');
+    $plato_fecha_cambio = date("d-m-y");
+    $plato_hora_cambio = date('His');
         
-    $producto_dia_mod = date("d");
-    $producto_mes_mod = date("m");
-    $producto_anio_mod = date("y");
+    $plato_dia_mod = date("d");
+    $plato_mes_mod = date("m");
+    $plato_anio_mod = date("y");
     
     $tipo_art = "<eliminado>"; 
     
     require("../conexion.laialy.php");
     
-    mysqli_query($conexion, "INSERT INTO historial_$nav (id_historial, tipo, id_producto, producto, descripcion, talles, colores, suma, taller, total, por_perdidas, perdidas, por_costo, costo, venta, redondeo, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'elimina','$art_sel','$producto_producto_xbase','$producto_descripcion_xbase','$producto_talles_xbase','$producto_colores_xbase','$producto_suma_xbase','$producto_taller_xbase','$producto_total_xbase','$producto_por_perdidas_xbase','$producto_perdidas_xbase','$producto_por_costo_xbase','$producto_costo_xbase','$producto_venta_xbase','$producto_redondeo_xbase','$tipo_art','$producto_fecha_xbase','$producto_fecha_cambio','$producto_hora_xbase','$producto_hora_cambio')");          
+    mysqli_query($conexion, "INSERT INTO historial_$nav (id_historial, tipo, id_plato, plato, descripcion, talles, colores, suma, taller, total, por_perdidas, perdidas, por_costo, costo, venta, redondeo, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'elimina','$art_sel','$plato_plato_xbase','$plato_descripcion_xbase','$plato_talles_xbase','$plato_colores_xbase','$plato_suma_xbase','$plato_taller_xbase','$plato_total_xbase','$plato_por_perdidas_xbase','$plato_perdidas_xbase','$plato_por_costo_xbase','$plato_costo_xbase','$plato_venta_xbase','$plato_redondeo_xbase','$tipo_art','$plato_fecha_xbase','$plato_fecha_cambio','$plato_hora_xbase','$plato_hora_cambio')");          
                 
-    mysqli_query($conexion, "DELETE FROM $nav WHERE id_producto = '$art_sel'");
+    mysqli_query($conexion, "DELETE FROM $nav WHERE id_plato = '$art_sel'");
     
     //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
-    $log_valor = "ID ".$art_sel." producto ".$ver_el_producto['producto'];
-    $log_accion = "Elimina Producto";
+    $log_valor = "ID ".$art_sel." plato ".$ver_el_plato['plato'];
+    $log_accion = "Elimina plato";
     require("log.php");
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     mysqli_close($conexion);
     
-    echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&mensaje=producto_eliminado\";</script>"; 
+    echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&mensaje=plato_eliminado\";</script>"; 
     
     } else {
     
-    echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&mensaje=producto_no_eliminado\";</script>";
+    echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&mensaje=plato_no_eliminado\";</script>";
 }
 ?>

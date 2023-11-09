@@ -142,11 +142,11 @@ if(isset($_GET['nav'])){
             mysqli_query($conexion, "UPDATE $nav_pesifica SET valor='$valor_final_formateado', dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod' WHERE id_insumo='$id_insumo_seleccionado'");
                         
             //////////////////////////////////////////ACTUALIZA MATERIALES////////////////////////////////////////////////////////
-            if ($nav == "insumos_uss_laialy"){$nav_materiales = "materiales_laialy"; $nav_productos = "productos_laialy";}
+            if ($nav == "insumos_uss_laialy"){$nav_materiales = "materiales_laialy"; $nav_platos = "platos_laialy";}
             $consulta_de_materiales = mysqli_query($conexion, "SELECT * FROM $nav_materiales WHERE insumos LIKE '$id_insumo_seleccionado-%' OR insumos LIKE '%-$id_insumo_seleccionado-%' OR insumos LIKE '%-$id_insumo_seleccionado' OR insumos LIKE '$id_insumo_seleccionado'");
 
             while ($listado_de_materiales = mysqli_fetch_array($consulta_de_materiales)){ 
-                $id_para_pasar = $listado_de_materiales['id_producto'];
+                $id_para_pasar = $listado_de_materiales['id_plato'];
                 $id_para_pasar_material = $listado_de_materiales['id_material'];
 
                 mysqli_query($conexion, "UPDATE $nav_materiales SET act='0' WHERE id_material = '$id_para_pasar_material'");
@@ -158,7 +158,7 @@ if(isset($_GET['nav'])){
                 }
 
                 mysqli_query($conexion, "UPDATE $nav_materiales SET act='$id_insumo_actualizado' WHERE id_material = '$id_para_pasar_material'");
-                mysqli_query($conexion, "UPDATE $nav_productos SET mod_val='1' WHERE id_producto = '$id_para_pasar'");
+                mysqli_query($conexion, "UPDATE $nav_platos SET mod_val='1' WHERE id_plato = '$id_para_pasar'");
             }
         } 
         

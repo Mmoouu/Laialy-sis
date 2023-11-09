@@ -26,13 +26,13 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$productos_laialy = "";
+$platos_laialy = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "productos_laialy"){
+    if ($nav == "platos_laialy"){
         $titulo_sisint = "Listas de Precios Laialy";
-        $productos_laialy = "active";
+        $platos_laialy = "active";
         $resultado_busqueda = "Seleccione una lista para visualizar<br>Seleccione una fecha para fijar una nueva lista.";
     }
 }
@@ -66,11 +66,11 @@ if(isset($_GET['nav'])){
     <div id="cabecera_sisint">
         <h1><?php echo $titulo_sisint; ?></h1>
     </div>
-    <div id="columna_listas_productos">
+    <div id="columna_listas_platos">
         <p class="p_costos">Listas Fijas Disponibles</p>
         <?php
         require("../conexion.laialy.php");
-        $consulta_de_listas = mysqli_query($conexion, "SELECT DISTINCT lista, dia_mod, mes_mod, anio_mod FROM lista_productos WHERE marca='$nav'");
+        $consulta_de_listas = mysqli_query($conexion, "SELECT DISTINCT lista, dia_mod, mes_mod, anio_mod FROM lista_platos WHERE marca='$nav'");
         mysqli_close($conexion);
         while($vista_de_listas = mysqli_fetch_array($consulta_de_listas)){
             $lista_numero = $vista_de_listas['lista'];
@@ -83,13 +83,13 @@ if(isset($_GET['nav'])){
             } else {
                 $estado_lista = "";
             }
-            echo "<div class='item_listas_fijadas ".$estado_lista."'><p onclick='location.href=\"fijar_productos.php?nav=".$nav."&lista_numero=".$lista_numero."&fecha=".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."\"'><span>".$lista_numero."</span>".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."</p><img title='Eliminar' onclick='location.href=\"fijar_productos.php?nav=".$nav."&lista_numero=".$lista_numero."&fecha=".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."&pop_up=eliminar\"' class='borrar_lista_fijada' src='img/x_blanca.svg'></div>";
+            echo "<div class='item_listas_fijadas ".$estado_lista."'><p onclick='location.href=\"fijar_platos.php?nav=".$nav."&lista_numero=".$lista_numero."&fecha=".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."\"'><span>".$lista_numero."</span>".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."</p><img title='Eliminar' onclick='location.href=\"fijar_platos.php?nav=".$nav."&lista_numero=".$lista_numero."&fecha=".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."&pop_up=eliminar\"' class='borrar_lista_fijada' src='img/x_blanca.svg'></div>";
         }
         ?>
     </div>
     <?php
     require("../conexion.laialy.php");
-    $consulta_de_ultima_lista = mysqli_query($conexion, "SELECT lista FROM lista_productos WHERE marca='$nav' ORDER BY id DESC LIMIT 1");
+    $consulta_de_ultima_lista = mysqli_query($conexion, "SELECT lista FROM lista_platos WHERE marca='$nav' ORDER BY id DESC LIMIT 1");
     $vista_de_ultima_lista = mysqli_fetch_array($consulta_de_ultima_lista);
     $nuevo_numero_lista = $vista_de_ultima_lista['lista'] + 1;
     mysqli_close($conexion);
@@ -149,16 +149,16 @@ if(isset($_GET['nav'])){
 
             $rige = "RIGE A PARTIR DEL ".$fecha[0]." DE ".$mes." DE ".$fecha[2];
 
-            if ($nav == "productos_laialy"){
+            if ($nav == "platos_laialy"){
                 $svg = "<img style='height:40px;width:75px;' src='http://10.0.0.18/sistema_interno/img/laialy.png'/>";
             }
 
             require("../conexion.laialy.php");
-            $seleccionar_productos = mysqli_query($conexion,  "SELECT * FROM lista_productos WHERE marca='$nav' AND dia_mod='$fecha[0]' AND mes_mod='$fecha[1]' AND anio_mod='$fecha[2]' AND lista='$lista_verla' ORDER BY producto ASC");
+            $seleccionar_platos = mysqli_query($conexion,  "SELECT * FROM lista_platos WHERE marca='$nav' AND dia_mod='$fecha[0]' AND mes_mod='$fecha[1]' AND anio_mod='$fecha[2]' AND lista='$lista_verla' ORDER BY plato ASC");
 
 
-            if (!$seleccionar_productos || mysqli_num_rows($seleccionar_productos) == 0){
-                $seleccionar_productos = mysqli_query($conexion,  "SELECT * FROM $nav WHERE activo='1' ORDER BY producto ASC");
+            if (!$seleccionar_platos || mysqli_num_rows($seleccionar_platos) == 0){
+                $seleccionar_platos = mysqli_query($conexion,  "SELECT * FROM $nav WHERE activo='1' ORDER BY plato ASC");
                 $rige = "RIGE A PARTIR DEL ".$fecha[2]." DE ".$mes." DE ".$fecha[0];
                 ?>
 
@@ -187,29 +187,29 @@ if(isset($_GET['nav'])){
                 </tr>
                 <?php
                 $color = 1;
-                //$cantidad_de_productos = 0;
-                while($ver_productos = mysqli_fetch_array($seleccionar_productos)){
+                //$cantidad_de_platos = 0;
+                while($ver_platos = mysqli_fetch_array($seleccionar_platos)){
                     if($color%2==0){ $b_c = "#e5e5e5"; } else { $b_c = "#f2f2f2"; }
-                    $el_producto = $ver_productos['producto'];
-                    $seleccionar_descripciones = mysqli_query($conexion,  "SELECT * FROM $nav WHERE producto='$el_producto' AND activo = 1 ORDER BY producto ASC");
+                    $el_plato = $ver_platos['plato'];
+                    $seleccionar_descripciones = mysqli_query($conexion,  "SELECT * FROM $nav WHERE plato='$el_plato' AND activo = 1 ORDER BY plato ASC");
                     $ver_descripciones = mysqli_fetch_array($seleccionar_descripciones);
-                    //$cantidad_de_productos += 1;
-                    $ver_productos_redondeo = $ver_productos['redondeo'];
+                    //$cantidad_de_platos += 1;
+                    $ver_platos_redondeo = $ver_platos['redondeo'];
                 ?>
                     <tr>
                         <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2">
-                          <p><?php echo $ver_productos['producto']; ?></p>
+                          <p><?php echo $ver_platos['plato']; ?></p>
                         </td>
                         <td style="font-size:12px;vertical-align:bottom;text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;">
-                          <p><?php echo $ver_productos['descripcion']; ?></p>
+                          <p><?php echo $ver_platos['descripcion']; ?></p>
                         </td>
                         <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2">
-                          <p><input style="font-size:12px;vertical-align:bottom;text-align:center;height:20px;width:50px;background-color:<?php echo $b_c; ?>;border:none;text-align:center;" type="text" name="redondeo[]" value="<?php echo $ver_productos_redondeo; ?>" required/></p>
+                          <p><input style="font-size:12px;vertical-align:bottom;text-align:center;height:20px;width:50px;background-color:<?php echo $b_c; ?>;border:none;text-align:center;" type="text" name="redondeo[]" value="<?php echo $ver_platos_redondeo; ?>" required/></p>
                         </td>                        
                     </tr>
                     <tr>
                         <td style="font-size:12px;vertical-align:top; text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;">
-                          <p><?php echo $ver_productos['talles']." / ".$ver_productos['colores']; ?></p>
+                          <p><?php echo $ver_platos['talles']." / ".$ver_platos['colores']; ?></p>
                         </td>
                     </tr>                    
                 <?php
@@ -286,18 +286,18 @@ if(isset($_GET['nav'])){
                 </tr>
                 <?php
                 $color = 1;
-                while($ver_productos = mysqli_fetch_array($seleccionar_productos)){
+                while($ver_platos = mysqli_fetch_array($seleccionar_platos)){
                     if($color%2==0){ $b_c = "#e5e5e5"; } else { $b_c = "#f2f2f2"; }
-                    $el_producto = $ver_productos['producto'];
-                    $seleccionar_descripciones = mysqli_query($conexion,  "SELECT * FROM historial_$nav WHERE producto='$el_producto' ORDER BY producto ASC");
+                    $el_plato = $ver_platos['plato'];
+                    $seleccionar_descripciones = mysqli_query($conexion,  "SELECT * FROM historial_$nav WHERE plato='$el_plato' ORDER BY plato ASC");
                     $ver_descripciones = mysqli_fetch_array($seleccionar_descripciones);
                 ?>
                     <tr>
-                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"><p><?php echo $ver_productos['producto']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"><p><?php echo $ver_platos['plato']; ?></p></td>
 
                         <td style="font-size:12px;vertical-align:bottom;text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_descripciones['descripcion']; ?></p></td>
 
-                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"> <p>$ <?php echo $ver_productos['redondeo']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"> <p>$ <?php echo $ver_platos['redondeo']; ?></p></td>
                     </tr>
                     <tr>
                         <td style="font-size:12px;vertical-align:top; text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_descripciones['talles']." / ".$ver_descripciones['colores']; ?></p></td>

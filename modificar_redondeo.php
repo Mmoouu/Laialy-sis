@@ -26,16 +26,16 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$productos_laialy = "";
+$platos_laialy = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
-if(isset($_GET['nav']) and isset($_GET['id_producto'])){
+if(isset($_GET['nav']) and isset($_GET['id_plato'])){
     $nav = $_GET['nav'];
-    $id_p_round = $_GET['id_producto'];
-    $where = "WHERE id_producto = ".$id_p_round;
-    if ($nav == "productos_laialy"){
-        $titulo_sisint = "Redondeo Productos Laialy";
-        $productos_laialy = "active";
-        $resultado_busqueda = "Consulta de Productos sin resultados";
+    $id_p_round = $_GET['id_plato'];
+    $where = "WHERE id_plato = ".$id_p_round;
+    if ($nav == "platos_laialy"){
+        $titulo_sisint = "Redondeo platos Laialy";
+        $platos_laialy = "active";
+        $resultado_busqueda = "Consulta de platos sin resultados";
     }
 }
 ?>
@@ -71,19 +71,19 @@ if(isset($_GET['nav']) and isset($_GET['id_producto'])){
     </div>
     <?php
     require("../conexion.laialy.php");
-    $consulta_de_productos = mysqli_query($conexion, "SELECT * FROM $nav $where");
-    $producto_seleccionado = mysqli_fetch_array($consulta_de_productos);    
-    $cambio_redondeo_producto = $producto_seleccionado['producto'];
-    $cambio_redondeo_venta = $producto_seleccionado['venta'];
-    $cambio_redondeo_redondeo = $producto_seleccionado['redondeo'];
+    $consulta_de_platos = mysqli_query($conexion, "SELECT * FROM $nav $where");
+    $plato_seleccionado = mysqli_fetch_array($consulta_de_platos);    
+    $cambio_redondeo_plato = $plato_seleccionado['plato'];
+    $cambio_redondeo_venta = $plato_seleccionado['venta'];
+    $cambio_redondeo_redondeo = $plato_seleccionado['redondeo'];
     mysqli_close($conexion);
     ?>
     <div id="nuevo_ingreso">
         <div class="linea_form_nuevo_ingreso"></div>
         <form class="fomulario_nuevo_ingreso" name="formulario_nuevo_ingreso" action="" method="post" enctype="multipart/form-data">
             <div class="fneworder_cuatro">
-                <label><p>Producto</p></label>
-                <input type="text" name="producto" value="<?php echo $cambio_redondeo_producto; ?>" readonly/>
+                <label><p>plato</p></label>
+                <input type="text" name="plato" value="<?php echo $cambio_redondeo_plato; ?>" readonly/>
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_cuatro">
@@ -111,47 +111,47 @@ if(isset($_GET['nav']) and isset($_GET['id_producto'])){
                 
                 
                 if ($form_cambio_redondeo == "0" or $form_cambio_redondeo == "" or $form_cambio_redondeo == $form_redondeo){
-                    echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&mensaje=no_redondeo&id_producto=$id_p_round#view_$id_p_round\";</script>";       
+                    echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&mensaje=no_redondeo&id_plato=$id_p_round#view_$id_p_round\";</script>";       
                 } else {                    
                     require("../conexion.laialy.php");
                     
-                    $art_sel = $producto_seleccionado['id_producto'];
-                    $art_producto = $producto_seleccionado['producto'];
-                    $art_descripcion = $producto_seleccionado['descripcion'];
-                    $art_talles = $producto_seleccionado['talles'];
-                    $art_colores = $producto_seleccionado['colores'];
-                    $art_suma = $producto_seleccionado['suma'];
-                    $art_taller = $producto_seleccionado['taller'];
-                    $art_total = $producto_seleccionado['total'];
-                    $art_por_perdidas = $producto_seleccionado['por_perdidas'];
-                    $art_perdidas = $producto_seleccionado['perdidas'];
-                    $art_por_costo = $producto_seleccionado['por_costo'];
-                    $art_costo = $producto_seleccionado['costo'];
-                    $art_venta = $producto_seleccionado['venta'];
-                    $art_redondeo = $producto_seleccionado['redondeo'];
-                    $art_creacion = $producto_seleccionado['creacion'];
-                    $art_dia_mod = $producto_seleccionado['dia_mod'];
-                    $art_mes_mod = $producto_seleccionado['mes_mod'];
-                    $art_anio_mod = $producto_seleccionado['anio_mod'];
-                    $art_hora_mod = $producto_seleccionado['hora_mod'];
-                    $art_activo = $producto_seleccionado['activo'];
-                    $art_mod_txt = $producto_seleccionado['mod_txt'];
-                    $art_sel = $producto_seleccionado['mod_val'];
+                    $art_sel = $plato_seleccionado['id_plato'];
+                    $art_plato = $plato_seleccionado['plato'];
+                    $art_descripcion = $plato_seleccionado['descripcion'];
+                    $art_talles = $plato_seleccionado['talles'];
+                    $art_colores = $plato_seleccionado['colores'];
+                    $art_suma = $plato_seleccionado['suma'];
+                    $art_taller = $plato_seleccionado['taller'];
+                    $art_total = $plato_seleccionado['total'];
+                    $art_por_perdidas = $plato_seleccionado['por_perdidas'];
+                    $art_perdidas = $plato_seleccionado['perdidas'];
+                    $art_por_costo = $plato_seleccionado['por_costo'];
+                    $art_costo = $plato_seleccionado['costo'];
+                    $art_venta = $plato_seleccionado['venta'];
+                    $art_redondeo = $plato_seleccionado['redondeo'];
+                    $art_creacion = $plato_seleccionado['creacion'];
+                    $art_dia_mod = $plato_seleccionado['dia_mod'];
+                    $art_mes_mod = $plato_seleccionado['mes_mod'];
+                    $art_anio_mod = $plato_seleccionado['anio_mod'];
+                    $art_hora_mod = $plato_seleccionado['hora_mod'];
+                    $art_activo = $plato_seleccionado['activo'];
+                    $art_mod_txt = $plato_seleccionado['mod_txt'];
+                    $art_sel = $plato_seleccionado['mod_val'];
                     $art_fecha = $art_dia_mod."-".$art_mes_mod."-".$art_anio_mod;
                     $fecha = date("d-m-y");
                     $hora = date('His');
                     
-                    mysqli_query($conexion, "INSERT INTO historial_$nav (id_historial, tipo, id_producto, producto, descripcion, talles, colores, suma, taller, total, por_perdidas, perdidas, por_costo, costo, venta, redondeo, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'redondeo','$art_sel','$art_producto','$art_descripcion','$art_talles','$art_colores','$art_suma','$art_taller','$art_total','$art_por_perdidas','$art_perdidas','$art_por_costo','$art_costo','$art_venta','$art_redondeo','$form_cambio_redondeo','$art_fecha','$fecha','$art_hora_mod','$hora')");                    
+                    mysqli_query($conexion, "INSERT INTO historial_$nav (id_historial, tipo, id_plato, plato, descripcion, talles, colores, suma, taller, total, por_perdidas, perdidas, por_costo, costo, venta, redondeo, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'redondeo','$art_sel','$art_plato','$art_descripcion','$art_talles','$art_colores','$art_suma','$art_taller','$art_total','$art_por_perdidas','$art_perdidas','$art_por_costo','$art_costo','$art_venta','$art_redondeo','$form_cambio_redondeo','$art_fecha','$fecha','$art_hora_mod','$hora')");                    
                     
                     mysqli_query($conexion, "UPDATE $nav SET redondeo='$form_cambio_redondeo' $where");                    
                     //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
                     $log_accion = "cambia redonde"; 
-                    $log_valor = "art ".$cambio_redondeo_producto." de ".$form_redondeo." - ".$form_cambio_redondeo;                    
+                    $log_valor = "art ".$cambio_redondeo_plato." de ".$form_redondeo." - ".$form_cambio_redondeo;                    
                     require("log.php");
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////                    
                     mysqli_close($conexion);
                     
-                    echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&mensaje=si_redondeo&id_producto=$id_p_round#view_$id_p_round\";</script>";
+                    echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&mensaje=si_redondeo&id_plato=$id_p_round#view_$id_p_round\";</script>";
                 }  
             } 
         ?>

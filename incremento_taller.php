@@ -26,25 +26,25 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$productos_laialy = ""; $where = ""; 
+$platos_laialy = ""; $where = ""; 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "productos_laialy"){
+    if ($nav == "platos_laialy"){
         $titulo_sisint = "Incremento en Talleres Laialy";
-        $productos_laialy = "active";
+        $platos_laialy = "active";
         $titulo_aviso = "Laialy";
-    } else if ($nav == "productos_belen"){
+    } else if ($nav == "platos_belen"){
         $titulo_sisint = "Incremento en Talleres Belen";
-        $productos_belen = "active";
+        $platos_belen = "active";
         $titulo_aviso = "Belen";
-    } else if ($nav == "productos_lara"){
+    } else if ($nav == "platos_lara"){
         $titulo_sisint = "Incremento en Talleres Lara Teens";
-        $productos_lara = "active";
+        $platos_lara = "active";
         $titulo_aviso = "Lara Teens";
-    } else if ($nav == "productos_sigry"){
+    } else if ($nav == "platos_sigry"){
         $titulo_sisint = "Incremento en Talleres Sigry";
-        $productos_sigry = "active";
+        $platos_sigry = "active";
         $titulo_aviso = "Sigry";
     }
 } 
@@ -101,12 +101,12 @@ if (isset($_GET['incremento'])){
         if (isset($_GET['incremento'])){
             $form_incremento = $_GET['incremento'];
             require("../conexion.laialy.php");
-            $consulta_de_productos = mysqli_query($conexion, "SELECT * FROM $nav WHERE activo ='1' ORDER BY producto ASC");
-            if (!$consulta_de_productos || mysqli_num_rows($consulta_de_productos) == 0){
+            $consulta_de_platos = mysqli_query($conexion, "SELECT * FROM $nav WHERE activo ='1' ORDER BY plato ASC");
+            if (!$consulta_de_platos || mysqli_num_rows($consulta_de_platos) == 0){
             ?>
                 <div id="listado_flotante">  
                     <div id="cabecera_flotante">  
-                        <h1>No existen Productos Activos</h1>
+                        <h1>No existen platos Activos</h1>
                     </div>
                     <ul id="header_tabla_flotante">
                     </ul> 
@@ -123,19 +123,19 @@ if (isset($_GET['incremento'])){
                         <h1><?php echo $form_incremento." sobre Talleres ".$titulo_aviso;?></h1>
                     </div>
                     <ul id="header_tabla_flotante">
-                        <li class="cod_ins_flotante"><p>Producto</p></li>
+                        <li class="cod_ins_flotante"><p>plato</p></li>
                         <li class="insumo_flotante"><p>Taller</p></li>
                         <li class="valor_flotante"><p>Valor</p></li>
                         <li class="resultado_flotante"><p>Resultado</p></li>
                     </ul> 
                     <div id="tabla_flotante" class="tabla_flotante">
                         <?php
-                            while ($listado_de_productos = mysqli_fetch_array($consulta_de_productos)){
-                                $producto_cons = $listado_de_productos['producto'];
-                                $taller_cons = $listado_de_productos['taller'];
-                                $total_cons = $listado_de_productos['total'];
+                            while ($listado_de_platos = mysqli_fetch_array($consulta_de_platos)){
+                                $plato_cons = $listado_de_platos['plato'];
+                                $taller_cons = $listado_de_platos['taller'];
+                                $total_cons = $listado_de_platos['total'];
                                 echo "<div class='form_flotante'><ul>";
-                                echo "<li class='cod_ins_flotante li_grupal'><p>".$producto_cons."</p></li>";                                
+                                echo "<li class='cod_ins_flotante li_grupal'><p>".$plato_cons."</p></li>";                                
                                 echo "<li class='insumo_flotante li_grupal'><p>".$taller_cons."</p></li>";
                                 $porcentaje = str_replace(',', '', ($taller_cons*$form_incremento)/100);                                
                                 echo "<li class='valor_flotante li_grupal'><p>".str_replace(',', '', number_format($porcentaje,3))."</p></li>";
@@ -147,7 +147,7 @@ if (isset($_GET['incremento'])){
                         ?>
                     </div>
                     <div class="para_botones_flotante">
-                        <div class="boton_cancela_incremento" onclick="location.href='productos.php?nav=<?php echo $nav; ?>&mensaje=no_taller&pagina=1'"><p>Cancelar</p></div>
+                        <div class="boton_cancela_incremento" onclick="location.href='platos.php?nav=<?php echo $nav; ?>&mensaje=no_taller&pagina=1'"><p>Cancelar</p></div>
                         <div class="boton_acepta_incremento" onclick="location.href='aplica_incremento_taller.php?nav=<?php echo $nav; ?>&incremento=<?php echo $form_incremento; ?>'"><p>Aceptar</p></div>
                     </div>
                 </div>

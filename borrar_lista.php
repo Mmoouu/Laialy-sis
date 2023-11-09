@@ -23,7 +23,7 @@ if(isset($_GET['nav']) and isset($_GET['lista_numero'])){
     $nav = $_GET['nav'];
     
     require("../conexion.laialy.php"); 
-    mysqli_query($conexion, "DELETE FROM lista_productos WHERE marca = '$nav' AND lista = '$lista_verla'");
+    mysqli_query($conexion, "DELETE FROM lista_platos WHERE marca = '$nav' AND lista = '$lista_verla'");
     //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
     $log_valor = "Lista N-".$lista_verla;
     $log_accion = "Borra lista ".$nav;
@@ -31,8 +31,8 @@ if(isset($_GET['nav']) and isset($_GET['lista_numero'])){
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     mysqli_close($conexion);
     
-    echo "<script language=Javascript> location.href=\"fijar_productos.php?nav=$nav&mensaje=lista_aliminada_si\";</script>";
+    echo "<script language=Javascript> location.href=\"fijar_platos.php?nav=$nav&mensaje=lista_aliminada_si\";</script>";
 } else {
-    echo "<script language=Javascript> location.href=\"fijar_productos.php?nav=$nav&mensaje=lista_aliminada_no\";</script>";            
+    echo "<script language=Javascript> location.href=\"fijar_platos.php?nav=$nav&mensaje=lista_aliminada_no\";</script>";            
 }
 ?>   

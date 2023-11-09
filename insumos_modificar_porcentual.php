@@ -142,10 +142,10 @@ if(isset($_GET['id'])){
                     
                     mysqli_query($conexion, "INSERT INTO $nav_historial (id_historial, tipo, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, valor, aplica, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'valor','$get_id_insumo','$consulta_insumo_bk_cod','$consulta_insumo_bk_insumo','$consulta_insumo_bk_categoria','$consulta_insumo_bk_subcategoria','$consulta_insumo_bk_medida','$consulta_insumo_bk_proveedor','$consulta_insumo_bk_valor','$form_incremento','$valor_final_formateado','$consulta_insumo_bk_fecha','$nueva_fecha','$consulta_insumo_bk_hora_mod','$form_hora_mod')");
                     
-                    if ($nav == "insumos_laialy"){$nav_materiales = "materiales_laialy"; $nav_productos = "productos_laialy";}
+                    if ($nav == "insumos_laialy"){$nav_materiales = "materiales_laialy"; $nav_platos = "platos_laialy";}
                     $consulta_de_materiales = mysqli_query($conexion, "SELECT * FROM $nav_materiales WHERE insumos LIKE '$get_id_insumo-%' OR insumos LIKE '%-$get_id_insumo-%' OR insumos LIKE '%-$get_id_insumo' OR insumos LIKE '$get_id_insumo'");
                     while ($listado_de_materiales = mysqli_fetch_array($consulta_de_materiales)){ 
-                        $id_para_pasar = $listado_de_materiales['id_producto'];
+                        $id_para_pasar = $listado_de_materiales['id_plato'];
                         $id_para_pasar_material = $listado_de_materiales['id_material'];
                         
                         if ($listado_de_materiales['val'] == "0"){
@@ -155,7 +155,7 @@ if(isset($_GET['id'])){
                         }                          
                       
                         mysqli_query($conexion, "UPDATE $nav_materiales SET val='$id_insumo_actualizado' WHERE id_material = '$id_para_pasar_material'");
-                        mysqli_query($conexion, "UPDATE $nav_productos SET mod_val='1' WHERE id_producto = '$id_para_pasar'");
+                        mysqli_query($conexion, "UPDATE $nav_platos SET mod_val='1' WHERE id_plato = '$id_para_pasar'");
                     }
                     
                     //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////

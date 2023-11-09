@@ -70,7 +70,7 @@ if(isset($_GET['nav'])){
         <p class="p_costos">Solicitudes Pendientes</p>
         <?php
         require("../conexion.laialy.php");
-        $consulta_de_listas = mysqli_query($conexion, "SELECT DISTINCT lista, dia_mod, mes_mod, anio_mod FROM lista_productos WHERE marca='$nav'");
+        $consulta_de_listas = mysqli_query($conexion, "SELECT DISTINCT lista, dia_mod, mes_mod, anio_mod FROM lista_platos WHERE marca='$nav'");
         mysqli_close($conexion);        
         while($vista_de_listas = mysqli_fetch_array($consulta_de_listas)){ 
             $lista_numero = $vista_de_listas['lista'];
@@ -83,13 +83,13 @@ if(isset($_GET['nav'])){
             } else {
                 $estado_lista = "";     
             }
-            echo "<div class='item_listas_fijadas ".$estado_lista."'><p onclick='location.href=\"fijar_productos.php?nav=".$nav."&lista_numero=".$lista_numero."&fecha=".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."\"'><span>".$lista_numero."</span>".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."</p><img title='Eliminar' onclick='location.href=\"fijar_productos.php?nav=".$nav."&lista_numero=".$lista_numero."&fecha=".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."&pop_up=eliminar\"' class='borrar_lista_fijada' src='img/x_blanca.svg'></div>";
+            echo "<div class='item_listas_fijadas ".$estado_lista."'><p onclick='location.href=\"fijar_platos.php?nav=".$nav."&lista_numero=".$lista_numero."&fecha=".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."\"'><span>".$lista_numero."</span>".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."</p><img title='Eliminar' onclick='location.href=\"fijar_platos.php?nav=".$nav."&lista_numero=".$lista_numero."&fecha=".$vista_de_listas['dia_mod']."-".$vista_de_listas['mes_mod']."-".$vista_de_listas['anio_mod']."&pop_up=eliminar\"' class='borrar_lista_fijada' src='img/x_blanca.svg'></div>";
         }
         ?>
     </div>
     <?php
     require("../conexion.laialy.php");
-    $consulta_de_ultima_lista = mysqli_query($conexion, "SELECT lista FROM lista_productos WHERE marca='$nav' ORDER BY id DESC LIMIT 1"); 
+    $consulta_de_ultima_lista = mysqli_query($conexion, "SELECT lista FROM lista_platos WHERE marca='$nav' ORDER BY id DESC LIMIT 1"); 
     $vista_de_ultima_lista = mysqli_fetch_array($consulta_de_ultima_lista);
     $nuevo_numero_lista = $vista_de_ultima_lista['lista'] + 1;
     mysqli_close($conexion);

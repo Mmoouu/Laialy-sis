@@ -26,13 +26,13 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$reporte_productos_simple = "";
+$reporte_platos_simple = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];    
-    if ($nav == "reporte_productos_simple"){
-        $titulo_sisint = "Reporte de Productos";
-        $reporte_productos_simple = "active";
+    if ($nav == "reporte_platos_simple"){
+        $titulo_sisint = "Reporte de platos";
+        $reporte_platos_simple = "active";
         $resultado_busqueda = "Seleccione una Marca y su fecha de vigencia.";
     } 
 }
@@ -89,7 +89,7 @@ function imprim2(){
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(isset($_GET['marca'])){ 
         $marca = $_GET['marca'];
-        if($marca=="productos_laialy"){
+        if($marca=="platos_laialy"){
             $checked_laialy = "checked='checked'";            
         }
     }    
@@ -98,11 +98,11 @@ function imprim2(){
         <form class="form_costos" name="form_costos" action="" method="get" enctype="multipart/form-data">   
             <p class="p_costos">Seleccione una Marca</p>
             <div class='radio_input'> 
-                <input type='radio' name='marca' value='productos_laialy' required <?php echo $checked_laialy; ?> />                       
+                <input type='radio' name='marca' value='platos_laialy' required <?php echo $checked_laialy; ?> />                       
                 <p>Laialy</p>
             </div>           
             <br><br>
-            <button class="last_costos" name="nav" value="reporte_productos_simple"><p>Listar</p></button>
+            <button class="last_costos" name="nav" value="reporte_platos_simple"><p>Listar</p></button>
         </form>
     </div>
     <div id="columna_nuevo_costo_dos">

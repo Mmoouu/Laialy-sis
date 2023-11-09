@@ -1,7 +1,7 @@
 <?php
 $ver_marca = $_GET['id'];
 require("../conexion.laialy.php");
-$consulta_de_listas = mysqli_query($conexion, "SELECT DISTINCT lista, dia_mod, mes_mod, anio_mod FROM lista_productos WHERE marca='$ver_marca'");
+$consulta_de_listas = mysqli_query($conexion, "SELECT DISTINCT lista, dia_mod, mes_mod, anio_mod FROM lista_platos WHERE marca='$ver_marca'");
 mysqli_close($conexion);
 ?>
 

@@ -26,7 +26,7 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$resumen_productos = ""; $comparar_listas = ""; $listas_precios = "";
+$resumen_platos = ""; $comparar_listas = ""; $listas_precios = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];    
@@ -38,9 +38,9 @@ if(isset($_GET['nav'])){
         $titulo_sisint = "Comparar Listas";
         $comparar_listas = "active";
         $resultado_busqueda = "Seleccione una Marca.";
-    } else if ($nav == "resumen_productos"){
-        $titulo_sisint = "Resumen De Productos";
-        $resumen_productos = "active";
+    } else if ($nav == "resumen_platos"){
+        $titulo_sisint = "Resumen De platos";
+        $resumen_platos = "active";
         $resultado_busqueda = "Seleccione una Marca y su fecha de vigencia.";
     }
 }
@@ -80,7 +80,7 @@ if(isset($_GET['nav'])){
     $checked_laialy = ""; 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(isset($_GET['marca'])){
-        if($_GET['marca']=="productos_laialy"){
+        if($_GET['marca']=="platos_laialy"){
             $checked_laialy = "checked='checked'";
         }
     }    
@@ -91,7 +91,7 @@ if(isset($_GET['nav'])){
                 <label><p>Seleccione una Marca</p></label>
                 <select type="text" name="marca" required id="" onchange="from(document.form_costos.marca.value,'lista','listas_general.php')">
                     <option value='' selected>Vacio</option>
-                    <option value='productos_laialy'>Laialy</option>
+                    <option value='platos_laialy'>Laialy</option>
                 </select> 
             </div>
             <div class="fneworder_dos" id="lista">
@@ -112,19 +112,19 @@ if(isset($_GET['nav'])){
             
             $rige = "";
                         
-            if ($marca == "productos_laialy"){
+            if ($marca == "platos_laialy"){
                 $svg = "";
                 // $svg = "<img style='height:40px;width:75px;' src='http://10.0.0.186/sistema_interno/img/laialy.png'/>";
             } 
         
             require("../conexion.laialy.php");
-            $seleccionar_productos = mysqli_query($conexion,  "SELECT * FROM $marca WHERE activo='1' ORDER BY producto ASC");
-            $consulta_de_lista_seleccionada = mysqli_query($conexion, "SELECT * FROM lista_productos WHERE marca='$marca' AND lista='$lista'");
+            $seleccionar_platos = mysqli_query($conexion,  "SELECT * FROM $marca WHERE activo='1' ORDER BY plato ASC");
+            $consulta_de_lista_seleccionada = mysqli_query($conexion, "SELECT * FROM lista_platos WHERE marca='$marca' AND lista='$lista'");
             mysqli_close($conexion);
             $vista_de_lista_seleccionada = mysqli_fetch_array($consulta_de_lista_seleccionada);
             
-            if (!$seleccionar_productos || mysqli_num_rows($seleccionar_productos) == 0){
-                echo "<div style='width:100%; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>No existen productos activos para realizar la consulta</p></div>";
+            if (!$seleccionar_platos || mysqli_num_rows($seleccionar_platos) == 0){
+                echo "<div style='width:100%; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>No existen platos activos para realizar la consulta</p></div>";
             } else {
                 ?>                
                 <table style="width:900px;margin: 0px auto; font-family:text;color:#535353;">
@@ -182,38 +182,38 @@ if(isset($_GET['nav'])){
                 $cantidad_total_x_lista = "0";
                 $porcentaje_total = "0";
                 $ver_porcentaje_final = "0";
-                $final_ver_productos_x_lista = "0";
-                $final_ver_productos_redondeo = "0";
-                while($ver_productos = mysqli_fetch_array($seleccionar_productos)){
+                $final_ver_platos_x_lista = "0";
+                $final_ver_platos_redondeo = "0";
+                while($ver_platos = mysqli_fetch_array($seleccionar_platos)){
                     if($color%2==0){ $b_c = "#e5e5e5"; } else { $b_c = "#f2f2f2"; }
                 ?>
                     <tr>
-                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"><p><?php echo $ver_productos['producto']; ?></p></td>
-                        <td style="font-size:12px;vertical-align:bottom;text-align:left;height:20px;width:600px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_productos['descripcion']; ?></p></td>
-                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"> <p>$ <?php echo $ver_productos['redondeo']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"><p><?php echo $ver_platos['plato']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:bottom;text-align:left;height:20px;width:600px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_platos['descripcion']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:middle;text-align:center;height:40px;width:75px;background-color:<?php echo $b_c; ?>;" rowspan="2"> <p>$ <?php echo $ver_platos['redondeo']; ?></p></td>
                         
                         <?php
                         require("../conexion.laialy.php");
-                        $producto_a_buscar = $ver_productos['producto'];
-                        $seleccionar_productos_x_lista = mysqli_query($conexion,  "SELECT * FROM lista_productos WHERE marca='$marca' AND producto='$producto_a_buscar' AND lista='$lista'");
-                        $ver_productos_x_lista = mysqli_fetch_array($seleccionar_productos_x_lista);
+                        $plato_a_buscar = $ver_platos['plato'];
+                        $seleccionar_platos_x_lista = mysqli_query($conexion,  "SELECT * FROM lista_platos WHERE marca='$marca' AND plato='$plato_a_buscar' AND lista='$lista'");
+                        $ver_platos_x_lista = mysqli_fetch_array($seleccionar_platos_x_lista);
                         mysqli_close($conexion);                                    
                         
-                        if ($ver_productos_x_lista['redondeo'] == "" or $ver_productos_x_lista['redondeo'] == "0"){
+                        if ($ver_platos_x_lista['redondeo'] == "" or $ver_platos_x_lista['redondeo'] == "0"){
                             $ver_redondeo_x_lista = "0";
                             $ver_diferencia = "0";
                             $ver_porcentaje = "0";
                         } else {
-                            $ver_redondeo_x_lista = $ver_productos_x_lista['redondeo']; 
-                            $ver_diferencia = $ver_productos['redondeo'] - $ver_redondeo_x_lista;
-                            $ver_porcentaje = ($ver_diferencia * 100) / $ver_productos_x_lista['redondeo'];
+                            $ver_redondeo_x_lista = $ver_platos_x_lista['redondeo']; 
+                            $ver_diferencia = $ver_platos['redondeo'] - $ver_redondeo_x_lista;
+                            $ver_porcentaje = ($ver_diferencia * 100) / $ver_platos_x_lista['redondeo'];
                             $ver_porcentaje_final = $ver_porcentaje_final + $ver_porcentaje;
                             $cantidad_total_x_lista = $cantidad_total_x_lista + 1;
                             
                         }
                         $cantidad_total = $cantidad_total + 1;                        
-                        $final_ver_productos_x_lista = $final_ver_productos_x_lista + $ver_productos_x_lista['redondeo'];
-                        $final_ver_productos_redondeo = $final_ver_productos_redondeo + $ver_productos['redondeo'];
+                        $final_ver_platos_x_lista = $final_ver_platos_x_lista + $ver_platos_x_lista['redondeo'];
+                        $final_ver_platos_redondeo = $final_ver_platos_redondeo + $ver_platos['redondeo'];
                                             
                         ?>  
                         
@@ -225,18 +225,18 @@ if(isset($_GET['nav'])){
                         
                     </tr>
                     <tr>
-                        <td style="font-size:12px;vertical-align:top; text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_productos['talles']." / ".$ver_productos['colores']; ?></p></td>
+                        <td style="font-size:12px;vertical-align:top; text-align:left;height:20px;width:550px;background-color:<?php echo $b_c; ?>;"><p><?php echo $ver_platos['talles']." / ".$ver_platos['colores']; ?></p></td>
                     </tr>
                 <?php 
                     $color++;
                 }
                 
-                $final_ver_productos_x_lista = $final_ver_productos_x_lista / $cantidad_total_x_lista;
-                $final_ver_productos_redondeo = $final_ver_productos_redondeo / $cantidad_total;
+                $final_ver_platos_x_lista = $final_ver_platos_x_lista / $cantidad_total_x_lista;
+                $final_ver_platos_redondeo = $final_ver_platos_redondeo / $cantidad_total;
                 
                 $ver_porcentaje_final = $ver_porcentaje_final/$cantidad_total_x_lista;                 
                 
-                $dif_final = ($dif_total*100)/$final_ver_productos_x_lista;   
+                $dif_final = ($dif_total*100)/$final_ver_platos_x_lista;   
                 
                 ?>
                     <tr>
@@ -247,10 +247,10 @@ if(isset($_GET['nav'])){
                             <p></p>
                         </td>
                         <td style="width:75px;height:40px;background-color:#fff;font-size:14px;vertical-align:middle;text-align:center;">
-                            <p><?php echo number_format($final_ver_productos_redondeo, 3); ?></p>
+                            <p><?php echo number_format($final_ver_platos_redondeo, 3); ?></p>
                         </td>
                         <td style="width:75px;height:40px;background-color:#fff;font-size:14px;vertical-align:middle;text-align:center;">
-                            <p><?php echo number_format($final_ver_productos_x_lista, 3); ?></p>
+                            <p><?php echo number_format($final_ver_platos_x_lista, 3); ?></p>
                         </td>
                         <td style="width:75px;height:40px;background-color:#fff;font-size:14px;vertical-align:middle;text-align:center;">
                             <p></p>

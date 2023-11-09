@@ -26,14 +26,14 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$productos_laialy = "";
+$platos_laialy = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "productos_laialy"){
-        $titulo_sisint = "Productos Laialy";
-        $productos_laialy = "active";
-        $resultado_busqueda = "Consulta de Productos sin resultados";
+    if ($nav == "platos_laialy"){
+        $titulo_sisint = "platos Laialy";
+        $platos_laialy = "active";
+        $resultado_busqueda = "Consulta de platos sin resultados";
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,20 +42,20 @@ if(isset($_GET['ver'])){
     $ver_ver = "&ver=".$ver;
     if ($ver == "0"){
         $where = "WHERE activo = 0";
-        $boton_ver = "<img title='Ver Activos' onclick='location.href=\"productos.php?nav=".$nav."\"' src='img/activos.svg'>";
+        $boton_ver = "<img title='Ver Activos' onclick='location.href=\"platos.php?nav=".$nav."\"' src='img/activos.svg'>";
         $boton_por = "";
         $boton_act = "";
         $boton_cos = "";
-        $boton_nuevo_producto = "";
+        $boton_nuevo_plato = "";
         $aclaracion_inactivo = " Inactivos";
     } 
 } else {
     $where = "WHERE activo = 1";
-    $boton_ver = "<img title='Ver Inactivos' onclick='location.href=\"productos.php?nav=".$nav."&ver=0\"' src='img/inactivos.svg'>";
+    $boton_ver = "<img title='Ver Inactivos' onclick='location.href=\"platos.php?nav=".$nav."&ver=0\"' src='img/inactivos.svg'>";
     $boton_por = "";
     $boton_cos = "<img title='% Ganancia' onclick='location.href=\"costos.php?nav=".$nav."\"' src='img/costo.svg'>";
-    $boton_act = "<img title='Actualizar Todo' onclick='location.href=\"productos.php?nav=".$nav."&ver=0\"' src='img/actualizar.svg'>";
-    $boton_nuevo_producto = "<img title='Nuevo Producto' onclick='location.href=\"productos_nuevo.php?nav=".$nav."\"' src='img/mas.svg'>";
+    $boton_act = "<img title='Actualizar Todo' onclick='location.href=\"platos.php?nav=".$nav."&ver=0\"' src='img/actualizar.svg'>";
+    $boton_nuevo_plato = "<img title='Nuevo plato' onclick='location.href=\"platos_nuevo.php?nav=".$nav."\"' src='img/mas.svg'>";
     $aclaracion_inactivo = "";
     $ver_ver = "";
 }
@@ -80,30 +80,30 @@ if(isset($_GET['ver'])){
 </head>  
 <body onload="window.print()" onmouseover="javascript:history.back()">
 <?php
-if(isset($_GET['id_producto'])){
-    $art_sel = $_GET['id_producto'];    
+if(isset($_GET['id_plato'])){
+    $art_sel = $_GET['id_plato'];    
     require("../conexion.laialy.php");    
-    $seleccionar_producto = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id_producto = '$art_sel'");
-    $ver_producto = mysqli_fetch_array($seleccionar_producto);        
+    $seleccionar_plato = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id_plato = '$art_sel'");
+    $ver_plato = mysqli_fetch_array($seleccionar_plato);        
     $fecha = date("y-m-d");
     $hora_mod = date('His');
-    if ($ver_producto['activo'] == '0'){$estado_del_producto = " Inactivo";} else {$estado_del_producto = "";}
-    $guardar_archivo = "producto_".$ver_producto['producto']."_".$fecha."_".$hora_mod; 
+    if ($ver_plato['activo'] == '0'){$estado_del_plato = " Inactivo";} else {$estado_del_plato = "";}
+    $guardar_archivo = "plato_".$ver_plato['plato']."_".$fecha."_".$hora_mod; 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $seleccionar_el_producto = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id_producto = '$art_sel'");
+    $seleccionar_el_plato = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id_plato = '$art_sel'");
     mysqli_close($conexion);
-    $ver_el_producto = mysqli_fetch_array($seleccionar_el_producto);
-    if ($nav == "productos_laialy"){$titlo_imp = "LAIALY"; $nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
+    $ver_el_plato = mysqli_fetch_array($seleccionar_el_plato);
+    if ($nav == "platos_laialy"){$titlo_imp = "LAIALY"; $nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
     ?>  
-    <div id="desarr_de_producto_imp">
-            <h1 class="titulo_desarrollo_imp">CREADO EL <?php echo $ver_el_producto['creacion']." - MODIFICADO EL ".$ver_el_producto['dia_mod']."-".$ver_el_producto['mes_mod']."-".$ver_el_producto['anio_mod']." - IMPRESO EL ".date("d-m-y"); ?></h1>
-            <h1 class="titulo_desarrollo_imp">DESCRIPCION Y ARMADO DEL PRODUCTO <?php echo $ver_el_producto['producto']." DE ".$titlo_imp; ?></h1>
-            <p class="texto_desarollo_imp"><?php echo $ver_el_producto['descripcion']; ?></p>
+    <div id="desarr_de_plato_imp">
+            <h1 class="titulo_desarrollo_imp">CREADO EL <?php echo $ver_el_plato['creacion']." - MODIFICADO EL ".$ver_el_plato['dia_mod']."-".$ver_el_plato['mes_mod']."-".$ver_el_plato['anio_mod']." - IMPRESO EL ".date("d-m-y"); ?></h1>
+            <h1 class="titulo_desarrollo_imp">DESCRIPCION Y ARMADO DEL plato <?php echo $ver_el_plato['plato']." DE ".$titlo_imp; ?></h1>
+            <p class="texto_desarollo_imp"><?php echo $ver_el_plato['descripcion']; ?></p>
             <p class="corte_imp"></p>
             <h1 class="titulo_sec_desarrollo_imp">TALLES</h1>
             <h1 class="titulo_sec_desarrollo_imp">COLORES</h1>
-            <p class="texto_sec_desarollo_imp"><?php echo $ver_el_producto['talles']; ?></p>            
-            <p class="texto_sec_desarollo_imp"><?php echo $ver_el_producto['colores']; ?></p>
+            <p class="texto_sec_desarollo_imp"><?php echo $ver_el_plato['talles']; ?></p>            
+            <p class="texto_sec_desarollo_imp"><?php echo $ver_el_plato['colores']; ?></p>
             <p class="corte_imp"></p>
             <table>
                 <tr class="class_titulos_imp">
@@ -128,7 +128,7 @@ if(isset($_GET['id_producto'])){
                 $seleccionar_las_perdidas = mysqli_query($conexion,  "SELECT * FROM perdida WHERE marca = '$nav' AND activo = '1'");
                 $ver_las_perdidas = mysqli_fetch_array($seleccionar_las_perdidas); 
                 /////////////////////////////////////////////////////////////////////////            
-                $seleccionar_los_materiales = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id_producto = '$art_sel'");
+                $seleccionar_los_materiales = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id_plato = '$art_sel'");
                 mysqli_close($conexion);
                 $comprobar_suma = "0";                
                 while ($ver_los_materiales = mysqli_fetch_array($seleccionar_los_materiales)){
@@ -178,7 +178,7 @@ if(isset($_GET['id_producto'])){
                     } 
                     
                     $comprobar_suma = str_replace(',', '', ($comprobar_suma + $comprobar_total_insumo));
-                    $comprobar_total = str_replace(',', '', ($comprobar_suma + $ver_el_producto['taller']));
+                    $comprobar_total = str_replace(',', '', ($comprobar_suma + $ver_el_plato['taller']));
                     $comprobar_perdidas = str_replace(',', '', ((number_format($comprobar_total, 3) * number_format($ver_las_perdidas['porcentaje'], 3)) / 100));
                     $comprobar_costo = str_replace(',', '', (number_format($comprobar_total, 3) + number_format($comprobar_perdidas, 3)));
                     $comprobar_ganancia = str_replace(',', '', ((number_format($comprobar_costo, 3) * number_format($ver_los_porcentajes['porcentaje'], 3)) / 100));
@@ -201,7 +201,7 @@ if(isset($_GET['id_producto'])){
                             $color_p_val = "";
                             $mensaje_val = ""; 
                             
-                            if ($ver_el_producto['mod_txt'] == '1'){
+                            if ($ver_el_plato['mod_txt'] == '1'){
                                 $cambios_insumos_dat = $ver_los_materiales['dat'];
                                 if ($ver_los_materiales['dat'] !== '0'){
                                     ////////////////////////////////////////////////////////////////////////////////
@@ -212,7 +212,7 @@ if(isset($_GET['id_producto'])){
                                         ////////////////////////////////////////////////////////////////////////////////
                                         /////////////////////  ANTES ESTABA ACA INSUMO INACTIVO  ///////////////////////
                                         ////////////////////////////////////////////////////////////////////////////////
-                                        if ($ver_el_producto['mod_txt'] == '1' and $ver_los_insumos_dos['id_insumo'] == $ver_el_hist_txt['id_insumo']){
+                                        if ($ver_el_plato['mod_txt'] == '1' and $ver_los_insumos_dos['id_insumo'] == $ver_el_hist_txt['id_insumo']){
                                             $color_p_txt = " class='line_red_in'";
                                             $mensaje_txt = " - CAMBIO: ".str_replace('<', '(', str_replace('>', ')', $ver_el_hist_txt['cambio']));
                                         }     
@@ -230,7 +230,7 @@ if(isset($_GET['id_producto'])){
                              
                             //if ($ver_los_materiales['suma'] !== str_replace(',', '', number_format($comprobar, 3)) or $ver_los_materiales['total'] !== str_replace(',', '', number_format($comprobar_total_insumo, 3))){
                                 
-                                if ($ver_el_producto['mod_val'] == '1'){
+                                if ($ver_el_plato['mod_val'] == '1'){
                                     $cambios_insumos_act = $ver_los_materiales['act'];                                    
                                     if ($ver_los_materiales['act'] !== '0'){ 
                                         ////////////////////////////////////////////////////////////////////////////////
@@ -294,11 +294,11 @@ if(isset($_GET['id_producto'])){
                     <td><p>SUMA</p></td>
                     <td><p></p></td>
                     <?php                
-                    if (str_replace(',', '', number_format($comprobar_suma, 3)) == $ver_el_producto['suma']){                       
+                    if (str_replace(',', '', number_format($comprobar_suma, 3)) == $ver_el_plato['suma']){                       
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['suma']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['suma']."</p></td>";
                     } else {                       
-                        echo "<td><p>".$ver_el_producto['suma']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['suma']."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_suma, 3))."</p></td>";
                     }
                     ?>                   
@@ -307,17 +307,17 @@ if(isset($_GET['id_producto'])){
                     <td><p>TALLER</p></td>
                     <td><p></p></td>
                     <td><p></p></td>
-                    <td><p><?php echo $ver_el_producto['taller']; ?></p></td>                    
+                    <td><p><?php echo $ver_el_plato['taller']; ?></p></td>                    
                 </tr>
                 <tr class="class_totales_imp">
                     <td><p>TOTAL</p></td>
                     <td><p></p></td>
                     <?php                
-                    if (str_replace(',', '', number_format($comprobar_total, 3)) == $ver_el_producto['total']){                        
+                    if (str_replace(',', '', number_format($comprobar_total, 3)) == $ver_el_plato['total']){                        
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['total']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['total']."</p></td>";
                     } else {                        
-                        echo "<td><p>".$ver_el_producto['total']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['total']."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_total, 3))."</p></td>";
                     }
                     ?>                   
@@ -327,22 +327,22 @@ if(isset($_GET['id_producto'])){
                 <tr class="class_totales_imp">
                     <td><p>PERDIDAS</p></td>
                     <?php
-                    $perdidas_del_producto = ($ver_el_producto['total'] * $ver_el_producto['por_perdidas']) / 100; 
-                    if (str_replace(',', '', number_format($comprobar_perdidas, 3)) == number_format($perdidas_del_producto, 3)){
-                        if (str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3)) == $ver_el_producto['por_perdidas']){
-                            echo "<td><p>".$ver_el_producto['por_perdidas']." %</p></td>";
+                    $perdidas_del_plato = ($ver_el_plato['total'] * $ver_el_plato['por_perdidas']) / 100; 
+                    if (str_replace(',', '', number_format($comprobar_perdidas, 3)) == number_format($perdidas_del_plato, 3)){
+                        if (str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3)) == $ver_el_plato['por_perdidas']){
+                            echo "<td><p>".$ver_el_plato['por_perdidas']." %</p></td>";
                         } else {
-                            echo "<td><p>".$ver_el_producto['por_perdidas']." % > ".str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3))." %</p></td>";
+                            echo "<td><p>".$ver_el_plato['por_perdidas']." % > ".str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3))." %</p></td>";
                         }
                         echo "<td><p></p></td>";
-                        echo "<td><p>".number_format($perdidas_del_producto, 3)."</p></td>";
+                        echo "<td><p>".number_format($perdidas_del_plato, 3)."</p></td>";
                     } else {
-                        if (str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3)) == $ver_el_producto['por_perdidas']){
-                            echo "<td><p>".$ver_el_producto['por_perdidas']." %</p></td>";
+                        if (str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3)) == $ver_el_plato['por_perdidas']){
+                            echo "<td><p>".$ver_el_plato['por_perdidas']." %</p></td>";
                         } else {
-                            echo "<td><p>".$ver_el_producto['por_perdidas']." % > ".str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3))." %</p></td>";
+                            echo "<td><p>".$ver_el_plato['por_perdidas']." % > ".str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3))." %</p></td>";
                         }
-                        echo "<td><p>".number_format($perdidas_del_producto, 3)."</p></td>";
+                        echo "<td><p>".number_format($perdidas_del_plato, 3)."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_perdidas, 3))."</p></td>";                       
                     }
                     ?>
@@ -351,11 +351,11 @@ if(isset($_GET['id_producto'])){
                     <td><p>COSTO</p></td>
                     <td><p></p></td>
                     <?php                
-                    if (str_replace(',', '', number_format($comprobar_costo, 3)) == $ver_el_producto['costo']){                         
+                    if (str_replace(',', '', number_format($comprobar_costo, 3)) == $ver_el_plato['costo']){                         
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['costo']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['costo']."</p></td>";
                     } else {                       
-                        echo "<td><p>".$ver_el_producto['costo']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['costo']."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_costo, 3))."</p></td>";                        
                     }
                     ?>
@@ -363,22 +363,22 @@ if(isset($_GET['id_producto'])){
                 <tr class="class_totales_imp">
                     <td><p>GANANCIA</p></td>
                     <?php
-                    $ganancia_del_producto = ($ver_el_producto['costo'] * $ver_el_producto['por_costo']) / 100; 
-                    if (str_replace(',', '', number_format($comprobar_ganancia, 3)) == number_format($ganancia_del_producto, 3)){
-                        if (str_replace(',', '', number_format($ver_los_porcentajes['porcentaje'], 3)) == $ver_el_producto['por_costo']){
-                            echo "<td><p>".$ver_el_producto['por_costo']." %</p></td>";
+                    $ganancia_del_plato = ($ver_el_plato['costo'] * $ver_el_plato['por_costo']) / 100; 
+                    if (str_replace(',', '', number_format($comprobar_ganancia, 3)) == number_format($ganancia_del_plato, 3)){
+                        if (str_replace(',', '', number_format($ver_los_porcentajes['porcentaje'], 3)) == $ver_el_plato['por_costo']){
+                            echo "<td><p>".$ver_el_plato['por_costo']." %</p></td>";
                         } else {
-                            echo "<td><p>".$ver_el_producto['por_costo']." % > ".str_replace(',', '', number_format($ver_los_porcentajes['porcentaje'], 3))." %</p></td>";
+                            echo "<td><p>".$ver_el_plato['por_costo']." % > ".str_replace(',', '', number_format($ver_los_porcentajes['porcentaje'], 3))." %</p></td>";
                         }
                         echo "<td><p></p></td>";
-                        echo "<td><p>".number_format($ganancia_del_producto, 3)."</p></td>";
+                        echo "<td><p>".number_format($ganancia_del_plato, 3)."</p></td>";
                     } else {
-                        if (str_replace(',', '', number_format($ver_los_porcentajes['porcentaje'], 3)) == $ver_el_producto['por_costo']){
-                            echo "<td><p>".$ver_el_producto['por_costo']." %</p></td>";
+                        if (str_replace(',', '', number_format($ver_los_porcentajes['porcentaje'], 3)) == $ver_el_plato['por_costo']){
+                            echo "<td><p>".$ver_el_plato['por_costo']." %</p></td>";
                         } else {
-                            echo "<td><p>".$ver_el_producto['por_costo']." % > ".str_replace(',', '', number_format($ver_los_porcentajes['porcentaje'], 3))." %</p></td>";
+                            echo "<td><p>".$ver_el_plato['por_costo']." % > ".str_replace(',', '', number_format($ver_los_porcentajes['porcentaje'], 3))." %</p></td>";
                         }
-                        echo "<td><p>".number_format($ganancia_del_producto, 3)."</p></td>";
+                        echo "<td><p>".number_format($ganancia_del_plato, 3)."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_ganancia, 3))."</p></td>";                       
                     }
                     ?>
@@ -387,11 +387,11 @@ if(isset($_GET['id_producto'])){
                     <td><p>VENTA</p></td>
                     <td><p></p></td>
                     <?php                
-                    if (str_replace(',', '', number_format($comprobar_venta, 3)) == $ver_el_producto['venta']){                        
+                    if (str_replace(',', '', number_format($comprobar_venta, 3)) == $ver_el_plato['venta']){                        
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['venta']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['venta']."</p></td>";
                     } else {                        
-                        echo "<td><p>".$ver_el_producto['venta']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['venta']."</p></td>";
                         echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_venta, 3))."</p></td>";
                     }
                     ?>                                      
@@ -400,26 +400,26 @@ if(isset($_GET['id_producto'])){
                     <td><p>FINAL VENTA (redondeo)</p></td>
                     <td><p></p></td>
                     <?php                
-                    if (str_replace(',', '', round(number_format($comprobar_venta, 3))) == $ver_el_producto['redondeo']){ 
+                    if (str_replace(',', '', round(number_format($comprobar_venta, 3))) == $ver_el_plato['redondeo']){ 
                         echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_producto['redondeo']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['redondeo']."</p></td>";
                     } else {                        
-                        echo "<td><p>".$ver_el_producto['redondeo']."</p></td>";
+                        echo "<td><p>".$ver_el_plato['redondeo']."</p></td>";
                         echo "<td><p class='round_in'>".str_replace(',', '', round(number_format($comprobar_venta, 3)))."</p></td>";
                     }
                     ?>                                      
                 </tr>
                 <?php
-                //if (str_replace(',', '', round(number_format($comprobar_venta, 3))) == $ver_el_producto['redondeo']){}
+                //if (str_replace(',', '', round(number_format($comprobar_venta, 3))) == $ver_el_plato['redondeo']){}
                 //else {
                 ?>
                 <!--<tr class="class_totales_final">
                    <td><p>GANANCIA REAL</p></td>
                     <td><p></p></td>-->
                     <?php 
-                    //    $ganancia_numero_real = (str_replac(',', '', round(number_format($comprobar_venta, 3)))) - ($ver_el_producto['costo']);
-                    //    $ganancia_por_real = str_replac(',', '', round(number_format($ganancia_numero_real, 3))) * 100 - $ver_el_producto['costo'];
-                    //    echo "<td><p>".$ver_el_producto['redondeo']."</p></td>";
+                    //    $ganancia_numero_real = (str_replac(',', '', round(number_format($comprobar_venta, 3)))) - ($ver_el_plato['costo']);
+                    //    $ganancia_por_real = str_replac(',', '', round(number_format($ganancia_numero_real, 3))) * 100 - $ver_el_plato['costo'];
+                    //    echo "<td><p>".$ver_el_plato['redondeo']."</p></td>";
                     //    echo "<td><p class='round_in'>".str_replace(',', '', round(number_format($comprobar_venta, 3)))."</p></td>";
                     ?>                                      
                 <!--</tr>-->
@@ -429,9 +429,9 @@ if(isset($_GET['id_producto'])){
             </table>
         </div>    
     <?php    
-        //echo "<script language=Javascript> window.print(); location.href=\"productos.php?nav=$nav&mensaje=producto_imp_si\";</script>";
+        //echo "<script language=Javascript> window.print(); location.href=\"platos.php?nav=$nav&mensaje=plato_imp_si\";</script>";
     } else {
-        //echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&mensaje=producto_imp_no\";</script>";
+        //echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&mensaje=plato_imp_no\";</script>";
     }
     ?>
 </body>

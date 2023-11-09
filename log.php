@@ -19,10 +19,10 @@ else {$log_ip = $_SERVER['REMOTE_ADDR']; }
 mysqli_query($conexion, "INSERT INTO log (id, seccion, accion, valor, usuario, permiso, fecha, hora, ip) VALUES (null,'$log_seccion','$log_accion','$log_valor','$log_usuario','$log_sector','$log_fecha','$log_hora','$log_ip')");
 
 //////////////////////////////////////////ALTER TABLE//////////////////////////////////////////////////
-//ALTER TABLE productos_sigry AUTO_INCREMENT = 0;
-//ALTER TABLE productos_lara AUTO_INCREMENT = 0;
-//ALTER TABLE productos_belen AUTO_INCREMENT = 0;
-//ALTER TABLE productos_bakhou AUTO_INCREMENT = 0;
+//ALTER TABLE platos_sigry AUTO_INCREMENT = 0;
+//ALTER TABLE platos_lara AUTO_INCREMENT = 0;
+//ALTER TABLE platos_belen AUTO_INCREMENT = 0;
+//ALTER TABLE platos_bakhou AUTO_INCREMENT = 0;
 
 //ALTER TABLE insumos_sigry AUTO_INCREMENT = 0;
 //ALTER TABLE insumos_lara AUTO_INCREMENT = 0;
@@ -34,10 +34,10 @@ mysqli_query($conexion, "INSERT INTO log (id, seccion, accion, valor, usuario, p
 //ALTER TABLE materiales_belen AUTO_INCREMENT = 0;
 //ALTER TABLE materiales_bakhou AUTO_INCREMENT = 0;
 
-//ALTER TABLE historial_productos_sigry AUTO_INCREMENT = 0;
-//ALTER TABLE historial_productos_lara AUTO_INCREMENT = 0;
-//ALTER TABLE historial_productos_belen AUTO_INCREMENT = 0;
-//ALTER TABLE historial_productos_bakhou AUTO_INCREMENT = 0;
+//ALTER TABLE historial_platos_sigry AUTO_INCREMENT = 0;
+//ALTER TABLE historial_platos_lara AUTO_INCREMENT = 0;
+//ALTER TABLE historial_platos_belen AUTO_INCREMENT = 0;
+//ALTER TABLE historial_platos_bakhou AUTO_INCREMENT = 0;
 
 //ALTER TABLE historial_insumos_sigry AUTO_INCREMENT = 0;
 //ALTER TABLE historial_insumos_lara AUTO_INCREMENT = 0;

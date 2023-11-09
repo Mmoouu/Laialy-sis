@@ -28,15 +28,15 @@ if ($permiso_costos == "1"){
         echo "<li><div></div><p onclick=\"location.href='insumos.php?nav=insumos_laialy&pagina=01'\">Laialy</p></li>";
         echo "</ul>";
     }
-    if ($posicion_pagina == "productos" || $posicion_pagina == "productos_nuevo" || $posicion_pagina == "costos" || $posicion_pagina == "activar_desactivar_producto" || $posicion_pagina == "actualizar_producto_solo" || $posicion_pagina == "actualizar_producto_todo" || $posicion_pagina == "modificar_redondeo" || $posicion_pagina == "modificar_material" || $posicion_pagina == "modificar_taller" || $posicion_pagina == "fijar_productos" || $posicion_pagina == "incremento_taller" || $posicion_pagina == "aplica_incremento_taller" || $posicion_pagina == "modificar_taller_global" || $posicion_pagina == "modificar_descripcion" || $posicion_pagina == "nuevo_material" ){
-        echo "<div id='btn_navegacion' class='active'><div></div><p>Productos</p></div>";
-        echo "<ul class='productos active'>";
-        echo "<li class='".$productos_laialy."'><div></div><p onclick=\"location.href='productos.php?nav=productos_laialy'\">Laialy</p>".$img."</li>";
+    if ($posicion_pagina == "platos" || $posicion_pagina == "platos_nuevo" || $posicion_pagina == "costos" || $posicion_pagina == "activar_desactivar_plato" || $posicion_pagina == "actualizar_plato_solo" || $posicion_pagina == "actualizar_plato_todo" || $posicion_pagina == "modificar_redondeo" || $posicion_pagina == "modificar_material" || $posicion_pagina == "modificar_taller" || $posicion_pagina == "fijar_platos" || $posicion_pagina == "incremento_taller" || $posicion_pagina == "aplica_incremento_taller" || $posicion_pagina == "modificar_taller_global" || $posicion_pagina == "modificar_descripcion" || $posicion_pagina == "nuevo_material" ){
+        echo "<div id='btn_navegacion' class='active'><div></div><p>Platos</p></div>";
+        echo "<ul class='platos active'>";
+        echo "<li class='".$platos_laialy."'><div></div><p onclick=\"location.href='platos.php?nav=platos_laialy'\">Laialy</p>".$img."</li>";
         echo "</ul>";
     } else {
-        echo "<div id='btn_navegacion' class=''><div></div><p>Productos</p></div>";
-        echo "<ul class='productos'>";
-        echo "<li><div></div><p onclick=\"location.href='productos.php?nav=productos_laialy'\">Laialy</p></li>";
+        echo "<div id='btn_navegacion' class=''><div></div><p>Platos</p></div>";
+        echo "<ul class='platos'>";
+        echo "<li><div></div><p onclick=\"location.href='platos.php?nav=platos_laialy'\">Laialy</p></li>";
         echo "</ul>";
     }
     if ($posicion_pagina == "proveedores" || $posicion_pagina == "categorias" || $posicion_pagina == "subcategorias" ){
@@ -91,15 +91,15 @@ if ($permiso_costos == "1"){
         echo "<li><div></div><p onclick=\"location.href='reporte_materiales_simple.php?nav=reporte_materiales_simple'\">Materiales</p></li>";
         echo "</ul>";
     }
-    if ($posicion_pagina == "reporte_productos_simple"){
-        echo "<div id='btn_navegacion' class='active'><div></div><p>Reportes de Productos</p></div>";
-        echo "<ul class='reporte_productos active'>";        
-        echo "<li class='".$reporte_productos_simple."'><div></div><p onclick=\"location.href='reporte_productos_simple.php?nav=reporte_productos_simple'\">Productos</p>".$img."</li>";        
+    if ($posicion_pagina == "reporte_platos_simple"){
+        echo "<div id='btn_navegacion' class='active'><div></div><p>Reportes de platos</p></div>";
+        echo "<ul class='reporte_platos active'>";        
+        echo "<li class='".$reporte_platos_simple."'><div></div><p onclick=\"location.href='reporte_platos_simple.php?nav=reporte_platos_simple'\">platos</p>".$img."</li>";        
         echo "</ul>";
     } else {
-        echo "<div id='btn_navegacion' class=''><div></div><p>Reportes de Productos</p></div>";
-        echo "<ul class='reporte_productos'>";        
-        echo "<li><div></div><p onclick=\"location.href='reporte_productos_simple.php?nav=reporte_productos_simple'\">Productos</p></li>";
+        echo "<div id='btn_navegacion' class=''><div></div><p>Reportes de platos</p></div>";
+        echo "<ul class='reporte_platos'>";        
+        echo "<li><div></div><p onclick=\"location.href='reporte_platos_simple.php?nav=reporte_platos_simple'\">platos</p></li>";
         echo "</ul>";
     }
     

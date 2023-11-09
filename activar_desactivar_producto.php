@@ -24,28 +24,28 @@ if ($login == "log"){
     $user_log = "Desconectado";
     $circulo_log = "circulo_log_red";
 }
-$productos_laialy = ""; $where = ""; $titulo_sisint_activar = "";
+$platos_laialy = ""; $where = ""; $titulo_sisint_activar = "";
 if(isset($_GET['activar'])){
     $activar_desactivar = $_GET['activar'];
     if ($activar_desactivar == "1"){
         $titulo_sisint_activar = "Desactivar";
-        $modo_producto = "0";
+        $modo_plato = "0";
     } else if ($activar_desactivar == "0"){
         $titulo_sisint_activar = "Activar";
-        $modo_producto = "1";
+        $modo_plato = "1";
     }
 } 
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "productos_laialy"){
-        $titulo_sisint = $titulo_sisint_activar." producto Laialy";
+    if ($nav == "platos_laialy"){
+        $titulo_sisint = $titulo_sisint_activar." plato Laialy";
         $insumos_laialy = "active";
-        $productos_laialy = "active";
+        $platos_laialy = "active";
     }
 } 
-if(isset($_GET['id_producto'])){
-    $get_id_producto = $_GET['id_producto'];
-    $where = "WHERE id_producto ='".$get_id_producto."'";
+if(isset($_GET['id_plato'])){
+    $get_id_plato = $_GET['id_plato'];
+    $where = "WHERE id_plato ='".$get_id_plato."'";
 } 
 ?>
 <!DOCTYPE html>
@@ -82,19 +82,19 @@ if(isset($_GET['id_producto'])){
     </div>
     <?php
     require("../conexion.laialy.php");
-    $consulta_de_productos = mysqli_query($conexion, "SELECT * FROM $nav $where");
-    $listado_de_productos = mysqli_fetch_array($consulta_de_productos); 
+    $consulta_de_platos = mysqli_query($conexion, "SELECT * FROM $nav $where");
+    $listado_de_platos = mysqli_fetch_array($consulta_de_platos); 
     
-    $consulta_producto_bk_producto = $listado_de_productos['producto'];
-    $consulta_producto_bk_descripcion = $listado_de_productos['descripcion'];
-    $consulta_producto_bk_talles = $listado_de_productos['talles'];
-    $consulta_producto_bk_colores = $listado_de_productos['colores'];
-    $consulta_producto_bk_suma = $listado_de_productos['suma'];
-    $consulta_producto_bk_taller = $listado_de_productos['taller'];
-    $consulta_producto_bk_total = $listado_de_productos['total'];
-    $consulta_producto_bk_perdidas = $listado_de_productos['perdidas'];
-    $consulta_producto_bk_costo = $listado_de_productos['costo'];
-    $consulta_producto_bk_venta = $listado_de_productos['venta'];
+    $consulta_plato_bk_plato = $listado_de_platos['plato'];
+    $consulta_plato_bk_descripcion = $listado_de_platos['descripcion'];
+    $consulta_plato_bk_talles = $listado_de_platos['talles'];
+    $consulta_plato_bk_colores = $listado_de_platos['colores'];
+    $consulta_plato_bk_suma = $listado_de_platos['suma'];
+    $consulta_plato_bk_taller = $listado_de_platos['taller'];
+    $consulta_plato_bk_total = $listado_de_platos['total'];
+    $consulta_plato_bk_perdidas = $listado_de_platos['perdidas'];
+    $consulta_plato_bk_costo = $listado_de_platos['costo'];
+    $consulta_plato_bk_venta = $listado_de_platos['venta'];
     
     mysqli_close($conexion);
     ?>
@@ -102,48 +102,48 @@ if(isset($_GET['id_producto'])){
         <div class="linea_form_nuevo_ingreso"></div>
         <form class="fomulario_nuevo_ingreso" name="formulario_nuevo_ingreso" action="" method="post" enctype="multipart/form-data">
             <div class="fneworder_cuatro">
-                <label><p>producto</p></label>
-                <input type="text" name="producto" value="<?php echo $consulta_producto_bk_producto;  ?>" readonly/>
+                <label><p>plato</p></label>
+                <input type="text" name="plato" value="<?php echo $consulta_plato_bk_plato;  ?>" readonly/>
             </div>
             <div class="fneworder">
                 <label><p>Descripcion</p></label>
-                <textarea type="text" name="descripcion" required><?php echo $consulta_producto_bk_descripcion; ?></textarea>
+                <textarea type="text" name="descripcion" required><?php echo $consulta_plato_bk_descripcion; ?></textarea>
             </div>
             <div class="fneworder">
                 <label><p>Talles</p></label>
-                <input type="text" name="talles" value="<?php echo $consulta_producto_bk_talles; ?>" readonly/> 
+                <input type="text" name="talles" value="<?php echo $consulta_plato_bk_talles; ?>" readonly/> 
             </div>            
             <div class="fneworder">
                 <label><p>Colores</p></label>
-                <input type="text" name="colores" value="<?php echo $consulta_producto_bk_colores; ?>" readonly/>
+                <input type="text" name="colores" value="<?php echo $consulta_plato_bk_colores; ?>" readonly/>
             </div>
             <div class="fneworder_cuatro">
                 <label><p>Suma</p></label>
-                <input type="text" name="suma" value="<?php echo $consulta_producto_bk_suma; ?>" readonly/> 
+                <input type="text" name="suma" value="<?php echo $consulta_plato_bk_suma; ?>" readonly/> 
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_cuatro">
                 <label><p>Taller</p></label>
-                <input type="text" name="taller" value="<?php echo $consulta_producto_bk_taller; ?>" readonly/> 
+                <input type="text" name="taller" value="<?php echo $consulta_plato_bk_taller; ?>" readonly/> 
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_cuatro">
                 <label><p>Total</p></label>
-                <input type="text" name="total" value="<?php echo $consulta_producto_bk_total; ?>" readonly/> 
+                <input type="text" name="total" value="<?php echo $consulta_plato_bk_total; ?>" readonly/> 
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_cuatro">
                 <label><p>Perdidas</p></label>
-                <input type="text" name="perdidas" value="<?php echo $consulta_producto_bk_perdidas; ?>" readonly/> 
+                <input type="text" name="perdidas" value="<?php echo $consulta_plato_bk_perdidas; ?>" readonly/> 
             </div> 
             <div class="fneworder_dos">
                 <label><p>Costo</p></label>
-                <input type="text" name="costo" value="<?php echo $consulta_producto_bk_costo; ?>" readonly/>
+                <input type="text" name="costo" value="<?php echo $consulta_plato_bk_costo; ?>" readonly/>
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_dos last_item">
                 <label><p>Venta</p></label>
-                <input type="text" name="venta" value="<?php echo $consulta_producto_bk_venta; ?>" readonly/>
+                <input type="text" name="venta" value="<?php echo $consulta_plato_bk_venta; ?>" readonly/>
             </div>
             <button type="submit" input="submit" name="submit" value="Iniciar Sesión"><img src="img/flecha.svg"></button>
         </form>
@@ -151,14 +151,14 @@ if(isset($_GET['id_producto'])){
         <?php      
             if (isset($_POST['submit'])){
                 require("../conexion.laialy.php");
-                mysqli_query($conexion, "UPDATE $nav SET activo='$modo_producto' $where");
+                mysqli_query($conexion, "UPDATE $nav SET activo='$modo_plato' $where");
                 //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
                 $log_valor = $titulo_sisint;
-                $log_accion = " producto id: ".$get_id_producto.". producto: ".$consulta_producto_bk_producto;
+                $log_accion = " plato id: ".$get_id_plato.". plato: ".$consulta_plato_bk_plato;
                 require("log.php");
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
                 mysqli_close($conexion);
-                echo "<script language=Javascript> location.href=\"productos.php?nav=$nav&mensaje=producto_activo_".$modo_producto."&pagina=1\";</script>";
+                echo "<script language=Javascript> location.href=\"platos.php?nav=$nav&mensaje=plato_activo_".$modo_plato."&pagina=1\";</script>";
             }
         ?>
     </div>

@@ -8,7 +8,7 @@ if (isset($_GET['material_tipo']) and isset($_GET['material_consumo']) and isset
     $material_consumo = $_GET['material_consumo'];
     $n = $_GET['num_mat'];
     $nav = $_GET['nav']; 
-    if ($nav == "productos_laialy"){ $nav_art = "insumos_laialy"; }
+    if ($nav == "platos_laialy"){ $nav_art = "insumos_laialy"; }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ?>
     

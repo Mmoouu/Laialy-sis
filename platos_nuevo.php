@@ -26,25 +26,13 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$productos_laialy = "";
+$platos_laialy = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "productos_laialy"){
-        $titulo_sisint = "Nuevo Producto Laialy";
-        $productos_laialy = "active";
-        $resultado_busqueda = "Consulta de insumos sin resultados";
-    } else if ($nav == "productos_belen"){
-        $titulo_sisint = "Productos Belen";
-        $productos_belen = "active";
-        $resultado_busqueda = "Consulta de insumos sin resultados";
-    } else if ($nav == "productos_lara"){
-        $titulo_sisint = "Productos Lara";
-        $productos_lara = "active";
-        $resultado_busqueda = "Consulta de insumos sin resultados";
-    } else if ($nav == "productos_sigry"){
-        $titulo_sisint = "Productos Sigry";
-        $productos_sigry = "active";
+    if ($nav == "platos_laialy"){
+        $titulo_sisint = "Nuevo Plato Laialy";
+        $platos_laialy = "active";
         $resultado_busqueda = "Consulta de insumos sin resultados";
     }
 }
@@ -80,7 +68,7 @@ if(isset($_GET['nav'])){
         <div class="historial_atras" title="Atras" onclick="javascript:history.back()"><li class="icons"><img src="img/historial_atras.svg"/></li></div>
         <h1><?php echo $titulo_sisint?></h1>       
     </div>    
-    <div id="nuevo_producto_marca">
+    <div id="nuevo_plato_marca">
         <div class="linea_form_nuevo_ingreso"></div>
         <?php    
         if (isset($_GET['num_art']) and isset($_GET['talles']) and isset($_GET['descripcion']) and isset($_GET['colores']) and isset($_GET['taller']) and isset($_GET['por_perdida']) and isset($_GET['por_costo']) and isset($_GET['materiales'])){
@@ -94,20 +82,20 @@ if(isset($_GET['nav'])){
             $por_costo_num = $_GET['por_costo'];
             $materiales = $_GET['materiales'];
             $columna2 = "1";
-            $boton_primera_atapa = "<div class='boton_producto_atras' onclick='javascript:history.back()'><img src='img/flecha'></div>";
+            $boton_primera_atapa = "<div class='boton_plato_atras' onclick='javascript:history.back()'><img src='img/flecha'></div>";
             $formulario = "post";
         } else {
             $numero = ""; $talles = ""; $descripcion = ""; $colores = ""; $taller = ""; $materiales = ""; $por_perdida = "3.000";
             $por_costo = "Ninguno"; $por_costo_num = ""; $columna2 = "0"; 
-            $boton_primera_atapa = "<button class='boton_producto_adelante' type='submit' input='submit' name='nav' value='".$nav."'><img src='img/flecha'></button>";
+            $boton_primera_atapa = "<button class='boton_plato_adelante' type='submit' input='submit' name='nav' value='".$nav."'><img src='img/flecha'></button>";
             $formulario = "get";
         }    
         ?>
-        <form class="fomulario_nuevo_producto" name="formulario_nuevo_producto" action="" method="<?php echo $formulario; ?>" enctype="multipart/form-data">
+        <form class="fomulario_nuevo_plato" name="formulario_nuevo_plato" action="" method="<?php echo $formulario; ?>" enctype="multipart/form-data">
             <div class="col1">
                 <div class="form_art_tres">
-                    <label><p>Producto</p></label>
-                    <input type="number" name="num_art" value="<?php echo $numero; ?>" required/>
+                    <label><p>Plato</p></label>
+                    <input type="text" name="num_art" value="<?php echo $numero; ?>" required/>
                 </div>
                 <div class="espacio_doble"><p></p></div>
                 <div class="form_art_cuatro">
@@ -316,24 +304,24 @@ if(isset($_GET['nav'])){
             
             if (isset($_POST['terminar'])){ 
                 
-                if ($nav == "productos_laialy"){ $nav_materiales = "materiales_laialy"; }
+                if ($nav == "platos_laialy"){ $nav_materiales = "materiales_laialy"; }
                 
                 $terminar = $_POST['terminar'];
-                $numero_de_producto = $_POST['num_art'];
-                $materiales_de_producto = $_POST['materiales'];
-                $descripcion_de_producto = $_POST['descripcion'];
-                $talles_de_producto = $_POST['talles'];
-                $colores_de_producto = $_POST['colores'];
-                $taller_de_producto = $_POST['taller'];
-                $por_perdida_de_producto = $_POST['por_perdida'];
-                $por_costo_de_producto = $_POST['por_costo'];
-                $suma_final_de_producto = $_POST['suma_final'];
-                $taller_final_de_producto = $_POST['taller_final'];
-                $total_final_de_producto = $_POST['total_final'];
-                $perdidas_final_de_producto = $_POST['perdidas_final'];
-                $costo_final_de_producto = $_POST['costo_final'];
-                $venta_final_de_producto = $_POST['venta_final'];
-                $redondeo_final_de_producto = $_POST['venta_final_redondeo'];
+                $numero_de_plato = $_POST['num_art'];
+                $materiales_de_plato = $_POST['materiales'];
+                $descripcion_de_plato = $_POST['descripcion'];
+                $talles_de_plato = $_POST['talles'];
+                $colores_de_plato = $_POST['colores'];
+                $taller_de_plato = $_POST['taller'];
+                $por_perdida_de_plato = $_POST['por_perdida'];
+                $por_costo_de_plato = $_POST['por_costo'];
+                $suma_final_de_plato = $_POST['suma_final'];
+                $taller_final_de_plato = $_POST['taller_final'];
+                $total_final_de_plato = $_POST['total_final'];
+                $perdidas_final_de_plato = $_POST['perdidas_final'];
+                $costo_final_de_plato = $_POST['costo_final'];
+                $venta_final_de_plato = $_POST['venta_final'];
+                $redondeo_final_de_plato = $_POST['venta_final_redondeo'];
                 $activo = "1";
                 $creacion = date("d-m-y");
                 $dia_mod = date("d");
@@ -343,15 +331,15 @@ if(isset($_GET['nav'])){
                 $array_id_materiales = array();
                 
                 require("../conexion.laialy.php");
-                mysqli_query($conexion, "INSERT INTO $terminar (id_producto, producto, descripcion, talles, colores, suma, taller, total, por_perdidas, perdidas, por_costo, costo, venta, redondeo, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo, mod_txt, mod_val) VALUES (null,'$numero_de_producto','$descripcion_de_producto','$talles_de_producto','$colores_de_producto','$suma_final_de_producto','$taller_de_producto','$total_final_de_producto','$por_perdida_de_producto','$perdidas_final_de_producto','$por_costo_de_producto','$costo_final_de_producto','$venta_final_de_producto','$redondeo_final_de_producto','$creacion','$dia_mod','$mes_mod','$anio_mod','$hora_mod','$activo','0','0')");
+                mysqli_query($conexion, "INSERT INTO $terminar (id_plato, plato, descripcion, talles, colores, suma, taller, total, por_perdidas, perdidas, por_costo, costo, venta, redondeo, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo, mod_txt, mod_val) VALUES (null,'$numero_de_plato','$descripcion_de_plato','$talles_de_plato','$colores_de_plato','$suma_final_de_plato','$taller_de_plato','$total_final_de_plato','$por_perdida_de_plato','$perdidas_final_de_plato','$por_costo_de_plato','$costo_final_de_plato','$venta_final_de_plato','$redondeo_final_de_plato','$creacion','$dia_mod','$mes_mod','$anio_mod','$hora_mod','$activo','0','0')");
                 
-                $consulta_id = mysqli_query($conexion, "SELECT id_producto FROM $terminar ORDER BY id_producto DESC LIMIT 1");
+                $consulta_id = mysqli_query($conexion, "SELECT id_plato FROM $terminar ORDER BY id_plato DESC LIMIT 1");
                 $listado_id = mysqli_fetch_array($consulta_id);
-                $id_last_producto = $listado_id['id_producto'];
+                $id_last_plato = $listado_id['id_plato'];
                 
                 /////////////////////////////////////////////////
                 
-                for ($cant = 1; $cant <= $materiales_de_producto; $cant++){                    
+                for ($cant = 1; $cant <= $materiales_de_plato; $cant++){                    
                     $nombres_de_material_para_post = "material".$cant;
                     $nombre_de_material = $_POST[$nombres_de_material_para_post];
                     
@@ -371,18 +359,18 @@ if(isset($_GET['nav'])){
                     $total_de_material_para_post = "total".$cant;
                     $total_de_materiales = $_POST[$total_de_material_para_post];                    
                     
-                    mysqli_query($conexion, "INSERT INTO $nav_materiales (id_material, material, insumos, consumo, cantidad, suma, total, creacion, dia_mod, mes_mod, anio_mod, hora_mod, id_producto, dat, val, act) VALUES (null,'$nombre_de_material','$check_de_insumo','$consumo_de_material','$cantidad_de_materiales','$suma_de_materiales','$total_de_materiales','$creacion','$dia_mod','$mes_mod','$anio_mod','$hora_mod','$id_last_producto','0','0','0')");                    
+                    mysqli_query($conexion, "INSERT INTO $nav_materiales (id_material, material, insumos, consumo, cantidad, suma, total, creacion, dia_mod, mes_mod, anio_mod, hora_mod, id_plato, dat, val, act) VALUES (null,'$nombre_de_material','$check_de_insumo','$consumo_de_material','$cantidad_de_materiales','$suma_de_materiales','$total_de_materiales','$creacion','$dia_mod','$mes_mod','$anio_mod','$hora_mod','$id_last_plato','0','0','0')");                    
                                         
                 } 
                 
                 //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
-                $log_valor = $numero_de_producto;
+                $log_valor = $numero_de_plato;
                 $log_accion = "Nuevo";
                 require("log.php");
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
                 
                 mysqli_close($conexion);
-                echo "<script language=Javascript> location.href=\"productos.php?nav=$terminar&mensaje=nuevo_producto\";</script>";
+                echo "<script language=Javascript> location.href=\"platos.php?nav=$terminar&mensaje=nuevo_plato\";</script>";
             }                 
             ?> 
                     </div>                
@@ -405,8 +393,8 @@ if(isset($_GET['nav'])){
                 } 
                 ?>                
             </div>
-            <div class='boton_producto_terminar_inactivo' id="terminar_inactivo"><p>Terminar</p></div>
-            <button class='boton_producto_terminar' disabled style="display: none;" id="terminar" type='submit' input='submit' name='terminar' value='<?php echo $nav; ?>'><p>Terminar</p></button>
+            <div class='boton_plato_terminar_inactivo' id="terminar_inactivo"><p>Terminar</p></div>
+            <button class='boton_plato_terminar' disabled style="display: none;" id="terminar" type='submit' input='submit' name='terminar' value='<?php echo $nav; ?>'><p>Terminar</p></button>
             
         </form>
         <div class="linea_form_nuevo_ingreso"></div>
