@@ -47,8 +47,6 @@ if(isset($_GET['ver'])){
         $boton_act = "";
         $boton_cos = "";
         $boton_fijar = "";
-        $boton_taller = "";
-        $boton_talleres = "";
         $boton_nuevo_plato = "";
         $aclaracion_inactivo = " Inactivos";
     } 
@@ -57,8 +55,6 @@ if(isset($_GET['ver'])){
     $boton_ver = "<li class='icons'><img title='Ver Inactivos' onclick='location.href=\"platos.php?nav=".$nav."&ver=0\"' src='img/inactivos.svg'></li>";
     $boton_cos = "<li class='icons'><img title='Ganancia / Perdida' onclick='location.href=\"costos.php?nav=".$nav."\"' src='img/costo.svg'></li>";
     $boton_fijar = "<li class='icons'><img title='Fijar Lista' onclick='location.href=\"fijar_platos.php?nav=".$nav."\"' src='img/fijar.svg'></li>";
-    $boton_taller = "<li class='icons'><img title='Aumento Talleres' onclick='location.href=\"incremento_taller.php?nav=".$nav."\"' src='img/taller.svg'></li>";
-    $boton_talleres = "<li class='icons'><img title='Aumento Talleres Global' onclick='location.href=\"modificar_taller_global.php?nav=".$nav."\"' src='img/taller_global.svg'></li>";
     //////////////////////////////////////////////////////////////////////////////////////////////////
     require("../conexion.laialy.php");             
     $consulta_de_act = mysqli_query($conexion,  "SELECT * FROM $nav WHERE activo='1' ORDER BY plato ASC");
@@ -110,8 +106,6 @@ if(isset($_GET['ver'])){
         echo $boton_nuevo_plato;        
         echo $boton_act;
         echo $boton_cos;        
-        echo $boton_taller;
-        echo $boton_talleres;
         echo $boton_fijar;
         echo "<li class='icons'><div class='separacion_busqueda'></div></li>";
         echo $boton_ver;  
