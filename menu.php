@@ -6,39 +6,56 @@ $img = "<img src='img/flecha_derecha.svg'>";
 /////////////////////////////////COSTOS/////////////////////////////////
 
 if ($permiso_costos == "1"){
-    if ($posicion_pagina == "insumos_uss" || $posicion_pagina == "sumar_insumos_uss" || $posicion_pagina == "sumar_insumo_uss" || $posicion_pagina == "modificar_insumo_uss" || $posicion_pagina == "pesificar" || $posicion_pagina == "aplica_pesificacion" || $posicion_pagina == "eliminar_insumo_uss"){
-        echo "<div id='btn_navegacion' class='active'><div></div><p>Insumos Dolarizados</p></div>";
-        echo "<ul class='insumos_uss active'>";
-        echo "<li class='".$insumos_laialy."'><div></div><p onclick=\"location.href='insumos_uss.php?nav=insumos_uss_laialy&pagina=01'\">Laialy</p>".$img."</li>";
+    if ($posicion_pagina == "platos" || $posicion_pagina == "insumos" || $posicion_pagina == "stock" || $posicion_pagina == "menus" || $posicion_pagina == "insumos_nuevo" || $posicion_pagina == "insumos_copiar" || $posicion_pagina == "insumos_modificar" || $posicion_pagina == "insumos_activar_desactivar" || $posicion_pagina == "insumos_incremento" || $posicion_pagina == "insumos_modificar_precio" || $posicion_pagina == "insumos_modificar_porcentual" || $posicion_pagina == "insumos_eliminar" || $posicion_pagina == "insumos_aplica_incremento" || $posicion_pagina == "platos_nuevo" || $posicion_pagina == "costos" || $posicion_pagina == "activar_desactivar_plato" || $posicion_pagina == "actualizar_plato_solo" || $posicion_pagina == "actualizar_plato_todo" || $posicion_pagina == "modificar_redondeo" || $posicion_pagina == "modificar_material" || $posicion_pagina == "modificar_taller" || $posicion_pagina == "fijar_platos" || $posicion_pagina == "incremento_taller" || $posicion_pagina == "aplica_incremento_taller" || $posicion_pagina == "modificar_taller_global" || $posicion_pagina == "modificar_descripcion" || $posicion_pagina == "nuevo_material"){
+        echo "<div id='btn_navegacion' class='active'><div></div><p>Laialy</p></div>";
+        echo "<ul class='laialy active'>";
+        echo "<li class='".$insumos_laialy."'><div></div><p onclick=\"location.href='insumos.php?nav=insumos_laialy&pagina=01'\">Insumos</p>".$img."</li>";
+        echo "<li class='".$stock_laialy."'><div></div><p onclick=\"location.href='stock.php?nav=stock_laialy&pagina=01'\">Stock</p>".$img."</li>";
+        echo "<li class='".$platos_laialy."'><div></div><p onclick=\"location.href='platos.php?nav=platos_laialy'\">Platos</p>".$img."</li>";
+        echo "<li class='".$menu_laialy."'><div></div><p onclick=\"location.href='menus.php?nav=menu_laialy'\">Menu</p>".$img."</li>";
         echo "</ul>";
     } else {
-        echo "<div id='btn_navegacion' class=''><div></div><p>Insumos Dolarizados</p></div>";
-        echo "<ul class='insumos_uss'>";
-        echo "<li><div></div><p onclick=\"location.href='insumos_uss.php?nav=insumos_uss_laialy&pagina=01'\">Laialy</p></li>";
+        echo "<div id='btn_navegacion' class=''><div></div><p>Laialy</p></div>";
+        echo "<ul class='laialy'>";
+        echo "<li><div></div><p onclick=\"location.href='insumos.php?nav=insumos_laialy&pagina=01'\">Insumos</p>".$img."</li>";
+        echo "<li><div></div><p onclick=\"location.href='stock.php?nav=stock_laialy&pagina=01'\">Stock</p>".$img."</li>";
+        echo "<li><div></div><p onclick=\"location.href='platos.php?nav=platos_laialy'\">Platos</p>".$img."</li>";
+        echo "<li><div></div><p onclick=\"location.href='menus.php?nav=menu_laialy'\">Menu</p>".$img."</li>";
         echo "</ul>";
     }
-    if ($posicion_pagina == "insumos" || $posicion_pagina == "insumos_nuevo" || $posicion_pagina == "insumos_copiar" || $posicion_pagina == "insumos_modificar" || $posicion_pagina == "insumos_activar_desactivar" || $posicion_pagina == "insumos_incremento" || $posicion_pagina == "insumos_modificar_precio" || $posicion_pagina == "insumos_modificar_porcentual" || $posicion_pagina == "insumos_eliminar" || $posicion_pagina == "insumos_aplica_incremento"){
-        echo "<div id='btn_navegacion' class='active'><div></div><p>Insumos</p></div>";
-        echo "<ul class='insumos active'>";
-        echo "<li class='".$insumos_laialy."'><div></div><p onclick=\"location.href='insumos.php?nav=insumos_laialy&pagina=01'\">Laialy</p>".$img."</li>";
-        echo "</ul>";
-    } else {
-        echo "<div id='btn_navegacion' class=''><div></div><p>Insumos</p></div>";
-        echo "<ul class='insumos'>";
-        echo "<li><div></div><p onclick=\"location.href='insumos.php?nav=insumos_laialy&pagina=01'\">Laialy</p></li>";
-        echo "</ul>";
-    }
-    if ($posicion_pagina == "platos" || $posicion_pagina == "platos_nuevo" || $posicion_pagina == "costos" || $posicion_pagina == "activar_desactivar_plato" || $posicion_pagina == "actualizar_plato_solo" || $posicion_pagina == "actualizar_plato_todo" || $posicion_pagina == "modificar_redondeo" || $posicion_pagina == "modificar_material" || $posicion_pagina == "modificar_taller" || $posicion_pagina == "fijar_platos" || $posicion_pagina == "incremento_taller" || $posicion_pagina == "aplica_incremento_taller" || $posicion_pagina == "modificar_taller_global" || $posicion_pagina == "modificar_descripcion" || $posicion_pagina == "nuevo_material" ){
-        echo "<div id='btn_navegacion' class='active'><div></div><p>Platos</p></div>";
-        echo "<ul class='platos active'>";
-        echo "<li class='".$platos_laialy."'><div></div><p onclick=\"location.href='platos.php?nav=platos_laialy'\">Laialy</p>".$img."</li>";
-        echo "</ul>";
-    } else {
-        echo "<div id='btn_navegacion' class=''><div></div><p>Platos</p></div>";
-        echo "<ul class='platos'>";
-        echo "<li><div></div><p onclick=\"location.href='platos.php?nav=platos_laialy'\">Laialy</p></li>";
-        echo "</ul>";
-    }
+    // if ($posicion_pagina == "insumos_uss" || $posicion_pagina == "sumar_insumos_uss" || $posicion_pagina == "sumar_insumo_uss" || $posicion_pagina == "modificar_insumo_uss" || $posicion_pagina == "pesificar" || $posicion_pagina == "aplica_pesificacion" || $posicion_pagina == "eliminar_insumo_uss"){
+    //     echo "<div id='btn_navegacion' class='active'><div></div><p>Insumos Dolarizados</p></div>";
+    //     echo "<ul class='insumos_uss active'>";
+    //     echo "<li class='".$insumos_laialy."'><div></div><p onclick=\"location.href='insumos_uss.php?nav=insumos_uss_laialy&pagina=01'\">Laialy</p>".$img."</li>";
+    //     echo "</ul>";
+    // } else {
+    //     echo "<div id='btn_navegacion' class=''><div></div><p>Insumos Dolarizados</p></div>";
+    //     echo "<ul class='insumos_uss'>";
+    //     echo "<li><div></div><p onclick=\"location.href='insumos_uss.php?nav=insumos_uss_laialy&pagina=01'\">Laialy</p></li>";
+    //     echo "</ul>";
+    // }
+    // if ($posicion_pagina == "insumos" || $posicion_pagina == "insumos_nuevo" || $posicion_pagina == "insumos_copiar" || $posicion_pagina == "insumos_modificar" || $posicion_pagina == "insumos_activar_desactivar" || $posicion_pagina == "insumos_incremento" || $posicion_pagina == "insumos_modificar_precio" || $posicion_pagina == "insumos_modificar_porcentual" || $posicion_pagina == "insumos_eliminar" || $posicion_pagina == "insumos_aplica_incremento"){
+    //     echo "<div id='btn_navegacion' class='active'><div></div><p>Insumos</p></div>";
+    //     echo "<ul class='insumos active'>";
+    //     echo "<li class='".$insumos_laialy."'><div></div><p onclick=\"location.href='insumos.php?nav=insumos_laialy&pagina=01'\">Laialy</p>".$img."</li>";
+    //     echo "</ul>";
+    // } else {
+    //     echo "<div id='btn_navegacion' class=''><div></div><p>Insumos</p></div>";
+    //     echo "<ul class='insumos'>";
+    //     echo "<li><div></div><p onclick=\"location.href='insumos.php?nav=insumos_laialy&pagina=01'\">Laialy</p></li>";
+    //     echo "</ul>";
+    // }
+    // if ($posicion_pagina == "platos" || $posicion_pagina == "platos_nuevo" || $posicion_pagina == "costos" || $posicion_pagina == "activar_desactivar_plato" || $posicion_pagina == "actualizar_plato_solo" || $posicion_pagina == "actualizar_plato_todo" || $posicion_pagina == "modificar_redondeo" || $posicion_pagina == "modificar_material" || $posicion_pagina == "modificar_taller" || $posicion_pagina == "fijar_platos" || $posicion_pagina == "incremento_taller" || $posicion_pagina == "aplica_incremento_taller" || $posicion_pagina == "modificar_taller_global" || $posicion_pagina == "modificar_descripcion" || $posicion_pagina == "nuevo_material" ){
+    //     echo "<div id='btn_navegacion' class='active'><div></div><p>Platos</p></div>";
+    //     echo "<ul class='platos active'>";
+    //     echo "<li class='".$platos_laialy."'><div></div><p onclick=\"location.href='platos.php?nav=platos_laialy'\">Laialy</p>".$img."</li>";
+    //     echo "</ul>";
+    // } else {
+    //     echo "<div id='btn_navegacion' class=''><div></div><p>Platos</p></div>";
+    //     echo "<ul class='platos'>";
+    //     echo "<li><div></div><p onclick=\"location.href='platos.php?nav=platos_laialy'\">Laialy</p></li>";
+    //     echo "</ul>";
+    // }
     if ($posicion_pagina == "proveedores" || $posicion_pagina == "categorias" || $posicion_pagina == "subcategorias" ){
         echo "<div id='btn_navegacion' class='active'><div></div><p>Rubros</p></div>";
         echo "<ul class='rubros active'>";        

@@ -30,9 +30,9 @@ $platos_laialy = ""; $insumos_laialy = ""; $stock_laialy = ""; $menu_laialy = ""
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "platos_laialy"){
-        $titulo_sisint = "Platos Laialy";
-        $platos_laialy = "active";
+    if ($nav == "menu_laialy"){
+        $titulo_sisint = "Menus Laialy";
+        $menu_laialy = "active";
         $resultado_busqueda = "Consulta de platos sin resultados";
     } 
 }

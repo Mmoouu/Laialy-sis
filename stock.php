@@ -26,14 +26,14 @@ if ($login == "log"){
     $circulo_log = "circulo_log_red";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-$platos_laialy = ""; $insumos_laialy = ""; $stock_laialy = ""; $menu_laialy = "";
+$platos_laialy = ""; $insumos_laialy = ""; $stock_laialy = ""; $menu_laialy = ""; 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
-    if ($nav == "insumos_laialy"){
+    if ($nav == "stock_laialy"){
         $nav_materiales = "materiales_laialy";
-        $titulo_sisint = "Insumos Laialy";
-        $insumos_laialy = "active";
+        $titulo_sisint = "Stock Laialy";
+        $stock_laialy = "active";
         $resultado_busqueda = "Consulta de insumos sin resultados";
     }
 }
