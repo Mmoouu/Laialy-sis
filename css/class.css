@@ -1205,7 +1205,29 @@ input:-webkit-autofill {
     overflow: hidden;
 }
 
+#columna_1_stock {
+    position: absolute;
+    left: 20px;
+    right: 52%;
+    ;
+    top: 90px;
+    bottom: 20px;
+    overflow: hidden;
+}
+
 #columna_2_platos {
+    position: absolute;
+    right: 20px;
+    left: 49.2%;
+    top: 123px;
+    bottom: 20px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+#columna_2_stock {
     position: absolute;
     right: 20px;
     left: 49.2%;
@@ -3022,6 +3044,112 @@ input:-webkit-autofill {
 }
 
 /* /////////////////////////////////////////////////////////////////////////////////////////// platos /////////////////////////////////////////////////////////////////////////////////////////// */
+/* LI MEDIDAS UNICAS BARRA SUPERIOR DE EL LISTADO DE STOCK //// COLUMNA 1*/
+.li_stock_txt {
+    width: 20%;    
+}
+
+.li_stock_txt:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px; 
+    width: 27.8%;    
+}
+
+.li_stock_txt:nth-child(3) {
+    width: 8%;
+    
+}
+
+.li_stock_alerta {
+    width: 4%;
+}
+
+.li_stock_alerta img {
+    height: 33px;
+    display: block;
+    margin: 0 auto;
+}
+
+.li_stock_estado {
+    width: 4%;
+}
+
+.li_stock_estado img {
+    height: 33px;
+    display: block;
+    margin: 0 auto;
+}
+
+.li_stock_ver {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 4.2%;
+    background-color: #a7a7a7;
+    cursor: pointer;
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.li_stock_ver img {
+    height: 33px;
+    display: block;
+    margin: 0 auto;
+}
+
+.li_stock_ver:hover {
+    background-color: #5d98d4;
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.li_stock_visto {
+    width: 4.2%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #2b80d6;
+    cursor: pointer;
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.li_stock_visto img {
+    height: 33px;
+    display: block;
+    margin: 0 auto;
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.li_stock_visto:hover {
+    background-color: #5d98d4;
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.li_stock_visto:hover img {
+    transform: rotate(180deg);
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
 /* LI MEDIDAS UNICAS BARRA SUPERIOR DE EL LISTADO DE platos //// COLUMNA 1*/
 .li_platos_txt {
     width: 13.3%;    
@@ -4596,7 +4724,7 @@ footer span {
 }
 
 .li_medida {
-    width: 7%;
+    width: 4%;
 }
 
 .li_proveedor {
@@ -4606,16 +4734,19 @@ footer span {
 .li_modificado {
     width: 9%;
 }
-
-.li_valor {
-    width: 10%;
+.li_stock {
+    width: 5%;
 }
 
-.li_valor p {
+.li_valor {
+    width: 8%;
+}
+
+/* .li_valor p {
     width: 58%;
     height: 33px;
     float: left;
-}
+} */
 
 .li_valor_uss {
     width: 10%;
@@ -4626,16 +4757,16 @@ footer span {
     height: 33px;
 }
 
-.li_valor img {
+/* .li_valor img {
     width: 16%;
     height: 23px;
     float: left;
     background-color: #eaeaea;
     margin-top: 5px;
     cursor: pointer;
-}
+} */
 
-.li_valor img:hover {
+/* .li_valor img:hover {
     background-color: #d6d6d6;
 }
 
@@ -4645,7 +4776,7 @@ footer span {
 
 .li_valor img:last-child {
     margin-right: 5%;
-}
+} */
 
 .li_copiar_insumo {
     width: 3%;
@@ -4653,7 +4784,19 @@ footer span {
     cursor: pointer;
 }
 
+.li_copiar_stock {
+    width: 3%;
+    background-color: #bababa;
+    cursor: pointer;
+}
+
 .li_modificar_insumo {
+    width: 3%;
+    background-color: #bababa;
+    cursor: pointer;
+}
+
+.li_modificar_stock {
     width: 3%;
     background-color: #bababa;
     cursor: pointer;

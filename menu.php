@@ -10,7 +10,7 @@ if ($permiso_costos == "1"){
         echo "<div id='btn_navegacion' class='active'><div></div><p>Laialy</p></div>";
         echo "<ul class='laialy active'>";
         echo "<li class='".$insumos_laialy."'><div></div><p onclick=\"location.href='insumos.php?nav=insumos_laialy&pagina=01'\">Insumos</p>".$img."</li>";
-        echo "<li class='".$stock_laialy."'><div></div><p onclick=\"location.href='stock.php?nav=stock_laialy&pagina=01'\">Stock</p>".$img."</li>";
+        echo "<li class='".$stock_laialy."'><div></div><p onclick=\"location.href='stock.php?nav=stock_laialy'\">Stock</p>".$img."</li>";
         echo "<li class='".$platos_laialy."'><div></div><p onclick=\"location.href='platos.php?nav=platos_laialy'\">Platos</p>".$img."</li>";
         echo "<li class='".$menu_laialy."'><div></div><p onclick=\"location.href='menus.php?nav=menu_laialy'\">Menu</p>".$img."</li>";
         echo "</ul>";
@@ -18,7 +18,7 @@ if ($permiso_costos == "1"){
         echo "<div id='btn_navegacion' class=''><div></div><p>Laialy</p></div>";
         echo "<ul class='laialy'>";
         echo "<li><div></div><p onclick=\"location.href='insumos.php?nav=insumos_laialy&pagina=01'\">Insumos</p>".$img."</li>";
-        echo "<li><div></div><p onclick=\"location.href='stock.php?nav=stock_laialy&pagina=01'\">Stock</p>".$img."</li>";
+        echo "<li><div></div><p onclick=\"location.href='stock.php?nav=stock_laialy'\">Stock</p>".$img."</li>";
         echo "<li><div></div><p onclick=\"location.href='platos.php?nav=platos_laialy'\">Platos</p>".$img."</li>";
         echo "<li><div></div><p onclick=\"location.href='menus.php?nav=menu_laialy'\">Menu</p>".$img."</li>";
         echo "</ul>";

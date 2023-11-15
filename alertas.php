@@ -1,6 +1,10 @@
 <?php
 if(isset($_GET['mensaje'])){
-    switch ($_GET['mensaje']){
+    switch ($_GET['mensaje']){        
+        case "codigo_repetido":
+            echo "<div style='background-color:#d42936; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El codigo insumo ingresado ya se encuentra en uso, intente nuevamente!</p><script type='text/javascript'>
+            $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 
+            break;
         case "nuevo_proveedor":
             echo "<div style='background-color:#5db45d; position:absolute; padding:10px; border-radius:5px; width: auto; height:auto; right:30px; font-family:medium; color:#fff; top:30px;z-index:8;' class='mensaje_interno'><p>El proveedor fue agregado con éxito.</p><script type='text/javascript'>
             $(document).ready(function() { setTimeout(function() { $('.mensaje_interno').fadeOut(1500); },6000); }); </script></div>"; 

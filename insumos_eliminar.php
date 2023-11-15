@@ -24,6 +24,9 @@ if ($login == "log"){
     $user_log = "Desconectado";
     $circulo_log = "circulo_log_red";
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////
+$platos_laialy = ""; $insumos_laialy = ""; $stock_laialy = ""; $menu_laialy = "";
+//////////////////////////////////////////////////////////////////////////////////////////////////
 $insumos_laialy = ""; $where = ""; $titulo_sisint_activar = "";
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
@@ -80,6 +83,7 @@ if(isset($_GET['id'])){
     $consulta_insumo_bk_medida = utf8_encode($listado_de_insumos['medida']);
     $consulta_insumo_bk_proveedor = $listado_de_insumos['proveedor'];
     $consulta_insumo_bk_valor = $listado_de_insumos['valor'];
+    $consulta_insumo_bk_stock = $listado_de_insumos['stock'];
     $consulta_insumo_bk_creacion = $listado_de_insumos['creacion'];
     
     $consulta_insumo_bk_hora_mod = $listado_de_insumos['hora_mod'];
@@ -94,61 +98,58 @@ if(isset($_GET['id'])){
     <div id="nuevo_ingreso">
         <div class="linea_form_nuevo_ingreso"></div>
         <form class="fomulario_nuevo_ingreso" name="formulario_nuevo_ingreso" action="" method="post" enctype="multipart/form-data">
+            <div class="fneworder">
+                <p>ATENCION!! Si usted elimina este insumo, se eliminara todo el stock correspondiente al mismo.</p><br>
+            </div>
             <div class="fneworder_dos">
                 <label><p>Cod Ins</p></label>
                 <input type="text" name="cod_ins" value="<?php echo $consulta_insumo_bk_cod; ?>" readonly/>
             </div>
             <div class="espacio"><p></p></div>
-            <div class="fneworder_dos">
+            <div class="fneworder_cuatro">
                 <label><p>Valor</p></label>
                 <input type="text" name="valor" value="<?php echo $consulta_insumo_bk_valor; ?>" readonly/>
+            </div>
+            <div class="espacio"><p></p></div>
+            <div class="fneworder_cuatro">
+                <label><p>Stock</p></label>
+                <input type="text" name="stock" value="<?php echo $consulta_insumo_bk_stock; ?>" readonly/>
             </div>
             <div class="fneworder">
                 <label><p>Insumo</p></label>
                 <input type="text" name="insumo" value="<?php echo $consulta_insumo_bk_insumo; ?>" readonly/>
             </div>
             <div class="fneworder_dos">
-                <label><p>Categoria</p></label>                
-                <select type="text" readonly name="categoria" id="">
-                    <?php 
-                    require("../conexion.laialy.php");
-                    $consulta_de_categorias_sel = mysqli_query($conexion, "SELECT * FROM categorias WHERE id = '$consulta_insumo_bk_categoria'");
-                    $listado_de_categorias_sel = mysqli_fetch_array($consulta_de_categorias_sel);                    
-                    echo "<option value='".$listado_de_categorias_sel['id']."'>".utf8_encode($listado_de_categorias_sel['categoria'])."</option>";                    
-                    mysqli_close($conexion);
-                    ?>
-                </select> 
+                <label><p>Categoria</p></label>
+                <?php 
+                require("../conexion.laialy.php");
+                $consulta_de_categorias_sel = mysqli_query($conexion, "SELECT * FROM categorias WHERE id = '$consulta_insumo_bk_categoria'");
+                $listado_de_categorias_sel = mysqli_fetch_array($consulta_de_categorias_sel);  
+                echo "<input type='text' name='categoria' value='".utf8_encode($listado_de_categorias_sel['categoria'])."'  readonly/>";                 
+                ?>                 
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_dos" id="subcategoria">
-                <label><p>Subcategoria</p></label>
-                <select type="text" name="subcategoria">
-                    <?php 
-                    require("../conexion.laialy.php");
-                    $consulta_de_subcategorias_sel = mysqli_query($conexion, "SELECT * FROM subcategorias WHERE id = '$consulta_insumo_bk_subcategoria'");
-                    $listado_de_subcategorias_sel = mysqli_fetch_array($consulta_de_subcategorias_sel);                    
-                    echo "<option value='".$listado_de_subcategorias_sel['id']."'>".utf8_encode($listado_de_subcategorias_sel['subcategoria'])."</option>";
-                    mysqli_close($conexion);
-                    ?>
-                </select>
+                <label><p>Subcategoria</p></label>                
+                <?php                     
+                $consulta_de_subcategorias_sel = mysqli_query($conexion, "SELECT * FROM subcategorias WHERE id = '$consulta_insumo_bk_subcategoria'");
+                $listado_de_subcategorias_sel = mysqli_fetch_array($consulta_de_subcategorias_sel);    
+                echo "<input type='text' name='subcategoria' value='".utf8_encode($listado_de_subcategorias_sel['subcategoria'])."'  readonly/>";                
+                ?>                
             </div>
             <div class="fneworder_dos">
                 <label><p>Un Med</p></label>
-                <input type="text" name="medida" value="<?php echo $consulta_insumo_bk_medida; ?>"/> 
+                <input type="text" name="insumo" value="<?php echo $consulta_insumo_bk_medida; ?>" readonly/>                
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_dos last_item">
-                <label><p>Proveedor</p></label>
-                <select type="text" name="proveedor">                    
-                    <?php 
-                    require("../conexion.laialy.php");
-                    ////////////////////////////////////////
-                    $consulta_de_proveedor_seleccionado = mysqli_query($conexion, "SELECT * FROM proveedores WHERE id_proveedor='$consulta_insumo_bk_proveedor'");
-                    $listado_select = mysqli_fetch_array($consulta_de_proveedor_seleccionado);   
-                    echo "<option value='".$listado_select['id_proveedor']."' selected>".utf8_encode($listado_select['proveedor'])."</option>";
-                    mysqli_close($conexion);
-                    ?>
-                </select>
+                <label><p>Proveedor</p></label>                                    
+                <?php 
+                $consulta_de_proveedor_seleccionado = mysqli_query($conexion, "SELECT * FROM proveedores WHERE id_proveedor='$consulta_insumo_bk_proveedor'");
+                $listado_select = mysqli_fetch_array($consulta_de_proveedor_seleccionado); 
+                echo "<input type='text' name='proveedor' value='".utf8_encode($listado_select['proveedor'])."'  readonly/>";  
+                mysqli_close($conexion);
+                ?>
             </div>
             <button type="submit" input="submit" name="submit" value="Iniciar Sesión">Eliminar</button>
         </form>
@@ -157,7 +158,7 @@ if(isset($_GET['id'])){
             if (isset($_POST['submit'])){
                 require("../conexion.laialy.php");
                 
-                mysqli_query($conexion, "INSERT INTO $nav_historial (id_historial, tipo, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, valor, aplica, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'elimina','$get_id_insumo','$consulta_insumo_bk_cod','$consulta_insumo_bk_insumo','$consulta_insumo_bk_categoria','$consulta_insumo_bk_subcategoria','$consulta_insumo_bk_medida','$consulta_insumo_bk_proveedor','$consulta_insumo_bk_valor','nada','eliminado','$consulta_insumo_bk_fecha','$nueva_fecha','$consulta_insumo_bk_hora_mod','$form_hora_mod')");
+                mysqli_query($conexion, "INSERT INTO $nav_historial (id_historial, tipo, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, valor, stock, aplica, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'elimina','$get_id_insumo','$consulta_insumo_bk_cod','$consulta_insumo_bk_insumo','$consulta_insumo_bk_categoria','$consulta_insumo_bk_subcategoria','$consulta_insumo_bk_medida','$consulta_insumo_bk_proveedor','$consulta_insumo_bk_valor','$consulta_insumo_bk_stock','nada','eliminado','$consulta_insumo_bk_fecha','$nueva_fecha','$consulta_insumo_bk_hora_mod','$form_hora_mod')");
                 
                 mysqli_query($conexion, "DELETE FROM $nav WHERE id = '$get_id_insumo'");
                 

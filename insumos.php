@@ -214,9 +214,10 @@ if(isset($_GET['ord'])){
             <li class="li_categoria"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=categoria&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_categoria; ?>">Categoria</p></li>
             <li class="li_subcategoria"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=subcategoria&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_subcategoria; ?>">Subcategoria</p></li>
             <li class="li_proveedor"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=proveedor&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_proveedor; ?>">Proveedor</p></li>            
-            <li class="li_modificado"><p>Fecha Mod</p></li>
+            <li class="li_modificado"><p>Fecha Mod</p></li>            
+            <li class="li_valor"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=valor&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_valor; ?>">Valor</p></li>
+            <li class="li_stock"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=stock&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_medida; ?>">Stock</p></li>
             <li class="li_medida"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=medida&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_medida; ?>">Un Med</p></li>
-            <li class="li_valor"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=valor&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;margin-left:21%;<?php echo $style_valor; ?>">Valor</p></li>
             <li class="li_copiar_insumo"><p></p></li><li class="li_modificar_insumo"><p></p></li><li class="li_borrar_insumo"><p></p></li>
         </ul>
         <div id="tabla_sisint" class="tabla_sisint">            
@@ -254,6 +255,7 @@ if(isset($_GET['ord'])){
                         $insumo_bk_proveedor = $listado_de_insumos['proveedor'];
                         $insumo_bk_medida = $listado_de_insumos['medida'];
                         $insumo_bk_valor = $listado_de_insumos['valor'];
+                        $insumo_bk_stock = $listado_de_insumos['stock'];
                         $insumo_bk_creacion = $listado_de_insumos['creacion'];
                         $insumo_bk_modificado = $listado_de_insumos['dia_mod']."-".$listado_de_insumos['mes_mod']."-".$listado_de_insumos['anio_mod'];
                         $insumo_bk_hora_mod = $listado_de_insumos['hora_mod'];
@@ -291,15 +293,17 @@ if(isset($_GET['ord'])){
                             echo utf8_encode($listado_de_proveedores['proveedor']);
                             ?>
                             </p>
-                        </li>
-                        
-                        <li class='li_modificado li_grupal'><p><?php echo $insumo_bk_modificado; ?></p></li>
-                        <li class='li_medida li_grupal'><p><?php echo $insumo_bk_medida; ?></p></li>
+                        </li>                        
+                        <li class='li_modificado li_grupal'><p><?php echo $insumo_bk_modificado; ?></p></li>                        
                         <li class='li_valor li_grupal'>
-                            <img src="img/por_valor.svg" title="Cambio Numerico" onclick='location.href="insumos_modificar_precio.php?nav=<?php echo $nav; ?>&id=<?php echo $insumo_bk_id; ?>&pagina=<?php echo $_GET["pagina"]; ?>&busqueda=<?php echo $guarda_busqueda; ?>"'>
+                            <!-- <img src="img/por_valor.svg" title="Cambio Numerico" onclick='location.href="insumos_modificar_precio.php?nav=<?php echo $nav; ?>&id=<?php echo $insumo_bk_id; ?>&pagina=<?php echo $_GET["pagina"]; ?>&busqueda=<?php echo $guarda_busqueda; ?>"'> -->
                             <p>$ <?php echo $insumo_bk_valor; ?></p>
-                            <img src="img/por_por.svg" title="Cambio Porcentual" onclick='location.href="insumos_modificar_porcentual.php?nav=<?php echo $nav; ?>&id=<?php echo $insumo_bk_id; ?>&pagina=<?php echo $_GET["pagina"]; ?>&busqueda=<?php echo $guarda_busqueda; ?>"'>
+                            <!-- <img src="img/por_por.svg" title="Cambio Porcentual" onclick='location.href="insumos_modificar_porcentual.php?nav=<?php echo $nav; ?>&id=<?php echo $insumo_bk_id; ?>&pagina=<?php echo $_GET["pagina"]; ?>&busqueda=<?php echo $guarda_busqueda; ?>"'> -->
                         </li>
+                        <li class='li_stock li_grupal'>                            
+                            <p><?php echo $insumo_bk_stock; ?></p>                            
+                        </li>
+                        <li class='li_medida li_grupal'><p><?php echo $insumo_bk_medida; ?></p></li>
                         <?php 
                         if ($insumo_bk_activo == "1"){
                         ?>

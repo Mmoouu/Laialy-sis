@@ -24,6 +24,9 @@ if ($login == "log"){
     $user_log = "Desconectado";
     $circulo_log = "circulo_log_red";
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////
+$platos_laialy = ""; $insumos_laialy = ""; $stock_laialy = ""; $menu_laialy = "";
+//////////////////////////////////////////////////////////////////////////////////////////////////
 $insumos_laialy = ""; $where = ""; 
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
@@ -81,7 +84,6 @@ if(isset($_GET['id'])){
     $consulta_insumo_bk_subcategoria = $listado_de_insumos['subcategoria'];
     $consulta_insumo_bk_medida = $listado_de_insumos['medida'];
     $consulta_insumo_bk_proveedor = $listado_de_insumos['proveedor'];
-    $consulta_insumo_bk_valor = $listado_de_insumos['valor'];
     $consulta_insumo_bk_creacion = $listado_de_insumos['creacion'];
     $consulta_insumo_bk_activo = $listado_de_insumos['activo'];
     $consulta_insumo_bk_dia_mod = $listado_de_insumos['dia_mod'];
@@ -99,16 +101,11 @@ if(isset($_GET['id'])){
                 <input type="text" name="cod" value="<?php echo $consulta_insumo_bk_cod; ?>"/>
             </div>
             <div class="espacio"><p></p></div>
-            <div class="fneworder_cuatro">
+            <div class="fneworder_dos">
                 <label><p>Activo</p></label>
                 <select type="text" name="activo" readonly>
                     <option value="1" selected>Si</option>
                 </select>
-            </div>
-            <div class="espacio"><p></p></div>
-            <div class="fneworder_cuatro">
-                <label><p>Valor</p></label>
-                <input type="number" step="0.001" name="valor" value="<?php echo $consulta_insumo_bk_valor; ?>" readonly/>
             </div>
             <div class="fneworder">
                 <label><p>Insumo</p></label>
@@ -177,14 +174,13 @@ if(isset($_GET['id'])){
                     ?>
                 </select>
             </div>
-            <button type="submit" input="submit" name="submit" value="Iniciar Sesión"><img src="img/flecha.svg"></button>
+            <button type="submit" input="submit" name="submit"><img src="img/flecha.svg"></button>
         </form>
         <div class="linea_form_nuevo_ingreso"></div>
         <?php      
             if (isset($_POST['submit'])){
                 $form_cod = utf8_decode($_POST['cod']);
                 $form_insumo = utf8_decode($_POST['insumo']);
-                $form_valor = $_POST['valor'];
                 $form_categoria = $_POST['categoria'];
                 $form_subcategoria = $_POST['subcategoria'];
                 $form_medida = $_POST['medida'];
@@ -195,10 +191,10 @@ if(isset($_GET['id'])){
                 $form_anio_mod = date("y");
                 $form_hora_mod = date('His'); 
                 
-                if ($form_cod !== $consulta_insumo_bk_cod || $form_insumo !== $consulta_insumo_bk_insumo || $form_categoria !== $consulta_insumo_bk_categoria || $form_subcategoria !== $consulta_insumo_bk_subcategoria || $form_medida !== $consulta_insumo_bk_medida || $form_proveedor !== $consulta_insumo_bk_proveedor || $form_valor !== $consulta_insumo_bk_valor){                    
+                if ($form_cod !== $consulta_insumo_bk_cod || $form_insumo !== $consulta_insumo_bk_insumo || $form_categoria !== $consulta_insumo_bk_categoria || $form_subcategoria !== $consulta_insumo_bk_subcategoria || $form_medida !== $consulta_insumo_bk_medida || $form_proveedor !== $consulta_insumo_bk_proveedor){                    
                 
                     require("../conexion.laialy.php");
-                    mysqli_query($conexion, "UPDATE $nav SET cod='$form_cod', insumo='$form_insumo', valor='$form_valor', categoria='$form_categoria', subcategoria='$form_subcategoria', medida='$form_medida', proveedor='$form_proveedor', activo='$form_activo', dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod' $where");
+                    mysqli_query($conexion, "UPDATE $nav SET cod='$form_cod', insumo='$form_insumo', categoria='$form_categoria', subcategoria='$form_subcategoria', medida='$form_medida', proveedor='$form_proveedor', activo='$form_activo', dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod' $where");
                 
                     if ($form_cod !== $consulta_insumo_bk_cod){ $historial_cod = "<cod>"; } else { $historial_cod = ""; }
 
@@ -216,23 +212,23 @@ if(isset($_GET['id'])){
 
                     $nueva_fecha = $form_dia_mod."-".$form_mes_mod."-".$form_anio_mod;
 
-                    mysqli_query($conexion, "INSERT INTO $nav_historial (id_historial, tipo, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, valor, aplica, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'datos','$get_id_insumo','$consulta_insumo_bk_cod','$consulta_insumo_bk_insumo','$consulta_insumo_bk_categoria','$consulta_insumo_bk_subcategoria','$consulta_insumo_bk_medida','$consulta_insumo_bk_proveedor','$consulta_insumo_bk_valor','Cambio','$cambio_modificacion','$consulta_insumo_bk_fecha','$nueva_fecha','$consulta_insumo_bk_hora_mod','$form_hora_mod')");
+                    mysqli_query($conexion, "INSERT INTO $nav_historial (id_historial, tipo, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, aplica, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'datos','$get_id_insumo','$consulta_insumo_bk_cod','$consulta_insumo_bk_insumo','$consulta_insumo_bk_categoria','$consulta_insumo_bk_subcategoria','$consulta_insumo_bk_medida','$consulta_insumo_bk_proveedor','Cambio','$cambio_modificacion','$consulta_insumo_bk_fecha','$nueva_fecha','$consulta_insumo_bk_hora_mod','$form_hora_mod')");
                     
-                    if ($nav == "insumos_laialy"){$nav_materiales = "materiales_laialy"; $nav_platos = "platos_laialy";}                  
-                    $consulta_de_materiales = mysqli_query($conexion, "SELECT * FROM $nav_materiales WHERE insumos LIKE '$get_id_insumo-%' OR insumos LIKE '%-$get_id_insumo-%' OR insumos LIKE '%-$get_id_insumo' OR insumos LIKE '$get_id_insumo'");                    
-                    while ($listado_de_materiales = mysqli_fetch_array($consulta_de_materiales)){
-                        $id_para_pasar = $listado_de_materiales['id_plato'];                        
-                        $id_para_pasar_material = $listado_de_materiales['id_material'];  
+                    // if ($nav == "insumos_laialy"){$nav_materiales = "materiales_laialy"; $nav_platos = "platos_laialy";}                  
+                    // $consulta_de_materiales = mysqli_query($conexion, "SELECT * FROM $nav_materiales WHERE insumos LIKE '$get_id_insumo-%' OR insumos LIKE '%-$get_id_insumo-%' OR insumos LIKE '%-$get_id_insumo' OR insumos LIKE '$get_id_insumo'");                    
+                    // while ($listado_de_materiales = mysqli_fetch_array($consulta_de_materiales)){
+                    //     $id_para_pasar = $listado_de_materiales['id_plato'];                        
+                    //     $id_para_pasar_material = $listado_de_materiales['id_material'];  
                         
-                        if ($listado_de_materiales['dat'] == "0"){
-                            $id_insumo_actualizado = $get_id_insumo;    
-                        } else { 
-                            $id_insumo_actualizado = $listado_de_materiales['dat']."-".$get_id_insumo; 
-                        }                        
+                    //     if ($listado_de_materiales['dat'] == "0"){
+                    //         $id_insumo_actualizado = $get_id_insumo;    
+                    //     } else { 
+                    //         $id_insumo_actualizado = $listado_de_materiales['dat']."-".$get_id_insumo; 
+                    //     }                        
                         
-                        mysqli_query($conexion, "UPDATE $nav_materiales SET dat='$id_insumo_actualizado' WHERE id_material = '$id_para_pasar_material'");
-                        mysqli_query($conexion, "UPDATE $nav_platos SET mod_txt='1' WHERE id_plato = '$id_para_pasar'");
-                    }
+                    //     mysqli_query($conexion, "UPDATE $nav_materiales SET dat='$id_insumo_actualizado' WHERE id_material = '$id_para_pasar_material'");
+                    //     mysqli_query($conexion, "UPDATE $nav_platos SET mod_txt='1' WHERE id_plato = '$id_para_pasar'");
+                    // }
                     
                     //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
                     $log_valor = "Datos";

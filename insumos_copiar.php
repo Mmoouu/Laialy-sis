@@ -24,6 +24,9 @@ if ($login == "log"){
     $user_log = "Desconectado";
     $circulo_log = "circulo_log_red";
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////
+$platos_laialy = ""; $insumos_laialy = ""; $stock_laialy = ""; $menu_laialy = "";
+//////////////////////////////////////////////////////////////////////////////////////////////////
 $insumos_laialy = ""; $where = ""; 
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
@@ -80,7 +83,6 @@ if(isset($_GET['id'])){
     $consulta_insumo_bk_subcategoria = $listado_de_insumos['subcategoria'];
     $consulta_insumo_bk_medida = $listado_de_insumos['medida'];
     $consulta_insumo_bk_proveedor = $listado_de_insumos['proveedor'];
-    $consulta_insumo_bk_valor = $listado_de_insumos['valor'];
     $consulta_insumo_bk_creacion = $listado_de_insumos['creacion'];
     mysqli_close($conexion);
     ?>
@@ -92,17 +94,12 @@ if(isset($_GET['id'])){
                 <input type="text" name="cod" value="<?php echo $consulta_insumo_bk_cod; ?>" required/>
             </div>
             <div class="espacio"><p></p></div>
-            <div class="fneworder_cuatro">
+            <div class="fneworder_dos">
                 <label><p>Activo</p></label>
                 <select type="text" name="activo">
                     <option value="1" selected>Si</option>
                     <option value="0">No</option>
                 </select>
-            </div>
-            <div class="espacio"><p></p></div>
-            <div class="fneworder_cuatro">
-                <label><p>Valor</p></label>
-                <input type="number" step="0.001" name="valor" value="<?php echo $consulta_insumo_bk_valor; ?>" required/>
             </div>
             <div class="fneworder">
                 <label><p>Insumo</p></label>
@@ -171,14 +168,15 @@ if(isset($_GET['id'])){
                     ?>
                 </select>
             </div>
-            <button type="submit" input="submit" name="submit" value="Iniciar Sesión"><img src="img/flecha.svg"></button>
+            <button type="submit" input="submit" name="submit"><img src="img/flecha.svg"></button>
         </form>
         <div class="linea_form_nuevo_ingreso"></div>
         <?php      
             if (isset($_POST['submit'])){
                 $form_cod = utf8_decode($_POST['cod']);
                 $form_insumo = utf8_decode($_POST['insumo']);
-                $form_valor = $_POST['valor'];
+                $form_valor = 0;
+                $form_stock = 0;
                 $form_categoria = $_POST['categoria'];
                 $form_subcategoria = $_POST['subcategoria'];
                 $form_medida = $_POST['medida'];
@@ -190,7 +188,7 @@ if(isset($_GET['id'])){
                 $form_anio_mod = date("y");
                 $form_hora_mod = date('His');  
                 require("../conexion.laialy.php");
-                mysqli_query($conexion, "INSERT INTO $nav (id, cod, insumo, categoria, subcategoria, medida, proveedor, valor, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$form_cod','$form_insumo','$form_categoria','$form_subcategoria','$form_medida','$form_proveedor','$form_valor','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
+                mysqli_query($conexion, "INSERT INTO $nav (id, cod, insumo, categoria, subcategoria, medida, proveedor, valor, stock, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$form_cod','$form_insumo','$form_categoria','$form_subcategoria','$form_medida','$form_proveedor','$form_valor','$form_stock','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
                 //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
                 $log_valor = "Insumo ".$get_id_insumo;
                 $log_accion = "Copia";
