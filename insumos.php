@@ -116,7 +116,7 @@ if(isset($_GET['ord'])){
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 $style_cod = ""; $style_insumo = ""; $style_categoria = ""; $style_subcategoria = "";
-$style_medida = ""; $style_proveedor = ""; $style_valor = "";
+$style_medida = ""; $style_proveedor = ""; $style_valor = "";$style_stock = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['ord'])){
     $ord = $_GET['ord'];

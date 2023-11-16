@@ -259,19 +259,36 @@ if(isset($_GET['ord'])){
                 </tr>                 
                 <tr class="class_materiales">
                     <td><p>Garbanzo
+                        <span>+</span>
                         <span>-</span>
-                        <span>x</span>
                     </p></td>
-                    <td><p>3</p></td>
-                    <td><p>2</p></td>
-                    <td><p>1</p></td>                    
+                    <td><p>16-11-2023</p></td>
+                    <td><p>KG</p></td>
+                    <td><p>$ 450</p></td>  
+                    <td><p>50 KG</p></td>                   
                 </tr>
-                <!-- <tr class="class_insumos">
-                    <td><p>Garbanzo</p></td>
-                    <td><p>3</p></td>
-                    <td><p>2</p></td>
-                    <td><p>1</p></td>                    
-                </tr>      -->
+                <tr class="class_insumos">
+                    <td><p>Historial de consumo <span>v</span></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>                    
+                </tr> 
+                <tr class="class_materiales">
+                    <td><p>Garbanzo
+                        <span>+</span>
+                        <span>-</span>
+                    </p></td>
+                    <td><p>13-11-2023</p></td>
+                    <td><p>KG</p></td>
+                    <td><p>$ 150</p></td>  
+                    <td><p>25 KG</p></td>                   
+                </tr>
+                <tr class="class_insumos">
+                    <td><p>Historial de consumo <span>v</span></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>                    
+                </tr>     
                 <tr class="class_totales_vacio">
                     <td><p></p></td>
                     <td><p></p></td>
@@ -280,13 +297,13 @@ if(isset($_GET['ord'])){
                     <td><p></p></td>                    
                 </tr>
                 <tr class="class_totales_titulos">
-                    <td><p>DETALLE</p></td>
-                    <td><p></p></td>                                        
                     <td><p>TOTAL</p></td>
-                    <td><p>CAMBIO</p></td>
-                    <td><p>1</p></td>                                    
+                    <td><p></p></td>                                        
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p>75 KG</p></td>                                    
                 </tr>
-                <tr class="class_totales">
+                <!-- <tr class="class_totales">
                     <td><p>SUMA</p></td>
                     <td><p></p></td>                   
                     <td><p></p></td>
@@ -339,13 +356,24 @@ if(isset($_GET['ord'])){
                     <td><p></p></td>
                     <td><p>1</p></td>  
                     <td><p>1</p></td>                                                    
-                </tr>
+                </tr> -->
                 
             </table>    
         </div>
 
         <div id="footer_de_plato">
-            
+            <div class="est_de_plato">
+                <h1>Texto Insumos</h1>
+                <p class='estado_verde'>Actualizado</p>          
+            </div>
+            <div class="est_de_plato">
+                <h1>Valores</h1>
+                <p class='estado_verde'>Actualizado</p>
+            </div>
+            <div class="est_de_plato">
+                <h1>Valor Promedio</h1>
+                <p class='estado_verde'>$ 350</p>
+            </div>    
         </div>        
     </div>            
     </div>
