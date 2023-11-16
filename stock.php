@@ -32,25 +32,56 @@ if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
     if ($nav == "stock_laialy"){
         $titulo_sisint = "Stock Laialy";
-        $platos_laialy = "active";
+        $stock_laialy = "active";
         $resultado_busqueda = "Consulta de platos sin resultados";
     } 
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-
-if(isset($_GET['ver'])){
-    $ver = $_GET['ver'];
-    $ver_ver = "&ver=".$ver;
-    if ($ver == "0"){
-        $where = "WHERE activo = 0";
-        $boton_nuevo_plato = "";
-        $aclaracion_inactivo = " Inactivos";
+if(isset($_GET['busqueda'])){         
+    $busqueda = $_GET['busqueda'];        
+    $guarda_busqueda = $busqueda;    
+    if(isset($_GET['ver'])){
+        $ver = $_GET['ver'];
+        $ver_ver = "&ver=".$ver;
+        $estado_de_busqueda = "&ver=".$ver;
+        if ($ver == "0"){
+            $ver_activo_base = "0";
+            $boton_nuevo_plato = "";
+            $aclaracion_inactivo = " Inactivos";
+        }    
+    } else {
+        $estado_de_busqueda = "";
+        $ver_activo_base = "1";
+        $boton_nuevo_plato = "<li class='icons'><img title='Nuevo plato' onclick='location.href=\"platos_nuevo.php?nav=".$nav."\"' src='img/mas.svg'></li>";
+        $aclaracion_inactivo = ""; 
+        $ver_ver = "";   
     } 
+    $where = "WHERE activo = ".$ver_activo_base." AND insumo LIKE '%".utf8_decode($busqueda)."%'";
+} else {    
+    $guarda_busqueda = "";
+    if(isset($_GET['ver'])){
+        $ver = $_GET['ver'];
+        $ver_ver = "&ver=".$ver;
+        $estado_de_busqueda = "&ver=".$ver;
+        if ($ver == "0"){
+            $ver_activo_base = "0";
+            $boton_nuevo_plato = "";
+            $aclaracion_inactivo = " Inactivos";
+        }    
+    } else {
+        $estado_de_busqueda = "";
+        $ver_activo_base = "1";
+        $boton_nuevo_plato = "<li class='icons'><img title='Nuevo plato' onclick='location.href=\"platos_nuevo.php?nav=".$nav."\"' src='img/mas.svg'></li>";
+        $aclaracion_inactivo = "";
+        $ver_ver = "";
+    } 
+    $where = "WHERE activo = ".$ver_activo_base;        
+}    
+//////////////////////////////////////////////////////////////////////////////////////////////////
+if(isset($_GET['ord'])){
+    $ord = $_GET['ord'];
 } else {
-    $where = "WHERE activo = 1";
-    $boton_nuevo_plato = "<li class='icons'><img title='Nuevo plato' onclick='location.href=\"platos_nuevo.php?nav=".$nav."\"' src='img/mas.svg'></li>";
-    $aclaracion_inactivo = "";
-    $ver_ver = "";
+    $ord = "insumo";
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 ?>
@@ -80,76 +111,125 @@ if(isset($_GET['ver'])){
 <?php // require("header.php"); ?>
 <section>
     <?php require("loader.php");?>
-    <div class="loading_pop_up"><img src="img/loading.gif"><p>Cargando</p></div>
     <?php require_once("alertas.php");?>
+    <div class="loading_pop_up"><img src="img/loading.gif"><p>Cargando</p></div>
     <div id="cabecera_sisint">
         <h1><?php echo $titulo_sisint.$aclaracion_inactivo; ?></h1>
-        <?php
-        echo "<div class='icon_group'>";        
-        echo $boton_nuevo_plato;        
-        echo "<li class='icons'><div class='separacion_busqueda'></div></li>";
-        echo "</div>";      
-        ?> 
+        <div class='icon_group'>
+            <?php       
+            echo $boton_nuevo_plato;        
+            echo "<li class='icons'><div class='separacion_busqueda'></div></li>";              
+            ?> 
+            <li class="icons">
+                <div class="busqueda_lupa">                    
+                    <input id="busqueda_avanzada" type="text" name="busqueda_avanzada" value="<?php echo $guarda_busqueda;?>" required/>                        
+                    <div class="boton_bus_queda_borrar" title="Borrar"><img src="img/x_negra.svg"></div>
+                    <div class="boton_bus_queda_buscar" title="Buscar"><img src="img/lupa.svg"></div>                    
+                </div>
+            </li>        
+            <script type="text/javascript"> 
+                $(document).keypress(function(e) {
+                    if(e.which == 13) {
+                       var busqueda_avanzada = $("#busqueda_avanzada").val();
+                        window.location.href = "stock.php?nav=<?php echo $nav;?>&busqueda=" + busqueda_avanzada + "<?php echo $estado_de_busqueda ?>"; 
+                    }
+                });
+                $(document).on('ready',function(){                        
+                    $('.boton_bus_queda_buscar').click(function(){                                                       
+                        var busqueda_avanzada = $("#busqueda_avanzada").val();
+                        window.location.href = "stock.php?nav=<?php echo $nav;?>&busqueda=" + busqueda_avanzada + "<?php echo $estado_de_busqueda ?>"; 
+                    });                        
+                    $('.boton_bus_queda_borrar').click(function(){                                                       
+                        var busqueda_avanzada = $("#busqueda_avanzada").val();
+                        window.location.href = "stock.php?nav=<?php echo $nav;?>"; 
+                    });
+                });                    
+            </script>
+        </div>
     </div>    
     <div id="columna_1_platos">
         <ul id="header_tabla_sisint">
             <li class="li_stock_txt"><p>Insumo</p></li>
             <li class="li_stock_txt"><p>Proveedor</p></li>            
-            <li class="li_stock_txt"><p>Medida</p></li>
+            <li class="li_stock_txt"><p>Un Med</p></li>
             <li class="li_stock_txt"><p>Valor</p></li>
             <li class="li_stock_txt"><p>Stock</p></li>
             <li class="li_platos_alerta"></li>
             <li class="li_platos_ver"></li>
         </ul>
         <div id="tabla_sisint" class="tabla_sisint"> 
-            <?php
+            <?php            
             require("../conexion.laialy.php");             
-            $consulta_de_stock = mysqli_query($conexion,  "SELECT * FROM $nav $where ORDER BY id ASC");
+            $consulta_de_stock = mysqli_query($conexion,  "SELECT DISTINCT id_insumo, insumo FROM $nav $where ORDER BY id ASC");
             mysqli_close($conexion);
+
             if(!$consulta_de_stock || mysqli_num_rows($consulta_de_stock) == 0){            
                 echo "<div style='width:500px; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>".$resultado_busqueda."</p></div>";
             } else {
-                while ($listado_de_stock = mysqli_fetch_array($consulta_de_stock)){ 
-                    $a_l_id_stock = $listado_de_stock['id'];
-                    $a_l_id_insumo = $listado_de_stock['id_insumo'];
-                    $a_l_insumo = $listado_de_stock['insumo'];
-                    $a_l_stock = $listado_de_stock['stock'];
-                    $a_l_proveedor = $listado_de_stock['proveedor'];
-                    $a_l_medida = $listado_de_stock['medida'];
-                    $a_l_valor = $listado_de_stock['valor'];
-                    $a_l_creacion = $listado_de_stock['creacion'];
-                    $a_l_activo = $listado_de_stock['activo'];
-                    $a_l_hora = $listado_de_stock['hora_mod'];                    
-                    $a_l_mod_ultima = $listado_de_stock['dia_mod']."-".$listado_de_stock['mes_mod']."-".$listado_de_stock['anio_mod'];
+                while ($listado_de_stock = mysqli_fetch_array($consulta_de_stock)){   
+
+                    require("../conexion.laialy.php");
+                    $_id_insumo = $listado_de_stock['id_insumo'];
+                    $_valor = 0;
+                    $_stock = 0;
+                    $_insumo = $listado_de_stock["insumo"];
+
+                    $consulta_detalle_de_stock = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id_insumo='$_id_insumo'");  
+                    while ($listado_detallado_de_stock = mysqli_fetch_array($consulta_detalle_de_stock)){                        
+
+                        $consulta_de_insumos = mysqli_query($conexion,  "SELECT * FROM insumos_laialy WHERE id='$_id_insumo'");
+                        $listado_de_insumos = mysqli_fetch_array($consulta_de_insumos);
+                        $_id_stock = $listado_de_insumos['id'];
+                        $categoria_listado = $listado_de_insumos["categoria"];
+                        $subcategoria_listado = $listado_de_insumos["subcategoria"];
+                        $proveedor_listado = $listado_de_insumos["proveedor"];
+                        $_medida = $listado_de_insumos["medida"];
+
+                        $consulta_de_categorias_sel = mysqli_query($conexion, "SELECT * FROM categorias WHERE id = '$categoria_listado'");
+                        $listado_de_categorias_sel = mysqli_fetch_array($consulta_de_categorias_sel);  
+                        $_categorias = utf8_encode($listado_de_categorias_sel['categoria']);
+
+                        $consulta_de_subcategorias_sel = mysqli_query($conexion, "SELECT * FROM subcategorias WHERE id = '$subcategoria_listado'");
+                        $listado_de_subcategorias_sel = mysqli_fetch_array($consulta_de_subcategorias_sel);    
+                        $_subcategorias = utf8_encode($listado_de_subcategorias_sel['subcategoria']); 
+                        
+                        $consulta_de_proveedor_seleccionado = mysqli_query($conexion, "SELECT * FROM proveedores WHERE id_proveedor='$proveedor_listado'");
+                        $listado_select = mysqli_fetch_array($consulta_de_proveedor_seleccionado); 
+                        $_proveedor = utf8_encode($listado_select['proveedor']);
+
+                        $_stock += $listado_detallado_de_stock['stock'];
+
+                        if ($_valor <= $listado_detallado_de_stock['valor']){
+                            $_valor = $listado_detallado_de_stock['valor'];    
+                        }
+
+                        $_creacion = $listado_detallado_de_stock['creacion'];
+                        $_activo = $listado_detallado_de_stock['activo'];
+                        $_hora = $listado_detallado_de_stock['hora_mod'];                    
+                        $_ultima_fecha = $listado_detallado_de_stock['dia_mod']."-".$listado_detallado_de_stock['mes_mod']."-".$listado_detallado_de_stock['anio_mod'];
+                    }
+                    mysqli_close($conexion);                    
                 ?>
                 <div style="margin-bottom:10px;" class='form_sisint'>
                     <ul>
-                        <li id="view_<?php echo $a_l_id_stock; ?>" class="li_stock_txt li_grupal"><p title="Creado el <?php echo $a_l_creacion."&#10Modificado el ".$a_l_mod_ultima; ?>"><?php echo $a_l_insumo; ?></p></li>
-                        <?php 
-                        require("../conexion.laialy.php");
-                        $consulta_de_proveedores = mysqli_query($conexion, "SELECT proveedor FROM proveedores WHERE id_proveedor='$a_l_proveedor'");
-                        $listado_de_proveedores = mysqli_fetch_array($consulta_de_proveedores);
-                       
-                        mysqli_close($conexion);
-                        ?>
-                        <li class="li_stock_txt li_grupal"><p><?php echo utf8_encode($listado_de_proveedores['proveedor']); ?></p></li>            
-                        <li class="li_stock_txt li_grupal"><p><?php echo $a_l_medida; ?></p></li>
-                        <li class="li_stock_txt li_grupal"><p>$ <?php echo $a_l_valor; ?></p></li> 
-                        <li class="li_stock_txt li_grupal"><p><?php echo $a_l_stock; ?></p></li>
+                        <li id="view_<?php echo $_id_stock; ?>" class="li_stock_txt li_grupal"><p title="Creado el <?php echo $_creacion."&#10Modificado el ".$_ultima_fecha; ?>"><?php echo $_insumo; ?></p></li>
+                        <li class="li_stock_txt li_grupal"><p><?php echo $_proveedor; ?></p></li>            
+                        <li class="li_stock_txt li_grupal"><p><?php echo $_medida; ?></p></li>
+                        <li class="li_stock_txt li_grupal"><p>$ <?php echo $_valor; ?></p></li> 
+                        <li class="li_stock_txt li_grupal"><p><?php echo $_stock; ?></p></li>
                         <?php
                         require("../conexion.laialy.php");
                                              
                         if(isset($_POST['id_stock'])){
                             $stock_sel = $_POST['id_stock'];
-                            if ($stock_sel == $a_l_id_stock){
-                             echo "<li class='li_platos_visto li_grupal' onclick='location.href=\"platos.php?nav=".$nav.$ver_ver."\"'><img src='img/plato_flecha.svg'></li>";    
+                            if ($stock_sel == $_id_stock){
+                             echo "<li class='li_stock_visto li_grupal' onclick='location.href=\"stock.php?nav=".$nav.$ver_ver."\"'><img src='img/articulo_flecha.svg'></li>";    
                             } else {
-                                echo "<li class='li_platos_ver li_grupal' onclick='location.href=\"platos.php?nav=".$nav."&id=".$a_l_id_plato.$ver_ver."\"'><img src='img/plato_flecha.svg'></li>";     
+                                echo "<li class='li_stock_ver li_grupal' onclick='location.href=\"stock.php?nav=".$nav."&id=".$_id_stock.$ver_ver."\"'><img src='img/articulo_flecha.svg'></li>";     
                             }
                         } else {
-                            echo "<li class='li_platos_ver li_grupal' onclick='location.href=\"platos.php?nav=".$nav."&id=".$a_l_id_stock.$ver_ver."\"'><img src='img/plato_flecha.svg'></li>";       
+                            echo "<li class='li_stock_ver li_grupal' onclick='location.href=\"stock.php?nav=".$nav."&id=".$_id_stock.$ver_ver."\"'><img src='img/articulo_flecha.svg'></li>";       
                         }
-
                         ?> 
                     </ul>
                 </div>
@@ -158,324 +238,42 @@ if(isset($_GET['ver'])){
             }
             ?>
         </div>
-    </div>
-    <?php
-        if(isset($_GET['pop_up']) and !isset($_GET['id'])){
-            $pop_up = $_GET['pop_up'];
-            if ($pop_up == "actualizar_todo"){
-                $mensaje_pop_up = "¿Esta seguro que quiere Actualizar todos los platos?";
-                $class_pop_up = "ver_pregunta_todo";
-                $link_acepta = "location.href=\"actualizar_plato_todo.php?nav=".$nav."\"";
-                $link_cancela = "javascript:history.back()";
-            }
-            echo "<div class='".$class_pop_up."' id='mensaje_pregunta'>";
-            echo "<div id='mensaje_pregunta_respuesta'>";
-            echo "<p>".$mensaje_pop_up."</p>";
-            echo "<div class='boton_acepta'><p onclick='".$link_acepta."'>Aceptar</p></div>";
-            echo "<div class='boton_cancela'><p onclick='".$link_cancela."'>Cancelar</p></div>";
-            echo "</div>";
-            echo "</div>"; 
-        }
-    ?> 
-    <?php
-    if(isset($_GET['id'])){
-        $art_sel = $_GET['id'];
-
-        if ($nav == "platos_laialy"){$nav_materiales = "materiales_laialy"; $nav_insumos = "insumos_laialy"; $nhi = "historial_insumos_laialy";}
-        require("../conexion.laialy.php");             
-        $seleccionar_el_plato = mysqli_query($conexion,  "SELECT * FROM $nav WHERE id = '$art_sel'");
-        $ver_el_plato = mysqli_fetch_array($seleccionar_el_plato);
-        if (isset($_GET['id_material'])){
-            $mat_sel = $_GET['id_material'];
-            $selec_mat = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id_material = '$mat_sel'");
-            $ver_mat = mysqli_fetch_array($selec_mat);
-        }      
+    </div>    
+    <div id="columna_2_stock">   
         
-    
-        if(isset($_GET['pop_up']) and isset($_GET['id'])){
-            $pop_up = $_GET['pop_up'];
-            $art_sel = $_GET['id'];
-            if ($pop_up == "actualizar"){
-                $mensaje_pop_up = "¿Esta seguro que quiere Actualizar el plato ".$ver_el_plato['plato']."?";
-                $class_pop_up = "ver_pregunta";
-                $link_acepta = "location.href=\"actualizar_plato_solo.php?nav=".$nav."&id=".$ver_el_plato['id']."\"";
-                $link_cancela = "javascript:history.back()";
-            } else if ($pop_up == "eliminar"){
-                $mensaje_pop_up = "¿Esta seguro que quiere Eliminar el plato ".$ver_el_plato['plato']."?";
-                $class_pop_up = "ver_pregunta";
-                $link_acepta = "location.href=\"eliminar_plato.php?nav=".$nav."&id=".$ver_el_plato['id']."\"";
-                $link_cancela = "javascript:history.back()";
-            } else if ($pop_up == "eliminar_material"){                                                
-                $mensaje_pop_up = "¿Esta seguro que quiere Eliminar el Material ".$ver_mat['material']." del plato ".$ver_el_plato['plato']."?";
-                $class_pop_up = "ver_pregunta";
-                $link_acepta = "location.href=\"eliminar_material.php?nav=".$nav."&id_plato=".$ver_el_plato['id_plato']."&id_material=".$ver_mat['id_material']."\"";  
-                $link_cancela = "javascript:history.back()";                                 
-            } 
-            
-            echo "<div class='".$class_pop_up."' id='mensaje_pregunta'>";
-            echo "<div id='mensaje_pregunta_respuesta'>";
-            echo "<p>".$mensaje_pop_up."</p>";
-            echo "<div class='boton_acepta'><p onclick='".$link_acepta."'>Aceptar</p></div>";
-            echo "<div class='boton_cancela'><p onclick='".$link_cancela."'>Cancelar</p></div>";
-            echo "</div>";
-            echo "</div>"; 
-        }
 
-        mysqli_close($conexion);
-
-    ?>     
-    <div id="columna_2_platos">   
-        <div id="header_de_plato">
-            <div id="num_de_plato">
-                
-                <?php 
-                require("../conexion.laialy.php");
-                $especial = $nav."_especiales"; 
-                $seleccionar_platos_especiales = mysqli_query($conexion,  "SELECT * FROM $especial WHERE id = '$art_sel' AND activo = '1'");
-                $ver_platos_especiales = mysqli_fetch_array($seleccionar_platos_especiales);
-                
-                if ($ver_platos_especiales) {
-                    $ver_los_porcentajes_plato = $ver_platos_especiales['costo'];
-                    $ver_las_perdidas_plato = $ver_platos_especiales['perdida'];
-                } else {
-                    $seleccionar_los_porcentajes = mysqli_query($conexion,  "SELECT * FROM porcentaje WHERE marca = '$nav' AND activo = '1'");
-                    $ver_los_porcentajes = mysqli_fetch_array($seleccionar_los_porcentajes);
-                    $ver_los_porcentajes_plato = $ver_los_porcentajes['porcentaje'];                    
-                    /////////////////////////////////////////////////////////////////////////
-                    $seleccionar_las_perdidas = mysqli_query($conexion,  "SELECT * FROM perdida WHERE marca = '$nav' AND activo = '1'");
-                    $ver_las_perdidas = mysqli_fetch_array($seleccionar_las_perdidas); 
-                    $ver_las_perdidas_plato = $ver_las_perdidas['porcentaje'];
-                }
-                
-                /////////////////////////////////////////
-                if ($ver_platos_especiales) { 
-                    $plato_especial = " -> <span style='font-size:10px; padding:3px; padding-bottom:1px; background-color: #000; color: #fff; border-radius:5px;'>ESP</span>";
-                } else {
-                    $plato_especial = "";
-                }
-                mysqli_close($conexion);
-                ?>
-                <p>plato <?php echo $ver_el_plato['plato'].$plato_especial; ?></p>
-            </div>
-            <div id="img_de_plato"> 
-                <?php
-                if ($ver_el_plato['activo'] == "0"){
-                    echo "<img title='Activar' onclick='location.href=\"activar_desactivar_plato.php?nav=".$nav."&id=".$ver_el_plato['id']."&activar=".$ver_el_plato['activo']."\"' class='imagen_activa' src='img/activar.svg'/>";
-                } else {
-                    echo "<img title='Desactivar' onclick='location.href=\"activar_desactivar_plato.php?nav=".$nav."&id=".$ver_el_plato['id']."&activar=".$ver_el_plato['activo']."\"' class='imagen_activa' src='img/desactivar.svg'/>";
-                }
-                /////////////////////////////////////////////////////////////////////////////////////
-                echo "<img title='Modificar' onclick='location.href=\"modificar_descripcion.php?nav=".$nav."&id=".$ver_el_plato['id']."\"' class='imagen_activa' src='img/modificar.svg'/>";
-                echo "<img title='Descargar' onclick='location.href=\"guarda_plato.php?nav=".$nav."&id=".$ver_el_plato['id']."\"' class='imagen_activa' src='img/excel.svg'/>";
-                /////////////////////////////////////////////////////////////////////////////////////
-                if ($ver_el_plato['mod_val'] == '1' or $ver_el_plato['mod_txt'] == '1' or $ver_el_plato['por_costo'] !== $ver_los_porcentajes_plato or $ver_el_plato['por_perdidas'] !== $ver_las_perdidas_plato and $ver_el_plato['activo'] == "1"){ 
-                    echo "<img title='Actualizar' onclick='location.href=\"platos.php?nav=".$nav."&id=".$ver_el_plato['id']."&pop_up=actualizar\"' class='imagen_activa' src='img/actualizar_solo.svg'/>";
-                } else {
-                    echo "<img title='Actualizar' class='imagen_inactiva' src='img/actualizar_solo.svg'/>";
-                }
-                /////////////////////////////////////////////////////////////////////////////////////
-                
-                echo "<img title='Imprimir' onclick='location.href=\"imprime_plato.php?nav=".$nav."&id=".$ver_el_plato['id']."\"' class='imagen_activa' src='img/imprimir.svg'/>";        
-                /////////////////////////////////////////////////////////////////////////////////////
-                if ($ver_el_plato['activo'] == "0"){
-                    echo "<img title='Eliminar' onclick='location.href=\"platos.php?nav=".$nav."&id=".$ver_el_plato['id']."&pop_up=eliminar&ver=0\"' class='imagen_activa' src='img/eliminar.svg'/>";
-                } else {
-                    echo "<img title='Eliminar' class='imagen_inactiva' src='img/eliminar.svg'/>";
-                }                
-                ?>
-            </div>  
-            <div id="dat_de_plato">                              
-                <p>Creado: <?php echo $ver_el_plato['creacion']; ?><br>Último cambio: <?php echo $ver_el_plato['dia_mod']."-".$ver_el_plato['mes_mod']."-".$ver_el_plato['anio_mod']; ?></p>
-            </div>
-        </div>
-        <div id="desarr_de_plato">
-            <h1 class="titulo_desarrollo">DESCRIPCION</h1>
-            <p class="texto_desarollo"><?php echo $ver_el_plato['descripcion']; ?></p>
-            <p class="corte"></p>
-            <div class="titulo_sec_desarrollo_div">
-            <h1 class="titulo_sec_desarrollo">TALLES</h1>
-            <h1 class="titulo_sec_desarrollo">COLORES</h1>
-            </div>
-            <p class="texto_sec_desarollo"><?php echo $ver_el_plato['talles']; ?></p>            
-            <p class="texto_sec_desarollo"><?php echo $ver_el_plato['colores']; ?></p>
-            <p class="corte"></p>
-            <table>
+        <div id="desarr_de_stock">
+        <table>
                 <tr class="class_titulos">
-                    <td><p>MATERIALES<span onclick='location.href="nuevo_material.php?nav=<?php echo $nav; ?>&id=<?php echo $art_sel; ?>"'>+</span></p></td>
-                    <td><p>CONSUMO</p></td>
+                    <td><p>INSUMO<span>+</span></p></td>
+                    <td><p>FECHA</p></td>
+                    <td><p>UN MED</p></td>
                     <td><p>VALOR</p></td>
-                    <td><p>TOTAL</p></td>                    
+                    <td><p>STOCK</p></td>                    
+                </tr>                
+                <tr class="class_espacio_materiales">
+                    <td><p></p></td>
+                    <td><p></p></td>  
+                    <td><p></p></td>  
+                    <td><p></p></td>                  
+                </tr>                 
+                <tr class="class_materiales">
+                    <td><p>Garbanzo
+                        <span>-</span>
+                        <span>x</span>
+                    </p></td>
+                    <td><p>3</p></td>
+                    <td><p>2</p></td>
+                    <td><p>1</p></td>                    
                 </tr>
-                <?php
-        
-                require("../conexion.laialy.php");
-                
-                /////////////////////////////////////////////////////////////////////////            
-                $seleccionar_los_materiales = mysqli_query($conexion,  "SELECT * FROM $nav_materiales WHERE id = '$art_sel'");
-                mysqli_close($conexion);
-                $comprobar_suma = "0";                
-                while ($ver_los_materiales = mysqli_fetch_array($seleccionar_los_materiales)){
-                    ?>
-                    <tr class="class_espacio_materiales">
-                        <td><p></p></td>
-                        <td><p></p></td>  
-                        <td><p></p></td>  
-                        <td><p></p></td>                  
-                    </tr>                 
-                    <tr class="class_materiales">
-                        <td><p><?php echo $ver_los_materiales['material']; ?>
-                            <span onclick='location.href="modificar_material.php?nav=<?php echo $nav; ?>&id=<?php echo $art_sel; ?>&id_material=<?php echo $ver_los_materiales["id_material"]; ?>"'>-</span>
-                            <span onclick='location.href="platos.php?nav=<?php echo $nav; ?>&id=<?php echo $art_sel; ?>&id_material=<?php echo $ver_los_materiales["id_material"]; ?>&pop_up=eliminar_material"'>x</span>
-                        </p></td>
-                        <td><p><?php echo $ver_los_materiales['consumo']; ?></p></td>
-                        <td><p><?php echo $ver_los_materiales['suma']; ?></p></td>
-                        <td><p><?php echo $ver_los_materiales['total']; ?></p></td>                    
-                    </tr>                
-                    <?php                    
-                    $insumos_usados = explode ('-', $ver_los_materiales['insumos']);                    
-                    $longitud = $ver_los_materiales['cantidad'];
-                    require("../conexion.laialy.php"); 
-                    
-                    $comprobar = "0";
-                    for ($on=0; $on<$longitud; $on++){                        
-                        $seleccionar_los_insumos = mysqli_query($conexion,  "SELECT * FROM $nav_insumos WHERE id_insumo='$insumos_usados[$on]'");
-                        while ($ver_los_insumos = mysqli_fetch_array($seleccionar_los_insumos)){ 
-                            $comprobar = str_replace(',', '', ($comprobar + $ver_los_insumos['valor']));                            
-                        }                              
-                    }
-                    
-                    //$id_material_para_historial = $ver_los_materiales['id_material'];
-                    //$seleccionar_historial_de_materiales = mysqli_query($conexion, "SELECT * FROM historial_$nav_materiales WHERE id_material = '$id_material_para_historial'"); 
-                    //$seleccionado_historial_de_materiales = mysqli_fetch_array($seleccionar_historial_de_materiales);
-                    
-                    mysqli_close($conexion);
-                    $comprobar_total_insumo = number_format(($comprobar * $ver_los_materiales['consumo']) / $longitud, 3);
-                    $comprobar_error = $comprobar; 
-                    if ($ver_los_materiales['suma'] !== str_replace(',', '', number_format($comprobar, 3)) or $ver_los_materiales['total'] !== str_replace(',', '', $comprobar_total_insumo)){
-                        //if ($seleccionado_historial_de_materiales['cantidad'] == $ver_los_materiales['cantidad']){
-                            echo "<tr class='class_insumos_desactualizados'>";
-                            echo "<td><p>".$ver_los_materiales['material']." <span>Cambio</span></p></td>";
-                            echo "<td><p>".$ver_los_materiales['consumo']."</p></td>";
-                            echo "<td><p>".str_replace(',', '', number_format($comprobar, 3))."</p></td>";
-                            echo "<td><p>".str_replace(',', '', number_format($comprobar_total_insumo, 3))."</p></td>";                    
-                            echo "</tr>";                            
-                        //} else {
-                            //echo "<tr class='class_insumos_desactualizados'>";
-                            //echo "<td><p>".$ver_los_materiales['material']." (ELEMENTOS ELIMINADOS Y DESACTUALIZADO)</p></td>";
-                            //echo "<td><p>".$ver_los_materiales['consumo']."</p></td>";
-                            //echo "<td><p>".str_replace(',', '', number_format($comprobar, 3))."</p></td>";
-                            //echo "<td><p>".str_replace(',', '', number_format($comprobar_total_insumo, 3))."</p></td>";                    
-                            //echo "</tr>";    
-                        //}                        
-                    }
-                    // original  //
-                    $comprobar_suma = str_replace(',', '', $comprobar_suma) + str_replace(',', '', $comprobar_total_insumo);
-                    $comprobar_total = str_replace(',', '', ($comprobar_suma + $ver_el_plato['taller']));
-                    $comprobar_perdidas = (str_replace(',', '', number_format($comprobar_total, 3)) * str_replace(',', '', number_format($ver_las_perdidas_plato, 3))) / 100;
-                    $comprobar_costo = str_replace(',', '', number_format($comprobar_total, 3)) + str_replace(',', '', number_format($comprobar_perdidas, 3));
-                    $comprobar_ganancia = (str_replace(',', '', number_format($comprobar_costo, 3)) * str_replace(',', '', number_format($ver_los_porcentajes_plato, 3))) / 100;
-                    $comprobar_venta = ((str_replace(',', '', number_format($comprobar_costo, 3)) * str_replace(',', '', number_format($ver_los_porcentajes_plato, 3))) / 100) + str_replace(',', '', number_format($comprobar_costo, 3));
-                    // original  //
-                    
-                    require("../conexion.laialy.php");
-                    
-                    $comprobar_opcion = "0";
-                    for ($in=0; $in<$longitud; $in++){
-                        
-                        $seleccionar_los_insumos_dos = mysqli_query($conexion,  "SELECT * FROM $nav_insumos WHERE id_insumo = '$insumos_usados[$in]'");
-                        while ($ver_los_insumos_dos = mysqli_fetch_array($seleccionar_los_insumos_dos)){ 
-                            
-                            $comprobar_opcion = str_replace(',', '', ($comprobar_opcion + $ver_los_insumos_dos['valor']));
-                            $posicion = $in + 1;
-                                                        
-                            $color_p_txt = "";
-                            $mensaje_activo = "";
-                            $mensaje_txt = "";
-                            $color_p_val = "";
-                            $mensaje_val = ""; 
-                            
-                            if ($ver_el_plato['mod_txt'] == '1'){
-                                $cambios_insumos_dat = $ver_los_materiales['dat'];
-                                if ($ver_los_materiales['dat'] !== '0'){
-                                    ////////////////////////////////////////////////////////////////////////////////
-                                    $selec_hist_txt = mysqli_query($conexion, "SELECT * FROM $nhi WHERE id_insumo = '$insumos_usados[$in]' AND tipo = 'datos' ORDER BY id_historial DESC");
-                                    $ver_el_hist_txt = mysqli_fetch_array($selec_hist_txt);
-                                    ////////////////////////////////////////////////////////////////////////////////
-                                    if (strpos($cambios_insumos_dat, $ver_los_insumos_dos['id_insumo']) !== false) {
-                                        ////////////////////////////////////////////////////////////////////////////////
-                                        /////////////////////  ANTES ESTABA ACA INSUMO INACTIVO  ///////////////////////
-                                        ////////////////////////////////////////////////////////////////////////////////
-                                        if ($ver_el_plato['mod_txt'] == '1' and $ver_los_insumos_dos['id_insumo'] == $ver_el_hist_txt['id_insumo']){
-                                            $color_p_txt = " class='line_red_in'";
-                                            $mensaje_txt = " - CAMBIO: ".str_replace('<', '(', str_replace('>', ')', $ver_el_hist_txt['cambio']));
-                                        }     
-                                    }   
-                                }                                
-                            }
-                            ////////////////////////////////////////////////////////////////////////////////
-                            if ($ver_los_insumos_dos['activo'] !== "1"){
-                                $mensaje_activo = " - (Insumo Inactivo)";
-                                $color_p_txt = " class='line_red_in'";
-                            }
-                            ////////////////////////////////////////////////////////////////////////////////
-                            //$comprobar_uno = str_replace(',', '', number_format(($comprobar_error - $ver_los_materiales['suma']), 3));
-                            //$comprobar_dos = str_replace(',', '', number_format(($ver_los_insumos_dos['valor'] - $ver_el_hist_val['valor']), 3));
-                             
-                            //if ($ver_los_materiales['suma'] !== str_replace(',', '', number_format($comprobar, 3)) or $ver_los_materiales['total'] !== str_replace(',', '', number_format($comprobar_total_insumo, 3))){
-                                
-                                if ($ver_el_plato['mod_val'] == '1'){
-                                    $cambios_insumos_act = $ver_los_materiales['act'];                                    
-                                    if ($ver_los_materiales['act'] !== '0'){ 
-                                        ////////////////////////////////////////////////////////////////////////////////
-                                        $selec_hist_act = mysqli_query($conexion, "SELECT * FROM $nhi WHERE id_insumo = '$insumos_usados[$in]' AND tipo = 'actualizacion' ORDER BY id_historial DESC");
-                                        $ver_el_hist_act = mysqli_fetch_array($selec_hist_act);
-                                        ////////////////////////////////////////////////////////////////////////////////
-                                        if (strpos($cambios_insumos_act, $ver_los_insumos_dos['id_insumo']) !== false) {
-                                            if ($ver_los_insumos_dos['id_insumo'] == $ver_el_hist_act['id_insumo']){
-                                                $color_p_val = " class='line_red_on'";
-                                                $mensaje_val = str_replace('<', '(', str_replace('>', ')', $ver_el_hist_act['valor']))." > ";
-                                            }        
-                                        }   
-                                    }                                 
-                                    $cambios_insumos_val = $ver_los_materiales['val'];                                    
-                                    if ($ver_los_materiales['val'] !== '0'){
-                                        ////////////////////////////////////////////////////////////////////////////////
-                                        $selec_hist_val = mysqli_query($conexion, "SELECT * FROM $nhi WHERE id_insumo = '$insumos_usados[$in]' AND tipo = 'valor' ORDER BY id_historial DESC");
-                                        $ver_el_hist_val = mysqli_fetch_array($selec_hist_val); 
-                                        ////////////////////////////////////////////////////////////////////////////////
-                                        if (strpos($cambios_insumos_val, $ver_los_insumos_dos['id_insumo']) !== false) {
-                                            if ($ver_los_insumos_dos['id_insumo'] == $ver_el_hist_val['id_insumo']){
-                                                $color_p_val = " class='line_red_in'";
-                                                $mensaje_val = str_replace('<', '(', str_replace('>', ')', $ver_el_hist_val['valor']))." > ";
-                                            }                                             
-                                        }   
-                                    }                                                                       
-                                    if ($ver_los_materiales['val'] !== '0' and $ver_los_materiales['act'] !== '0'){
-                                        ////////////////////////////////////////////////////////////////////////////////
-                                        $selec_hist = mysqli_query($conexion, "SELECT * FROM $nhi WHERE id_insumo = '$insumos_usados[$in]' AND tipo = 'valor' OR id_insumo = '$insumos_usados[$in]' AND tipo = 'actualizacion' ORDER BY id_historial DESC");
-                                        $ver_el_hist = mysqli_fetch_array($selec_hist);
-                                        ////////////////////////////////////////////////////////////////////////////////
-                                        if (strpos($cambios_insumos_val, $ver_los_insumos_dos['id_insumo']) !== false and strpos($cambios_insumos_act, $ver_los_insumos_dos['id_insumo'])) {
-                                            if ($ver_los_insumos_dos['id_insumo'] == $ver_el_hist['id_insumo']){
-                                                $color_p_val = " class='line_red_inon'";
-                                                $mensaje_val = str_replace('<', '(', str_replace('>', ')', $ver_el_hist['valor']))." > ";
-                                            }        
-                                        }   
-                                    }
-                                }                                
-                            //}                            
-                            echo "<tr class='class_insumos'>";
-                            echo "<td><p".$color_p_txt.">&nbsp;&nbsp;-&nbsp;&nbsp;".utf8_encode($ver_los_insumos_dos['insumo']).$mensaje_activo.$mensaje_txt."</p></td>";
-                            echo "<td><p>".utf8_encode($ver_los_insumos_dos['color'])."</p></td>";
-                            echo "<td><p".$color_p_val.">".$mensaje_val.$ver_los_insumos_dos['valor']."</p></td>";
-                            echo "<td><p></p></td>";                    
-                            echo "</tr>";                           
-                        }
-                    } 
-                    mysqli_close($conexion);
-                }                 
-                ?>                
+                <!-- <tr class="class_insumos">
+                    <td><p>Garbanzo</p></td>
+                    <td><p>3</p></td>
+                    <td><p>2</p></td>
+                    <td><p>1</p></td>                    
+                </tr>      -->
                 <tr class="class_totales_vacio">
+                    <td><p></p></td>
                     <td><p></p></td>
                     <td><p></p></td>
                     <td><p></p></td>
@@ -483,205 +281,74 @@ if(isset($_GET['ver'])){
                 </tr>
                 <tr class="class_totales_titulos">
                     <td><p>DETALLE</p></td>
-                    <td><p></p></td>
-                    <?php                
-                    if ($ver_el_plato['mod_val'] == "1"){                       
-                        echo "<td><p>TOTAL</p></td>";
-                        echo "<td><p>CAMBIO</p></td>";
-                    } else {                       
-                        echo "<td><p></p></td>";
-                        echo "<td><p>TOTALES</p></td>";
-                    }
-                    ?>                     
+                    <td><p></p></td>                                        
+                    <td><p>TOTAL</p></td>
+                    <td><p>CAMBIO</p></td>
+                    <td><p>1</p></td>                                    
                 </tr>
                 <tr class="class_totales">
                     <td><p>SUMA</p></td>
+                    <td><p></p></td>                   
                     <td><p></p></td>
-                    <?php                
-                    if (str_replace(',', '', number_format($comprobar_suma, 3)) == $ver_el_plato['suma']){                       
-                        echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_plato['suma']."</p></td>";
-                    } else {                       
-                        echo "<td><p>".$ver_el_plato['suma']."</p></td>";
-                        echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_suma, 3))."</p></td>";
-                    }
-                    ?>                   
+                    <td><p>1</p></td>
+                    <td><p>1</p></td>                                  
                 </tr>
                 <tr class="class_totales">
                     <td><p>TALLER</p></td>
-                    <td><a class="boton_taller" onclick='location.href="modificar_taller.php?nav=<?php echo $nav; ?>&id=<?php echo $ver_el_plato["id"]; ?>"'><img src="img/modificar.svg"></a></td>
-                    <?php  
-                    $taller_viejo = $ver_el_plato['total'] - $ver_el_plato['suma'];
-                    if ( number_format($taller_viejo, 3) == $ver_el_plato['taller']){                        
-                        echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_plato['taller']."</p></td>";
-                    } else {                        
-                        
-                        require("../conexion.laialy.php");
-                        $seleccionar_historial_taller = mysqli_query($conexion, "SELECT * FROM historial_$nav WHERE id='$art_sel' ORDER BY id_historial DESC");
-                        $ver_historial_taller = mysqli_fetch_array($seleccionar_historial_taller);
-                        mysqli_close($conexion);
-                        $historial_taller = $ver_historial_taller['taller'];
-                        echo "<td><p>".$historial_taller."</p></td>";
-                        echo "<td><p class='red_in'>".$ver_el_plato['taller']."</p></td>";
-                    }
-                    ?>                                  
+                    <td><a class="boton_taller"><img src="img/modificar.svg"></a></td>                                         
+                    <td><p></p></td>
+                    <td><p>1</p></td>                                                 
                 </tr>
                 <tr class="class_totales">
                     <td><p>TOTAL</p></td>
+                    <td><p></p></td>                                   
                     <td><p></p></td>
-                    <?php                
-                    if (str_replace(',', '', number_format($comprobar_total, 3)) == $ver_el_plato['total']){                        
-                        echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_plato['total']."</p></td>";
-                    } else {                        
-                        echo "<td><p>".$ver_el_plato['total']."</p></td>";
-                        echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_total, 3))."</p></td>";
-                    }
-                    ?>                   
-                </tr>
-                
-                
+                    <td><p>1</p></td>
+                    <td><p>1</p></td>                                    
+                </tr> 
                 <tr class="class_totales">
-                    <td><p>PERDIDAS</p></td>
-                    <?php
-                    $perdidas_del_plato = ($ver_el_plato['total'] * $ver_el_plato['por_perdidas']) / 100; 
-                    if (str_replace(',', '', number_format($comprobar_perdidas, 3)) == number_format($perdidas_del_plato, 3)){
-                        if (str_replace(',', '', number_format($ver_las_perdidas_plato, 3)) == $ver_el_plato['por_perdidas']){
-                            echo "<td><p>".$ver_el_plato['por_perdidas']." %</p></td>";
-                        } else {
-                            echo "<td><p>".$ver_el_plato['por_perdidas']." % > ".str_replace(',', '', number_format($ver_las_perdidas['porcentaje'], 3))." %</p></td>";
-                        }
-                        echo "<td><p></p></td>";
-                        echo "<td><p>".number_format($perdidas_del_plato, 3)."</p></td>";
-                    } else {
-                        if (str_replace(',', '', number_format($ver_las_perdidas_plato, 3)) == $ver_el_plato['por_perdidas']){
-                            echo "<td><p>".$ver_el_plato['por_perdidas']." %</p></td>";
-                        } else {
-                            echo "<td><p>".$ver_el_plato['por_perdidas']." % > ".str_replace(',', '', number_format($ver_las_perdidas_plato, 3))." %</p></td>";
-                        }
-                        echo "<td><p>".number_format($perdidas_del_plato, 3)."</p></td>";
-                        echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_perdidas, 3))."</p></td>";                       
-                    }
-                    ?>
+                    <td><p>PERDIDAS</p></td>                    
+                    <td><p>1</p></td>                        
+                    <td><p></p></td>
+                    <td><p>3</p></td> 
+                    <td><p>1</p></td>                   
                 </tr>
                 <tr class="class_totales">
                     <td><p>COSTO</p></td>
+                    <td><p></p></td>                              
                     <td><p></p></td>
-                    <?php                
-                    if (str_replace(',', '', number_format($comprobar_costo, 3)) == $ver_el_plato['costo']){                         
-                        echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_plato['costo']."</p></td>";
-                    } else {                       
-                        echo "<td><p>".$ver_el_plato['costo']."</p></td>";
-                        echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_costo, 3))."</p></td>";                        
-                    }
-                    ?>
+                    <td><p>1</p></td> 
+                    <td><p>1</p></td>                  
                 </tr> 
                 <tr class="class_totales">
-                    <td><p>GANANCIA</p></td>
-                    <?php
-                    $ganancia_del_plato = ($ver_el_plato['costo'] * $ver_el_plato['por_costo']) / 100; 
-                    if (str_replace(',', '', number_format($comprobar_ganancia, 3)) == number_format($ganancia_del_plato, 3)){
-                        if (str_replace(',', '', number_format($ver_los_porcentajes_plato, 3)) == $ver_el_plato['por_costo']){
-                            echo "<td><p>".$ver_el_plato['por_costo']." %</p></td>";
-                        } else {
-                            echo "<td><p>".$ver_el_plato['por_costo']." % > ".str_replace(',', '', number_format($ver_los_porcentajes_plato, 3))." %</p></td>";
-                        }
-                        echo "<td><p></p></td>";
-                        echo "<td><p>".number_format($ganancia_del_plato, 3)."</p></td>";
-                    } else {
-                        if (str_replace(',', '', number_format($ver_los_porcentajes_plato, 3)) == $ver_el_plato['por_costo']){
-                            echo "<td><p>".$ver_el_plato['por_costo']." %</p></td>";
-                        } else {
-                            echo "<td><p>".$ver_el_plato['por_costo']." % > ".str_replace(',', '', number_format($ver_los_porcentajes_plato, 3))." %</p></td>";
-                        }
-                        echo "<td><p>".number_format($ganancia_del_plato, 3)."</p></td>";
-                        echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_ganancia, 3))."</p></td>";                       
-                    }
-                    ?>
+                    <td><p>GANANCIA</p></td>                    
+                    <td><p>1</p></td>                       
+                    <td><p></p></td>
+                    <td><p>2</p></td>  
+                    <td><p>1</p></td>                  
                 </tr>
                 <tr class="class_totales_final">
                     <td><p>VENTA</p></td>
+                    <td><p></p></td>      
                     <td><p></p></td>
-                    <?php                
-                    if (str_replace(',', '', number_format($comprobar_venta, 3)) == $ver_el_plato['venta']){                        
-                        echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_plato['venta']."</p></td>";
-                    } else {                        
-                        echo "<td><p>".$ver_el_plato['venta']."</p></td>";
-                        echo "<td><p class='red_in'>".str_replace(',', '', number_format($comprobar_venta, 3))."</p></td>";
-                    }
-                    ?>                                      
+                    <td><p>1</p></td>                                                       
                 </tr>
                 <tr class="class_totales_final">
                     <td><p>FINAL VENTA (redondeo)</p></td>
+                    <td><p></p></td>                    
                     <td><p></p></td>
-                    <?php                
-                    if (str_replace(',', '', round($comprobar_venta)) == $ver_el_plato['redondeo']){ 
-                        echo "<td><p></p></td>";
-                        echo "<td><p>".$ver_el_plato['redondeo']."</p></td>";
-                    } else {                        
-                        echo "<td><p>".$ver_el_plato['redondeo']."</p></td>";
-                        echo "<td><p class='round_in'>".str_replace(',', '', round($comprobar_venta))."</p></td>";
-                    }
-                    ?>                                      
+                    <td><p>1</p></td>  
+                    <td><p>1</p></td>                                                    
                 </tr>
-                <?php
-                //if (str_replace(',', '', round(number_format($comprobar_venta, 3))) == $ver_el_plato['redondeo']){}
-                //else {
-                ?>
-                <!--<tr class="class_totales_final">
-                   <td><p>GANANCIA REAL</p></td>
-                    <td><p></p></td>-->
-                    <?php 
-                    //    $ganancia_numero_real = (str_replac(',', '', round(number_format($comprobar_venta, 3)))) - ($ver_el_plato['costo']);
-                    //    $ganancia_por_real = str_replac(',', '', round(number_format($ganancia_numero_real, 3))) * 100 - $ver_el_plato['costo'];
-                    //    echo "<td><p>".$ver_el_plato['redondeo']."</p></td>";
-                    //    echo "<td><p class='round_in'>".str_replace(',', '', round(number_format($comprobar_venta, 3)))."</p></td>";
-                    ?>                                      
-                <!--</tr>-->
-                <?php
-                //}
-                ?>
-            </table>
+                
+            </table>    
         </div>
+
         <div id="footer_de_plato">
-            <div class="est_de_plato">
-                <h1>Texto Insumos</h1>
-                <?php                
-                if ($ver_el_plato['mod_txt'] == '0'){                        
-                    echo "<p class='estado_verde'>Actualizado</p>";                    
-                } else { 
-                    echo "<p class='estado_rojo'>Sufrió Modificaciones</p>";
-                }
-                ?>                 
-            </div>
-            <div class="est_de_plato">
-                <h1>Valores</h1>
-                <?php                
-                if ($ver_el_plato['mod_val'] == '0'){                        
-                    echo "<p class='estado_verde'>Actualizado</p>";                    
-                } else { 
-                    echo "<p class='estado_rojo'>Desactualizados</p>";
-                }
-                ?>  
-            </div>
-            <div class="est_de_plato">
-                <h1>% Ganacia / Perdida</h1>
-                <?php                
-                if ($ver_el_plato['por_costo'] !== number_format($ver_los_porcentajes_plato, 3) or $ver_el_plato['por_perdidas'] !== number_format($ver_las_perdidas_plato, 3)){                        
-                     echo "<p class='estado_rojo'>Fue Modificado</p>";                   
-                } else {                    
-                    echo "<p class='estado_verde'>Actualizado</p>";     
-                }
-                ?>
-            </div>
+            
         </div>        
+    </div>            
     </div>
-    <?php
-    }
-    ?>
 </section>
 </body>
 </html>

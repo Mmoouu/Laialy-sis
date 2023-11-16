@@ -67,7 +67,6 @@ if (isset($_GET["pagina"])) {
 
 $empezar_desde = ($pagina-1) * $cantidad_resultados_por_pagina;
 //////////////////////////////////////////////////////////////////////////////////////////////////
-
 if(isset($_GET['busqueda'])){         
     $busqueda = $_GET['busqueda'];        
     $guarda_busqueda = $busqueda;    
@@ -77,7 +76,6 @@ if(isset($_GET['busqueda'])){
         if ($ver == "0"){
             $ver_activo_base = "0";
             $boton_ver = "<li class='icons'><img title='Ver Activos' onclick='location.href=\"insumos.php?nav=".$nav."&pagina=01\"' src='img/activos.svg'></li>";
-            $boton_por = "";
             $boton_nuevo_insumo = "";
             $aclaracion_inactivo = " Inactivos";
         }    
@@ -98,7 +96,6 @@ if(isset($_GET['busqueda'])){
         if ($ver == "0"){
             $ver_activo_base = "0";
             $boton_ver = "<li class='icons'><img title='Ver Activos' onclick='location.href=\"insumos.php?nav=".$nav."&pagina=01\"' src='img/activos.svg'></li>";
-            $boton_por = "";
             $boton_nuevo_insumo = "";
             $aclaracion_inactivo = " Inactivos";
         }    
@@ -106,7 +103,6 @@ if(isset($_GET['busqueda'])){
         $estado_de_busqueda = "";
         $ver_activo_base = "1";
         $boton_ver = "<li class='icons'><img title='Ver Inactivos' onclick='location.href=\"insumos.php?nav=".$nav."&ver=0&pagina=1\"' src='img/inactivos.svg'></li>";
-        $boton_por = "<li class='icons'><img title='Aplicar Incremento' onclick='location.href=\"insumos_incremento.php?nav=".$nav."&pagina=1\"' src='img/por.svg'></li>"; 
         $boton_nuevo_insumo = "<li class='icons'><img title='Nuevo Insumo' onclick='location.href=\"insumos_nuevo.php?nav=".$nav."&pagina=1\"' src='img/mas.svg'></li>";
         $aclaracion_inactivo = "";
     } 
@@ -136,6 +132,8 @@ if(isset($_GET['ord'])){
         $style_proveedor = "text-decoration:underline;";
     } else if ($ord == "valor"){ 
         $style_valor = "text-decoration:underline;";
+    } else if ($ord == "stock"){ 
+        $style_stock = "text-decoration:underline;";
     }
 } else {
     $style_insumo = "text-decoration:underline;";
@@ -173,39 +171,35 @@ if(isset($_GET['ord'])){
         <?php
         echo "<div class='icon_group'>";      
         echo $boton_nuevo_insumo;
-        echo $boton_por;
         echo "<li class='icons'><div class='separacion_busqueda'></div></li>";
-        echo $boton_ver; 
-         
-        ?>
-            
-            <li class="icons">
-                <div class="busqueda_lupa">                    
-                        <input id="busqueda_avanzada" type="text" name="busqueda_avanzada" value="<?php echo $guarda_busqueda;?>" required/>                        
-                        <div class="boton_bus_queda_borrar" title="Borrar"><img src="img/x_negra.svg"></div>
-                        <div class="boton_bus_queda_buscar" title="Buscar"><img src="img/lupa.svg"></div>                    
-                </div>
-            </li>        
-                <script type="text/javascript"> 
-                    $(document).keypress(function(e) {
-                        if(e.which == 13) {
-                           var busqueda_avanzada = $("#busqueda_avanzada").val();
-                            window.location.href = "insumos.php?nav=<?php echo $nav;?>&busqueda=" + busqueda_avanzada + "&pagina=<?php echo $pagina.$estado_de_busqueda;?>"; 
-                        }
-                    });
-                    $(document).on('ready',function(){                        
-                        $('.boton_bus_queda_buscar').click(function(){                                                       
-                            var busqueda_avanzada = $("#busqueda_avanzada").val();
-                            window.location.href = "insumos.php?nav=<?php echo $nav;?>&busqueda=" + busqueda_avanzada + "&pagina=<?php echo $pagina.$estado_de_busqueda;?>"; 
-                        });                        
-                        $('.boton_bus_queda_borrar').click(function(){                                                       
-                            var busqueda_avanzada = $("#busqueda_avanzada").val();
-                            window.location.href = "insumos.php?nav=<?php echo $nav;?>&pagina=<?php echo $pagina;?>"; 
-                        });
-                    });                    
-                </script>
+        echo $boton_ver;          
+        ?>            
+        <li class="icons">
+            <div class="busqueda_lupa">                    
+                    <input id="busqueda_avanzada" type="text" name="busqueda_avanzada" value="<?php echo $guarda_busqueda;?>" required/>                        
+                    <div class="boton_bus_queda_borrar" title="Borrar"><img src="img/x_negra.svg"></div>
+                    <div class="boton_bus_queda_buscar" title="Buscar"><img src="img/lupa.svg"></div>                    
             </div>
-                
+        </li>        
+            <script type="text/javascript"> 
+                $(document).keypress(function(e) {
+                    if(e.which == 13) {
+                       var busqueda_avanzada = $("#busqueda_avanzada").val();
+                        window.location.href = "insumos.php?nav=<?php echo $nav;?>&busqueda=" + busqueda_avanzada + "&pagina=<?php echo $pagina.$estado_de_busqueda;?>"; 
+                    }
+                });
+                $(document).on('ready',function(){                        
+                    $('.boton_bus_queda_buscar').click(function(){                                                       
+                        var busqueda_avanzada = $("#busqueda_avanzada").val();
+                        window.location.href = "insumos.php?nav=<?php echo $nav;?>&busqueda=" + busqueda_avanzada + "&pagina=<?php echo $pagina.$estado_de_busqueda;?>"; 
+                    });                        
+                    $('.boton_bus_queda_borrar').click(function(){                                                       
+                        var busqueda_avanzada = $("#busqueda_avanzada").val();
+                        window.location.href = "insumos.php?nav=<?php echo $nav;?>&pagina=<?php echo $pagina;?>"; 
+                    });
+                });                    
+            </script>
+        </div>                
     </div>    
     <div id="sisint_insumos">
         <ul id="header_tabla_sisint">
@@ -216,7 +210,7 @@ if(isset($_GET['ord'])){
             <li class="li_proveedor"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=proveedor&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_proveedor; ?>">Proveedor</p></li>            
             <li class="li_modificado"><p>Fecha Mod</p></li>            
             <li class="li_valor"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=valor&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_valor; ?>">Valor</p></li>
-            <li class="li_stock"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=stock&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_medida; ?>">Stock</p></li>
+            <li class="li_stock"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=stock&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_stock; ?>">Stock</p></li>
             <li class="li_medida"><p onclick='location.href="insumos.php?nav=<?php echo $nav; ?>&ord=medida&pagina=<?php echo $_GET["pagina"]; ?>"' style="cursor:pointer;<?php echo $style_medida; ?>">Un Med</p></li>
             <li class="li_copiar_insumo"><p></p></li><li class="li_modificar_insumo"><p></p></li><li class="li_borrar_insumo"><p></p></li>
         </ul>
