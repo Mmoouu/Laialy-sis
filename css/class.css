@@ -425,103 +425,57 @@ nav {
 }
 
 /* NAV MEDIDAS */
-#botonera_nav ul.active.pedidos {
-    height: calc(33px * 5);
-    /* height: -webkit-calc([33px * 5]);
-    height: -moz-calc([33px * 5]); */
-}
-
-#botonera_nav ul.active.carteleria {
-    height: calc(33px * 6);
-    /* height: -webkit-calc([33px * 6]);
-    height: -moz-calc([33px * 6]); */
-}
 
 #botonera_nav ul.active.laialy {
     height: calc(33px * 4);
-    /* height: -webkit-calc([33px * 4]);
-    height: -moz-calc([33px * 4]); */
 }
 
 #botonera_nav ul.active.insumos {
     height: calc(33px * 1);
-    /* height: -webkit-calc([33px * 4]);
-    height: -moz-calc([33px * 4]); */
-}
-
-#botonera_nav ul.active.insumos_uss {
-    height: calc(33px * 1);
-    /* height: -webkit-calc([33px * 4]);
-    height: -moz-calc([33px * 4]); */
 }
 
 #botonera_nav ul.active.platos {
     height: calc(33px * 1);
-    /* height: -webkit-calc([33px * 4]);
-    height: -moz-calc([33px * 4]); */
 }
 
 #botonera_nav ul.active.reportes {
     height: calc(33px * 2);
-    /* height: -webkit-calc([33px * 2]);
-    height: -moz-calc([33px * 2]); */
 }
 
 #botonera_nav ul.active.rubros {
     height: calc(33px * 3);
-    /* height: -webkit-calc([33px * 1]);
-    height: -moz-calc([33px * 1]); */
 }
 
 #botonera_nav ul.active.reporte_lista {
     height: calc(33px * 1);
-    /* height: -webkit-calc([33px * 4]);
-    height: -moz-calc([33px * 4]); */
-}
-
-#botonera_nav ul.active.libreria {
-    height: calc(33px * 2);
-    /* height: -webkit-calc([33px * 2]);
-    height: -moz-calc([33px * 2]); */
 }
 
 #botonera_nav ul.active.soporte {
     height: calc(33px * 1);
-    /* height: -webkit-calc([33px * 1]);
-    height: -moz-calc([33px * 1]); */
 }
 
 #botonera_nav ul.active.admin {
     height: calc(33px * 1);
-    /* height: -webkit-calc([33px * 1]);
-    height: -moz-calc([33px * 1]); */
 }
 
 #botonera_nav ul.active.reporte_platos {
     height: calc(33px * 1);
-    /* height: -webkit-calc([33px * 1]);
-    height: -moz-calc([33px * 1]); */
 }
 
 #botonera_nav ul.active.reporte_materiales {
     height: calc(33px * 1);
-    /* height: -webkit-calc([33px * 1]);
-    height: -moz-calc([33px * 1]); */
 }
 
 #botonera_nav ul.active.reporte_insumos {
     height: calc(33px * 2);
-    /* height: -webkit-calc([33px * 2]);
-    height: -moz-calc([33px * 2]); */
 }
 
 #botonera_nav ul.active.reporte_actividad {
     height: calc(33px * 2);
-    /* height: -webkit-calc([33px * 2]);
-    height: -moz-calc([33px * 2]); */
 }
 
 /* HEADER */
+
 .user {
     position: absolute;
     bottom: 0px;
@@ -595,6 +549,7 @@ section {
 }
 
 /* LOGIN */
+
 #login {
     position: absolute;
     left: 50%;
@@ -624,6 +579,7 @@ section {
 }
 
 /* FORMULARIO LOGIN */
+
 .formlogin {
     display: block;
     width: 300px;
@@ -734,6 +690,7 @@ input:-webkit-autofill {
 }
 
 /* CABECERA SISINT */
+
 #cabecera_separacion {
     width: 100%;
     height: 80px;
@@ -847,6 +804,7 @@ input:-webkit-autofill {
 }
 
 /* BUSQUEDA SISINT */
+
 .separacion_busqueda {
     float: left;
     width: 1px;
@@ -934,6 +892,7 @@ input:-webkit-autofill {
 }
 
 /* TABLA ESTILOS GENERALES DE CONTENIDO */
+
 #header_tabla_sisint {
     position: absolute;
     left: 0px;
@@ -969,6 +928,7 @@ input:-webkit-autofill {
 }
 
 /* LISTADO FORMULARIO ESTILOS GENERALES DE CONTENIDO */
+
 .form_sisint {
     width: 100%;
     height: auto;
@@ -1060,6 +1020,7 @@ input:-webkit-autofill {
 }
 
 /* PAGINAS SISINT */
+
 #pagina_sisint {
     position: absolute;
     left: 20px;
@@ -1159,6 +1120,7 @@ input:-webkit-autofill {
 
 /* ////////////////////////////////////////////////////////// CAMPOS DE CONTENIDO /////////////////////////////////////////////////////////// */
 /* CAMPOS DE CONTENIDO */
+
 #sisint {
     position: absolute;
     left: 20px;
@@ -1397,792 +1359,7 @@ input:-webkit-autofill {
     border: 1px solid #d3d3d3;
 }
 
-/* ////////////////////////////////////////////////////////////////////////////////////// CONTROL PEDIDOS /////////////////////////////////////////////////////////////////////////////////////////// */
-/* GRILLA */
 
-#grilla_pedidos {
-    padding: 0px;
-    margin: 0px;
-    height: auto;
-    display: flex;
-    border-collapse: collapse;
-    font-family: medium;
-    font-size: 11px;
-    text-align: center;
-    width: 25%;
-}
-
-#grilla_pedidos tr {
-    color: #505050;
-    height: 20px;
-}
-
-#grilla_pedidos tr td {
-    border: 1px solid #7c7c7c;
-}
-
-#interior_grilla_pedidos {
-    position: absolute;
-    right: 10px;
-    left: 20px;
-    top: 80px;
-    bottom: 20px;
-    overflow: hidden;
-    overflow-y: scroll;
-    display: flex;
-    align-content: center;
-}
-
-#datos_grilla {
-    position: absolute;
-    right: 0px;
-    left: 0%;
-    top: 0px;
-    height: 50px;
-    overflow: hidden;
-    border-bottom: 1px solid #d3d3d3;
-    width: 100%;
-}
-
-#datos_grilla tr:first-child {
-    border-bottom: 1px solid #c4c4c4;
-}
-
-#datos_grilla tr td {
-    width: 25%;
-}
-
-#datos_grilla tr td p {
-    font-family: medium;
-    color: #7c7c7c;
-}
-
-#datos_grilla tr:nth-child(2) td:nth-child(1) p {
-    margin-left: 20px;
-}
-
-#datos_grilla tr:nth-child(2) td:nth-child(2) p {
-    margin-left: 9px;
-    overflow: hidden;
-    height: 20px;
-    cursor: pointer;
-}
-
-#datos_grilla tr:nth-child(2) td:nth-child(3) p {
-    margin-left: 0px;
-}
-
-#datos_grilla tr:nth-child(2) td:nth-child(4) p {
-    margin-left: -12px;
-}
-
-#datos_grilla tr td img:first-child {
-    margin-left: 16px;
-}
-
-.cp_plato {
-    background-color: #505050;
-    color: #fff;
-}
-
-.cp_color {
-    background-color: #d3d3d3;
-    color: #505050;
-}
-
-.cp_talle {
-    background-color: #d3d3d3;
-    color: #505050;
-}
-
-.cp_plato p {
-    width: 45px;
-    line-height: 19px;
-}
-
-.cp_color p {
-    width: 45px;
-    line-height: 19px;
-}
-
-.cp_talle p {
-    min-width: 20px;
-    max-width: 40px;
-    line-height: 19px;
-}
-
-/* TABLA DE CLIENTES */
-.li_cp_cliente {
-    width: 26%;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.li_cp_sucursales {
-    width: 10%;
-}
-
-.li_cp_pedido_web {
-    width: 10%;
-}
-
-.li_cp_agregado_web {
-    width: 10%;
-}
-
-.li_cp_agregado {
-    width: 10%;
-}
-
-.li_cp_anulado {
-    width: 10%;
-}
-
-.li_cp_total_pe {
-    width: 10%;
-}
-
-.li_cp_total_ap {
-    width: 10%;
-}
-
-.li_cp_total_te {
-    width: 11%;
-}
-
-.li_cp_ver {
-    width: 3%;
-    background-color: #8b8b8b;
-    cursor: pointer;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_ver img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-.li_cp_ver:hover {
-    background-color: #5d98d4;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-/* TABLA DE PEDIDOS SAX */
-.li_sax_nroop {
-    width: 9%;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.li_sax_cliente {
-    width: 25%;
-}
-
-/* cambio era 10 */
-.li_sax_empresa {
-    width: 7%;
-}
-
-.li_sax_sucursal {
-    width: 7%;
-}
-
-.li_sax_cantpend {
-    width: 10%;
-}
-
-.li_sax_fecha {
-    width: 10%;
-}
-
-.li_sax_estado {
-    width: 20%;
-}
-
-.li_sax_estados {
-    width: 17%;
-}
-
-.li_sax_ver {
-    width: 3%;
-    background-color: #8b8b8b;
-    cursor: pointer;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_sax_ver img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-.li_sax_ver:hover {
-    background-color: #5d98d4;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_sax_apr {
-    width: 3%;
-    background-color: #8b8b8b;
-    cursor: pointer;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_sax_apr img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-.li_sax_apr:hover {
-    background-color: #5dd478;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_sax_no {
-    width: 3%;
-    background-color: #8b8b8b;
-    cursor: pointer;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_sax_no img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-.li_sax_no:hover {
-    background-color: #c1223b;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_sax_alerta {
-    width: 3%;
-    background-color: #e6e6e6;
-    cursor: pointer;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_sax_alerta img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-.li_sax_tipo {
-    width: 3%;
-    background-color: #e6e6e6;
-    cursor: pointer;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_sax_tipo img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-/* TABLA DE MARCAS */
-.li_cp_marcas_marca {
-    width: 32%;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.li_cp_marcas_pedido {
-    width: 15%;
-}
-
-.li_cp_marcas_promedio {
-    width: 15%;
-}
-
-.li_cp_marcas_anulado {
-    width: 15%;
-}
-
-.li_cp_marcas_pendiente {
-    width: 15%;
-}
-
-.li_cp_ver_marca {
-    width: 8%;
-    background-color: #8b8b8b;
-    cursor: pointer;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_ver_marca img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-.li_cp_ver_marca:hover {
-    background-color: #5d98d4;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_visto_marca {
-    width: 8%;
-    background-color: #5d98d4;
-    cursor: pointer;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_visto_marca img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-.li_cp_visto_marca:hover {
-    background-color: #5d98d4;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_visto_marca:hover img {
-    transform: rotate(180deg);
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-/* TABLA DE SUCURSALES */
-.li_cp_sucursales_sucursal {
-    width: 10%;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.li_cp_sucursales_pedido {
-    width: 20%;
-}
-
-.li_cp_sucursales_pedido_nuevo {
-    width: 20%;
-}
-
-.li_cp_sucursales_pedido_agregado {
-    width: 20%;
-}
-
-.li_cp_sucursales_promedio {
-    width: 15%;
-}
-
-.li_cp_sucursales_anulado {
-    width: 15%;
-}
-
-.li_cp_sucursales_pendiente {
-    width: 15%;
-}
-
-.li_cp_ver_sucursal {
-    width: 5%;
-    background-color: #8b8b8b;
-    cursor: pointer;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_ver_sucursal img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-.li_cp_ver_sucursal:hover {
-    background-color: #5d98d4;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-/* TABLA DE PEDIDOS */
-.li_cp_br {
-    width: 7%;
-    margin-right: 1%;
-    cursor: pointer;
-}
-
-.li_cp_br:first-child {
-    margin-left: 0.6%;
-}
-
-.li_cp_vacio {
-    width: 7%;
-    margin-right: 1%;
-    background-color: rgb(225, 225, 225);
-    height: 26px;
-    width: 26px;
-    border-radius: 40px;
-    margin-top: 3px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_op {
-    width: 15%;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.li_cp_tipo {
-    width: 22%;
-}
-
-.li_cp_cantidad {
-    width: 18%;
-}
-
-.li_cp_fecha {
-    width: 20%;
-}
-
-.li_cp_ver_orden {
-    width: 8%;
-    background-color: #8b8b8b;
-    cursor: pointer;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_ver_orden img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-.li_cp_ver_orden:hover {
-    background-color: #5d98d4;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_visto_orden {
-    width: 8%;
-    background-color: #5d98d4;
-    cursor: pointer;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_visto_orden img {
-    height: 33px;
-    display: block;
-    margin: 0 auto;
-}
-
-.li_cp_visto_orden:hover {
-    background-color: #5d98d4;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.li_cp_visto_orden:hover img {
-    transform: rotate(180deg);
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.borrar_cp_pedido {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #de9898;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.borrar_cp_pedido:hover {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #d91818;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.actualizar_cp_pedido {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #8fafc6;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.actualizar_cp_pedido:hover {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #3383be;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.duplicar_cp_pedido {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #94c091;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.duplicar_cp_pedido:hover {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #3abe33;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.cp_circle {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #50c361;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    margin-left: 1%;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.cp_ver {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #e68450;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    margin-left: 1%;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.cp_ver:hover {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #d86223;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    margin-left: 1%;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.cp_nada {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #bdbdbd;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    margin-left: 1%;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.ok_cp_pedido {
-    float: left;
-    height: 16px;
-    width: 98%;
-    background-color: #50c361;
-    padding: 5px 0%;
-    border-radius: 40px;
-    margin-top: 2.5px;
-    margin-left: 1%;
-    transition: 0.5s;
-    -o-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-}
-
-.tipo_pedido {
-    background-color: #e4f2ff;
-}
-
-.tipo_pedido_pr {
-    background-color: #edf7ff;
-}
-
-.tipo_agregado {
-    background-image: linear-gradient(#edfffa, #fff);
-}
-
-.tipo_agregado_pr {
-    background-image: linear-gradient(#edfffa, #edfffa);
-}
-
-.tipo_anulado {
-    background-color: #fff8dd;
-}
-
-.tipo_total {
-    background-color: #ffd6d6;
-}
-
-.tipo_facturadas {
-    background-image: linear-gradient(#fff, #ffebd5);
-}
 
 /* /////////////////////////////////////////////////////////////////////////////////////////// CARTELERIA /////////////////////////////////////////////////////////////////////////////////////////// */
 /* LI MEDIDAS UNICAS BARRA SUPERIOR DE EL LISTADO DE ORDENES */
