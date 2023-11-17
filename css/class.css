@@ -1667,6 +1667,15 @@ input:-webkit-autofill {
     font-size: 1em;
 }
 
+.fomulario_nuevo_ingreso_col2 {
+    display: block;
+    width: 700px;
+    height: auto;
+    margin: 0px auto;
+    padding: 25px 0px 0px 0px;
+    font-size: 1em;
+}
+
 .scroll_form{
     height: 500px;
 }
@@ -1963,6 +1972,34 @@ input:-webkit-autofill {
 }
 
 .fomulario_nuevo_ingreso button:focus {
+    outline: 0px;
+}
+
+.fomulario_nuevo_ingreso_col2 button {
+    display: block;
+    width: 700px;
+    cursor: pointer;
+    height: 40px;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    border: none;
+    border-radius: 5px;
+    background-color: #29abe2;
+    color: #fff;
+    cursor: pointer;
+    font-size: 100%;
+}
+
+.fomulario_nuevo_ingreso_col2 button img {
+    height: 15px;
+    margin-top: 5px;
+}
+
+.fomulario_nuevo_ingreso_col2 button:hover {
+    background-color: #1f7ca3;
+}
+
+.fomulario_nuevo_ingreso_col2 button:focus {
     outline: 0px;
 }
 
