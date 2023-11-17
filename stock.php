@@ -46,13 +46,11 @@ if(isset($_GET['busqueda'])){
         $estado_de_busqueda = "&ver=".$ver;
         if ($ver == "0"){
             $ver_activo_base = "0";
-            $boton_nuevo_plato = "";
             $aclaracion_inactivo = " Inactivos";
         }    
     } else {
         $estado_de_busqueda = "";
         $ver_activo_base = "1";
-        $boton_nuevo_plato = "<li class='icons'><img title='Nuevo plato' onclick='location.href=\"platos_nuevo.php?nav=".$nav."\"' src='img/mas.svg'></li>";
         $aclaracion_inactivo = ""; 
         $ver_ver = "";   
     } 
@@ -65,13 +63,11 @@ if(isset($_GET['busqueda'])){
         $estado_de_busqueda = "&ver=".$ver;
         if ($ver == "0"){
             $ver_activo_base = "0";
-            $boton_nuevo_plato = "";
             $aclaracion_inactivo = " Inactivos";
         }    
     } else {
         $estado_de_busqueda = "";
         $ver_activo_base = "1";
-        $boton_nuevo_plato = "<li class='icons'><img title='Nuevo plato' onclick='location.href=\"platos_nuevo.php?nav=".$nav."\"' src='img/mas.svg'></li>";
         $aclaracion_inactivo = "";
         $ver_ver = "";
     } 
@@ -116,10 +112,8 @@ if(isset($_GET['ord'])){
     <div id="cabecera_sisint">
         <h1><?php echo $titulo_sisint.$aclaracion_inactivo; ?></h1>
         <div class='icon_group'>
-            <?php       
-            echo $boton_nuevo_plato;        
-            echo "<li class='icons'><div class='separacion_busqueda'></div></li>";              
-            ?> 
+            <li class='icons'><img title='Nuevo plato' onclick="stock_nuevo()" src='img/mas.svg'></li>     
+            <li class='icons'><div class='separacion_busqueda'></div></li>
             <li class="icons">
                 <div class="busqueda_lupa">                    
                     <input id="busqueda_avanzada" type="text" name="busqueda_avanzada" value="<?php echo $guarda_busqueda;?>" required/>                        
@@ -212,25 +206,12 @@ if(isset($_GET['ord'])){
                 ?>
                 <div style="margin-bottom:10px;" class='form_sisint'>
                     <ul>
-                        <li id="view_<?php echo $_id_stock; ?>" class="li_stock_txt li_grupal"><p title="Creado el <?php echo $_creacion."&#10Modificado el ".$_ultima_fecha; ?>"><?php echo $_insumo; ?></p></li>
-                        <li class="li_stock_txt li_grupal"><p><?php echo $_proveedor; ?></p></li>            
-                        <li class="li_stock_txt li_grupal"><p><?php echo $_medida; ?></p></li>
-                        <li class="li_stock_txt li_grupal"><p>$ <?php echo $_valor; ?></p></li> 
-                        <li class="li_stock_txt li_grupal"><p><?php echo $_stock; ?></p></li>
-                        <?php
-                        require("../conexion.laialy.php");
-                                             
-                        if(isset($_POST['id_stock'])){
-                            $stock_sel = $_POST['id_stock'];
-                            if ($stock_sel == $_id_stock){
-                             echo "<li class='li_stock_visto li_grupal' onclick='location.href=\"stock.php?nav=".$nav.$ver_ver."\"'><img src='img/articulo_flecha.svg'></li>";    
-                            } else {
-                                echo "<li class='li_stock_ver li_grupal' onclick='location.href=\"stock.php?nav=".$nav."&id=".$_id_stock.$ver_ver."\"'><img src='img/articulo_flecha.svg'></li>";     
-                            }
-                        } else {
-                            echo "<li class='li_stock_ver li_grupal' onclick='location.href=\"stock.php?nav=".$nav."&id=".$_id_stock.$ver_ver."\"'><img src='img/articulo_flecha.svg'></li>";       
-                        }
-                        ?> 
+                        <li id="view_<?php echo $_id_stock; ?>" class="li_stock_txt li_grupal"><p id="id_stock" value="<?php echo $_id_stock; ?>" title="Creado el <?php echo $_creacion."&#10Modificado el ".$_ultima_fecha; ?>"><?php echo $_insumo; ?></p></li>
+                        <li class="li_stock_txt li_grupal"><p id="proveedor" value="<?php echo $_proveedor; ?>"><?php echo $_proveedor; ?></p></li>            
+                        <li class="li_stock_txt li_grupal"><p id="medida" value="<?php echo $_medida; ?>"><?php echo $_medida; ?></p></li>
+                        <li class="li_stock_txt li_grupal"><p id="valor" value="<?php echo $_valor; ?>">$ <?php echo $_valor; ?></p></li> 
+                        <li class="li_stock_txt li_grupal"><p id="stock" value="<?php echo $_stock; ?>"><?php echo $_stock; ?></p></li>                        
+                        <li class='li_stock_ver li_grupal ver_detalle_stock' onclick="stock_detalle('<?php echo $_id_stock; ?>','<?php echo $_id_insumo; ?>','<?php echo $_insumo; ?>','<?php echo $_proveedor; ?>','<?php echo $_medida; ?>','<?php echo $_valor; ?>','<?php echo $_stock; ?>','<?php echo $_stock; ?>')"><img src='img/articulo_flecha.svg'></li>          
                     </ul>
                 </div>
                 <?php
@@ -238,145 +219,66 @@ if(isset($_GET['ord'])){
             }
             ?>
         </div>
-    </div>    
-    <div id="columna_2_stock">   
-        
-
-        <div id="desarr_de_stock">
-        <table>
-                <tr class="class_titulos">
-                    <td><p>INSUMO<span>+</span></p></td>
-                    <td><p>FECHA</p></td>
-                    <td><p>UN MED</p></td>
-                    <td><p>VALOR</p></td>
-                    <td><p>STOCK</p></td>                    
-                </tr>                
-                <tr class="class_espacio_materiales">
-                    <td><p></p></td>
-                    <td><p></p></td>  
-                    <td><p></p></td>  
-                    <td><p></p></td>                  
-                </tr>                 
-                <tr class="class_materiales">
-                    <td><p>Garbanzo
-                        <span>+</span>
-                        <span>-</span>
-                    </p></td>
-                    <td><p>16-11-2023</p></td>
-                    <td><p>KG</p></td>
-                    <td><p>$ 450</p></td>  
-                    <td><p>50 KG</p></td>                   
-                </tr>
-                <tr class="class_insumos">
-                    <td><p>Historial de consumo <span>v</span></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>                    
-                </tr> 
-                <tr class="class_materiales">
-                    <td><p>Garbanzo
-                        <span>+</span>
-                        <span>-</span>
-                    </p></td>
-                    <td><p>13-11-2023</p></td>
-                    <td><p>KG</p></td>
-                    <td><p>$ 150</p></td>  
-                    <td><p>25 KG</p></td>                   
-                </tr>
-                <tr class="class_insumos">
-                    <td><p>Historial de consumo <span>v</span></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>                    
-                </tr>     
-                <tr class="class_totales_vacio">
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>                    
-                </tr>
-                <tr class="class_totales_titulos">
-                    <td><p>TOTAL</p></td>
-                    <td><p></p></td>                                        
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p>75 KG</p></td>                                    
-                </tr>
-                <!-- <tr class="class_totales">
-                    <td><p>SUMA</p></td>
-                    <td><p></p></td>                   
-                    <td><p></p></td>
-                    <td><p>1</p></td>
-                    <td><p>1</p></td>                                  
-                </tr>
-                <tr class="class_totales">
-                    <td><p>TALLER</p></td>
-                    <td><a class="boton_taller"><img src="img/modificar.svg"></a></td>                                         
-                    <td><p></p></td>
-                    <td><p>1</p></td>                                                 
-                </tr>
-                <tr class="class_totales">
-                    <td><p>TOTAL</p></td>
-                    <td><p></p></td>                                   
-                    <td><p></p></td>
-                    <td><p>1</p></td>
-                    <td><p>1</p></td>                                    
-                </tr> 
-                <tr class="class_totales">
-                    <td><p>PERDIDAS</p></td>                    
-                    <td><p>1</p></td>                        
-                    <td><p></p></td>
-                    <td><p>3</p></td> 
-                    <td><p>1</p></td>                   
-                </tr>
-                <tr class="class_totales">
-                    <td><p>COSTO</p></td>
-                    <td><p></p></td>                              
-                    <td><p></p></td>
-                    <td><p>1</p></td> 
-                    <td><p>1</p></td>                  
-                </tr> 
-                <tr class="class_totales">
-                    <td><p>GANANCIA</p></td>                    
-                    <td><p>1</p></td>                       
-                    <td><p></p></td>
-                    <td><p>2</p></td>  
-                    <td><p>1</p></td>                  
-                </tr>
-                <tr class="class_totales_final">
-                    <td><p>VENTA</p></td>
-                    <td><p></p></td>      
-                    <td><p></p></td>
-                    <td><p>1</p></td>                                                       
-                </tr>
-                <tr class="class_totales_final">
-                    <td><p>FINAL VENTA (redondeo)</p></td>
-                    <td><p></p></td>                    
-                    <td><p></p></td>
-                    <td><p>1</p></td>  
-                    <td><p>1</p></td>                                                    
-                </tr> -->
-                
-            </table>    
-        </div>
-
-        <div id="footer_de_plato">
-            <div class="est_de_plato">
-                <h1>Texto Insumos</h1>
-                <p class='estado_verde'>Actualizado</p>          
-            </div>
-            <div class="est_de_plato">
-                <h1>Valores</h1>
-                <p class='estado_verde'>Actualizado</p>
-            </div>
-            <div class="est_de_plato">
-                <h1>Valor Promedio</h1>
-                <p class='estado_verde'>$ 350</p>
-            </div>    
-        </div>        
-    </div>            
     </div>
+
+    <!-- onclick="recetario($('#plato').val(),$('#descripcion').val(),$('#perdida').val(),$('#ganancia').val())"  -->
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $(".ver_detalle_stock").click(function(){
+                if ($(this).hasClass("li_stock_ver")){
+                    $(".ver_detalle_stock").removeClass("li_stock_ver");
+                    $(".ver_detalle_stock").addClass("li_stock_visto");            
+                } else {                    
+                    $(".ver_detalle_stock").removeClass("li_stock_visto");
+                    $(".ver_detalle_stock").addClass("li_stock_ver");                             
+                }                
+            });
+        });
+
+        function stock_detalle(id_stock,id_insumo,insumo,proveedor,medida,valor,stock,busqueda) { 
+            var parametros = {"id_stock":id_stock,"id_insumo":id_insumo,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor":valor,"stock":stock,"busqueda":busqueda};
+            $(".ver_detalle_stock").click(function(){
+                if ($(this).hasClass("li_stock_visto")){
+                    $.ajax({
+                        data: parametros,            
+                        url: 'componentes/stock_detalle.php',
+                        type: 'POST',
+                        success: function(data) {                        
+                            document.getElementById("col2").innerHTML = data;
+                        }
+                    });            
+                } else {
+                    document.getElementById("col2").innerHTML = '';         
+                }                
+            });            
+        } 
+
+        function stock_nuevo() { 
+            if ($(".ver_detalle_stock").hasClass("li_stock_visto")){
+                $(".ver_detalle_stock").removeClass("li_stock_visto");
+                $(".ver_detalle_stock").addClass("li_stock_ver");
+                
+            } 
+            $.ajax({
+                    data: 'nuevo',            
+                    url: 'componentes/stock_nuevo.php',
+                    type: 'POST',
+                    success: function(data) {                        
+                        document.getElementById("col2").innerHTML = data;
+                    }
+                });           
+        } 
+
+        // function loadingOnCentral() { 
+        //     $(".loading_pop_up").fadeIn(700);
+        // }
+
+    </script> 
+
+    <div id="col2"></div>  
+              
 </section>
 </body>
 </html>

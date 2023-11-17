@@ -2330,7 +2330,7 @@ input:-webkit-autofill {
 /* COLUMNA 2 DATOS DE Stock */
 #desarr_de_stock {
     position: absolute;
-    top: 15px;
+    top: 65px;
     bottom: 80px;
     left: 15px;
     right: 10px;
@@ -2361,6 +2361,43 @@ input:-webkit-autofill {
     color: #393939;
     line-height: 30px;
     padding: 7px 5px 3px 5px;
+}
+
+#footer_de_stock {
+    position: absolute;
+    height: 65px;
+    bottom: 0px;
+    display: flex;
+    left: 0px;
+    right: 0px;
+    overflow: hidden;
+    border-top: 1px solid #f3f3f3;
+}
+
+.est_de_stock {
+    width: 33.3%;
+    height: 65px;
+    text-align: center;
+}
+
+.est_de_stock:nth-child(2) {
+    border-left: 1px solid #f3f3f3;
+    border-right: 1px solid #f3f3f3;
+}
+
+.est_de_stock h1 {
+    font-family: medium;
+    margin: 0 auto;
+    padding: 15px 0px 5px 0px;
+    color: #b2b2b2;
+    font-size: 14px;
+}
+
+.est_de_stock p {
+    font-family: text;
+    margin: 0 auto;
+    padding: 0px 0px 15px 0px;
+    font-size: 14px;
 }
 
 /* COLUMNA 2 DETALLE DE STOCK */
