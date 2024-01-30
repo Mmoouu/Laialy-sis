@@ -2322,6 +2322,48 @@ input:-webkit-autofill {
     -webkit-transition: 0.5s;
 }
 
+.li_stock_ver.active {
+    width: 4.2%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #2b80d6;
+    cursor: pointer;
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.li_stock_ver.active img {
+    height: 33px;
+    display: block;
+    margin: 0 auto;
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.li_stock_ver.active:hover {
+    background-color: #5d98d4;
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.li_stock_ver.active:hover img {
+    transform: rotate(180deg);
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
 .li_stock_visto {
     width: 4.2%;
     border-top-right-radius: 10px;
@@ -4487,4 +4529,70 @@ footer span {
     height: 33px;
     display: block;
     margin: 0 auto;
+}
+
+/* LOADING POP UP */
+.loading_pop_up {
+    position: fixed;
+    z-index: 1;
+    display: block;
+    left: 200px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.loading_pop_up img {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    margin-left: 50%;
+    left: -175px;
+}
+
+.loading_pop_up p {
+    position: absolute;
+    z-index: 1;
+    font-family: medium;
+    color: #3e224d;
+    width: 100px;
+    text-align: center;
+    margin-left: 50%;
+    left: -50px;
+    margin-top: 250px;
+}
+
+/* LOADING POP UP */
+.loading_pop_up_columna {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    right: 20px;
+    left: calc(49.2% + 100px);
+    top: 123px;
+    bottom: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+}
+
+
+.loading_pop_up_columna img {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    margin-left: 50%;
+    left: -175px;
+}
+
+.loading_pop_up_columna p {
+    position: absolute;
+    z-index: 1;
+    font-family: medium;
+    color: #3e224d;
+    width: 100px;
+    text-align: center;
+    margin-left: 50%;
+    left: -50px;
+    margin-top: 250px;
 }

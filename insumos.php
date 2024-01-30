@@ -87,7 +87,7 @@ if(isset($_GET['busqueda'])){
         $boton_nuevo_insumo = "<li class='icons'><img title='Nuevo Insumo' onclick='location.href=\"insumos_nuevo.php?nav=".$nav."&pagina=1\"' src='img/mas.svg'></li>";
         $aclaracion_inactivo = "";    
     } 
-    $where = "WHERE activo = ".$ver_activo_base." AND cod LIKE '%".utf8_decode($busqueda)."%' OR  activo = ".$ver_activo_base." AND insumo LIKE '%".utf8_decode($busqueda)."%'";
+    $where = "WHERE activo = ".$ver_activo_base." AND cod LIKE '%".mb_convert_encoding($busqueda, "UTF-8", mb_detect_encoding($busqueda))."%' OR  activo = ".$ver_activo_base." AND insumo LIKE '%".mb_convert_encoding($busqueda, "UTF-8", mb_detect_encoding($busqueda))."%'";
 } else {    
     $guarda_busqueda = "";
     if(isset($_GET['ver'])){
@@ -257,14 +257,14 @@ if(isset($_GET['ord'])){
                 ?>
                 <div style="margin-bottom:10px;" class='form_sisint'>
                      <ul>
-                        <li id="view_<?php echo $insumo_bk_id; ?>" title='<?php echo "Creado el ".$insumo_bk_creacion; ?>' class='li_cod li_grupal'><p><?php echo utf8_encode($insumo_bk_cod); ?></p></li>
-                        <li class='li_insumo li_grupal'><p><?php echo utf8_encode($insumo_bk_insumo); ?></p></li>                    
+                        <li id="view_<?php echo $insumo_bk_id; ?>" title='<?php echo "Creado el ".$insumo_bk_creacion; ?>' class='li_cod li_grupal'><p><?php echo mb_convert_encoding($insumo_bk_cod, "UTF-8", mb_detect_encoding($insumo_bk_cod)); ?></p></li>
+                        <li class='li_insumo li_grupal'><p><?php echo mb_convert_encoding($insumo_bk_insumo, "UTF-8", mb_detect_encoding($insumo_bk_insumo)); ?></p></li>           
                         <li class='li_categoria li_grupal'>
                             <p>
                             <?php
                             $consulta_de_categorias = mysqli_query($conexion, "SELECT categoria FROM categorias WHERE id='$insumo_bk_categoria'");
                             $listado_de_categorias = mysqli_fetch_array($consulta_de_categorias);
-                            $ver_categoria_seleccionada = utf8_encode($listado_de_categorias['categoria']);
+                            $ver_categoria_seleccionada =  mb_convert_encoding($listado_de_categorias['categoria'], "UTF-8", mb_detect_encoding($listado_de_categorias['categoria']));
                             echo $ver_categoria_seleccionada;
                             ?>
                             </p>
@@ -274,7 +274,7 @@ if(isset($_GET['ord'])){
                             <?php
                             $consulta_de_subcategorias = mysqli_query($conexion, "SELECT * FROM subcategorias WHERE id='$insumo_bk_subcategoria'");
                             $listado_de_subcategorias = mysqli_fetch_array($consulta_de_subcategorias);
-                            $ver_subcategoria_seleccionada = utf8_encode($listado_de_subcategorias['subcategoria']);
+                            $ver_subcategoria_seleccionada =  mb_convert_encoding($listado_de_subcategorias['subcategoria'], "UTF-8", mb_detect_encoding($listado_de_subcategorias['subcategoria']));
                             echo $ver_subcategoria_seleccionada;
                             ?>
                             </p>
@@ -284,7 +284,8 @@ if(isset($_GET['ord'])){
                             <?php                        
                             $consulta_de_proveedores = mysqli_query($conexion, "SELECT proveedor FROM proveedores WHERE id_proveedor='$insumo_bk_proveedor'");
                             $listado_de_proveedores = mysqli_fetch_array($consulta_de_proveedores);
-                            echo utf8_encode($listado_de_proveedores['proveedor']);
+                            $ver_listado_de_proveedores_proveedor = mb_convert_encoding($listado_de_proveedores['proveedor'], "UTF-8", mb_detect_encoding($listado_de_proveedores['proveedor'])); ;
+                            echo $ver_listado_de_proveedores_proveedor;
                             ?>
                             </p>
                         </li>                        

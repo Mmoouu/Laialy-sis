@@ -1,0 +1,1 @@
+insumos eliminar y desactivar pendiente a terminado de platos "repercute"

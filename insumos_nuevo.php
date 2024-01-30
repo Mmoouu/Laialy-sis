@@ -17,6 +17,7 @@ if($usuario == false) {
     if ($permiso_costos !== "1"){ echo "<script language=Javascript> location.href=\"principal.php\";</script>"; }
     mysqli_close($conexion);
 } 
+//////////////////////////////////////////////////////////////////////////////////////////////// 
 if ($login == "log"){
     $user_log = $reg['nombre']." ".$reg['apellido'];
     $circulo_log = "circulo_log_green";
@@ -26,16 +27,16 @@ if ($login == "log"){
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 $platos_laialy = ""; $insumos_laialy = ""; $stock_laialy = ""; $menu_laialy = "";
-//////////////////////////////////////////////////////////////////////////////////////////////////
-$insumos_laialy = ""; $where = ""; 
+////////////////////////////////////////////////////////////////////////////////////////////////// 
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
     if ($nav == "insumos_laialy"){
+        $nav_stock = "stock_laialy";
         $titulo_sisint = "Nuevo Insumo Laialy";
         $insumos_laialy = "active";
     }
 } 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,12 +50,10 @@ if(isset($_GET['nav'])){
 <title>Laialy</title>
 <link rel="shortcut icon" href="favicon.ico" />
 <meta charset="utf-8"/>
-
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.min.js"></script> 
 <script type="text/javascript" src="js/menu.js"></script>
-<script type="text/javascript" src="js/ajax.js"></script>
-    
+<script type="text/javascript" src="js/ajax.js"></script> 
 </head>   
    
 <body>
@@ -75,7 +74,7 @@ if(isset($_GET['nav'])){
         <form class="fomulario_nuevo_ingreso" name="formulario_nuevo_ingreso" action="" method="post" enctype="multipart/form-data">
             <div class="fneworder_dos">
                 <label><p>Cod</p></label>
-                <input type="text" name="cod" required/>
+                <input type="text" name="cod" id="comprobar_codigo" required/>
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_dos">
@@ -97,7 +96,7 @@ if(isset($_GET['nav'])){
                     require("../conexion.laialy.php");
                     $consulta_de_categorias = mysqli_query($conexion, "SELECT * FROM categorias");
                     while($listado_de_categorias = mysqli_fetch_array($consulta_de_categorias)){
-                        echo "<option value='".$listado_de_categorias['id']."'>".utf8_encode($listado_de_categorias['categoria'])."</option>";
+                        echo "<option value='".$listado_de_categorias['id']."'>".mb_convert_encoding($listado_de_categorias['categoria'], "UTF-8", mb_detect_encoding($listado_de_categorias['categoria']))."</option>";
                     }
                     mysqli_close($conexion);
                     ?>
@@ -127,7 +126,7 @@ if(isset($_GET['nav'])){
                     require("../conexion.laialy.php");
                     $consulta_de_proveedores = mysqli_query($conexion, "SELECT * FROM proveedores");
                     while($listado_de_proveedores = mysqli_fetch_array($consulta_de_proveedores)){
-                        echo "<option value='".$listado_de_proveedores['id_proveedor']."'>".utf8_encode($listado_de_proveedores['proveedor'])."</option>";
+                        echo "<option value='".$listado_de_proveedores['id_proveedor']."'>".mb_convert_encoding($listado_de_proveedores['proveedor'], "UTF-8", mb_detect_encoding($listado_de_proveedores['proveedor']))."</option>";
                     }
                     mysqli_close($conexion);
                     ?>
@@ -138,13 +137,13 @@ if(isset($_GET['nav'])){
         <div class="linea_form_nuevo_ingreso"></div>
         <?php      
             if (isset($_POST['submit'])){
-                $form_cod = utf8_decode($_POST['cod']);
-                $form_insumo = utf8_decode($_POST['insumo']);
+                $form_cod = mb_convert_encoding($_POST['cod'], "UTF-8", mb_detect_encoding($_POST['cod']));
+                $form_insumo = mb_convert_encoding($_POST['insumo'], "UTF-8", mb_detect_encoding($_POST['insumo']));
                 $form_valor = 0;
                 $form_stock = 0;
                 $form_categoria = $_POST['categoria'];
                 $form_subcategoria = $_POST['subcategoria'];
-                $form_medida = utf8_decode($_POST['medida']);
+                $form_medida = mb_convert_encoding($_POST['medida'], "UTF-8", mb_detect_encoding($_POST['medida']));
                 $form_proveedor = $_POST['proveedor'];
                 $form_activo = $_POST['activo'];
                 $form_creacion = date("d-m-y");
@@ -154,14 +153,37 @@ if(isset($_GET['nav'])){
                 $form_hora_mod = date('His');
 
                 require("../conexion.laialy.php");
-                $consulta_insumo = mysqli_query($conexion, "SELECT * FROM $nav WHERE cod='$form_cod'");            
+                $consulta_insumo = mysqli_query($conexion, "SELECT * FROM $nav WHERE cod='$form_cod'");
                 if (!$consulta_insumo || mysqli_num_rows($consulta_insumo) == 0){
                     mysqli_query($conexion, "INSERT INTO $nav (id, cod, insumo, categoria, subcategoria, medida, proveedor, valor, stock, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$form_cod','$form_insumo','$form_categoria','$form_subcategoria','$form_medida','$form_proveedor','$form_valor','$form_stock','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
-                    mysqli_close($conexion); 
+                    
+                    //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
+                    $log_valor = "ID: ".$get_id_insumo;
+                    $log_accion = "Insumo Nuevo";
+                    require("log.php");
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                    $consulta_id = mysqli_query($conexion, "SELECT id FROM $nav ORDER BY id DESC");                    
+                    $listado_id = mysqli_fetch_array($consulta_id);
+                    $last_id = $listado_id['id'];
+
+                    mysqli_query($conexion, "INSERT INTO $nav_stock (id, id_insumo, insumo, valor, stock, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$last_id','$form_insumo','$form_valor','$form_stock','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
+                    
+                    $consulta_id_stock = mysqli_query($conexion, "SELECT id FROM $nav_stock ORDER BY id DESC");                    
+                    $listado_id_stock = mysqli_fetch_array($consulta_id_stock);
+                    $last_id_stock = $listado_id_stock['id'];
+
+                    //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
+                    $log_valor = "ID: ".$last_id_stock;
+                    $log_accion = "Stock Nuevo";
+                    require("log.php");
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                     echo "<script language=Javascript> location.href=\"insumos.php?nav=$nav&mensaje=nuevo_insumo&pagina=1\";</script>";                     
                 } else {
                     echo "<script language=Javascript> location.href=\"insumos_nuevo.php?nav=$nav&mensaje=codigo_repetido&pagina=1\";</script>";
-                }                               
+                }   
+                mysqli_close($conexion);                            
             }
         ?>
     </div>

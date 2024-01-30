@@ -57,7 +57,7 @@ if(isset($_GET['ver'])){
     $boton_fijar = "<li class='icons'><img title='Fijar Lista' onclick='location.href=\"fijar_platos.php?nav=".$nav."\"' src='img/fijar.svg'></li>";
     //////////////////////////////////////////////////////////////////////////////////////////////////
     require("../conexion.laialy.php");             
-    $consulta_de_act = mysqli_query($conexion,  "SELECT * FROM $nav WHERE activo='1' ORDER BY plato ASC");
+    $consulta_de_act = mysqli_query($conexion,  "SELECT * FROM $nav WHERE activo='1' ORDER BY menu ASC");
     mysqli_close($conexion);
     if(!$consulta_de_act || mysqli_num_rows($consulta_de_act) == 0){
         $boton_act = "";
@@ -127,7 +127,7 @@ if(isset($_GET['ver'])){
         <div id="tabla_sisint" class="tabla_sisint"> 
             <?php
             require("../conexion.laialy.php");             
-            $consulta_de_platos = mysqli_query($conexion,  "SELECT * FROM $nav $where ORDER BY plato ASC");
+            $consulta_de_platos = mysqli_query($conexion,  "SELECT * FROM $nav $where ORDER BY menu ASC");
             mysqli_close($conexion);
             if(!$consulta_de_platos || mysqli_num_rows($consulta_de_platos) == 0){            
                 echo "<div style='width:500px; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>".$resultado_busqueda."</p></div>";

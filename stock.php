@@ -180,16 +180,19 @@ if(isset($_GET['ord'])){
                         $_medida = $listado_de_insumos["medida"];
 
                         $consulta_de_categorias_sel = mysqli_query($conexion, "SELECT * FROM categorias WHERE id = '$categoria_listado'");
-                        $listado_de_categorias_sel = mysqli_fetch_array($consulta_de_categorias_sel);  
-                        $_categorias = utf8_encode($listado_de_categorias_sel['categoria']);
+                        $listado_de_categorias_sel = mysqli_fetch_array($consulta_de_categorias_sel);
+                        $_categoria_item = $listado_de_categorias_sel['categoria'];
+                        $_categorias = mb_convert_encoding($_categoria_item, "UTF-8", mb_detect_encoding($_categoria_item));
 
                         $consulta_de_subcategorias_sel = mysqli_query($conexion, "SELECT * FROM subcategorias WHERE id = '$subcategoria_listado'");
                         $listado_de_subcategorias_sel = mysqli_fetch_array($consulta_de_subcategorias_sel);    
-                        $_subcategorias = utf8_encode($listado_de_subcategorias_sel['subcategoria']); 
+                        $_subcategorias_item = $listado_de_subcategorias_sel['subcategoria']; 
+                        $_subcategorias = mb_convert_encoding($_subcategorias_item, "UTF-8", mb_detect_encoding($_subcategorias_item));
                         
                         $consulta_de_proveedor_seleccionado = mysqli_query($conexion, "SELECT * FROM proveedores WHERE id_proveedor='$proveedor_listado'");
                         $listado_select = mysqli_fetch_array($consulta_de_proveedor_seleccionado); 
-                        $_proveedor = utf8_encode($listado_select['proveedor']);
+                        $_proveedor_item =$listado_select['proveedor'];
+                        $_proveedor =  mb_convert_encoding($_proveedor_item, "UTF-8", mb_detect_encoding($_proveedor_item));
 
                         $_stock += $listado_detallado_de_stock['stock'];
 
@@ -211,7 +214,7 @@ if(isset($_GET['ord'])){
                         <li class="li_stock_txt li_grupal"><p id="medida" value="<?php echo $_medida; ?>"><?php echo $_medida; ?></p></li>
                         <li class="li_stock_txt li_grupal"><p id="valor" value="<?php echo $_valor; ?>">$ <?php echo $_valor; ?></p></li> 
                         <li class="li_stock_txt li_grupal"><p id="stock" value="<?php echo $_stock; ?>"><?php echo $_stock; ?></p></li>                        
-                        <li class='li_stock_ver li_grupal ver_detalle_stock' onclick="stock_detalle('<?php echo $_id_stock; ?>','<?php echo $_id_insumo; ?>','<?php echo $_insumo; ?>','<?php echo $_proveedor; ?>','<?php echo $_medida; ?>','<?php echo $_valor; ?>','<?php echo $_stock; ?>','<?php echo $_stock; ?>')"><img src='img/articulo_flecha.svg'></li>          
+                        <li class="li_stock_ver li_grupal" onclick="stock_detalle('<?php echo $_id_stock; ?>','<?php echo $_id_insumo; ?>','<?php echo $_insumo; ?>','<?php echo $_proveedor; ?>','<?php echo $_medida; ?>','<?php echo $_valor; ?>','<?php echo $_stock; ?>','<?php echo $_stock; ?>')"><img src='img/articulo_flecha.svg'></li>          
                     </ul>
                 </div>
                 <?php
@@ -219,34 +222,31 @@ if(isset($_GET['ord'])){
             }
             ?>
         </div>
-    </div>
+    </div>    
 
-    <!-- onclick="recetario($('#plato').val(),$('#descripcion').val(),$('#perdida').val(),$('#ganancia').val())"  -->
-
+    <div class="loading_pop_up_columna"><img src="img/loading.gif"><p>Cargando</p></div>
+    <div id="col2"></div>
+    
     <script type="text/javascript">
-
-        $(document).ready(function() {
-            $(".ver_detalle_stock").click(function(){
-                if ($(this).hasClass("li_stock_ver")){
-                    $(".ver_detalle_stock").removeClass("li_stock_ver");
-                    $(".ver_detalle_stock").addClass("li_stock_visto");            
-                } else {                    
-                    $(".ver_detalle_stock").removeClass("li_stock_visto");
-                    $(".ver_detalle_stock").addClass("li_stock_ver");                             
-                }                
-            });
-        });
 
         function stock_detalle(id_stock,id_insumo,insumo,proveedor,medida,valor,stock,busqueda) { 
             var parametros = {"id_stock":id_stock,"id_insumo":id_insumo,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor":valor,"stock":stock,"busqueda":busqueda};
-            $(".ver_detalle_stock").click(function(){
-                if ($(this).hasClass("li_stock_visto")){
+            
+            $(".li_stock_ver").click(function(){                
+               
+                if ($(this).hasClass("active")){                                       
                     $.ajax({
                         data: parametros,            
                         url: 'componentes/stock_detalle.php',
                         type: 'POST',
+                        beforeSend: function (response) { 
+                            loadingOnColumna();                                 
+                        }, 
                         success: function(data) {                        
                             document.getElementById("col2").innerHTML = data;
+                        },
+                        complete: function(response) {
+                            setTimeout(function() { loadingOffColumna(); },1000);
                         }
                     });            
                 } else {
@@ -255,29 +255,37 @@ if(isset($_GET['ord'])){
             });            
         } 
 
-        function stock_nuevo() { 
-            if ($(".ver_detalle_stock").hasClass("li_stock_visto")){
-                $(".ver_detalle_stock").removeClass("li_stock_visto");
-                $(".ver_detalle_stock").addClass("li_stock_ver");
-                
-            } 
-            $.ajax({
-                    data: 'nuevo',            
-                    url: 'componentes/stock_nuevo.php',
-                    type: 'POST',
-                    success: function(data) {                        
-                        document.getElementById("col2").innerHTML = data;
-                    }
-                });           
-        } 
-
-        // function loadingOnCentral() { 
-        //     $(".loading_pop_up").fadeIn(700);
+        // function envia_etiqueta(comprobante,tipo,letra,sucursal,cliente,cantidad,op,empresa,fecha) {
+        // var parametros = {"comprobante":comprobante,"tipo":tipo,"letra":letra,"sucursal":sucursal,"cliente":cliente,"cantidad":cantidad,"op":op,"empresa":empresa,"fecha":fecha};
+        //     $.ajax({
+        //         data:parametros,
+        //         url:'etiquetas_class.php',
+        //         type: 'POST',
+        //         beforeSend: function (response) { 
+        //             loadingOn();                                 
+        //         },             
+        //         success: function (response) { 
+        //             consulta_lista();                
+        //             consulta_etiqueta();                                                    
+        //         },
+        //         error: function (response, error) {
+        //             alert("Error"); 
+        //         },
+        //         complete: function(response) {
+        //             setTimeout(function() { loadingOff(); },500);
+        //         }
+        //     });
         // }
 
-    </script> 
+        function loadingOnColumna() { 
+            $(".loading_pop_up_columna").fadeIn(0);
+        }
 
-    <div id="col2"></div>  
+        function loadingOffColumna() { 
+            $(".loading_pop_up_columna").fadeOut(700);
+        }
+
+    </script>   
               
 </section>
 </body>
