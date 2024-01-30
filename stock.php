@@ -214,7 +214,7 @@ if(isset($_GET['ord'])){
                         <li class="li_stock_txt li_grupal"><p id="medida" value="<?php echo $_medida; ?>"><?php echo $_medida; ?></p></li>
                         <li class="li_stock_txt li_grupal"><p id="valor" value="<?php echo $_valor; ?>">$ <?php echo $_valor; ?></p></li> 
                         <li class="li_stock_txt li_grupal"><p id="stock" value="<?php echo $_stock; ?>"><?php echo $_stock; ?></p></li>                        
-                        <li class="li_stock_ver li_grupal" onclick="stock_detalle('<?php echo $_id_stock; ?>','<?php echo $_id_insumo; ?>','<?php echo $_insumo; ?>','<?php echo $_proveedor; ?>','<?php echo $_medida; ?>','<?php echo $_valor; ?>','<?php echo $_stock; ?>','<?php echo $_stock; ?>')"><img src='img/articulo_flecha.svg'></li>          
+                        <li class="id_stock_<?php echo $_id_stock; ?> li_stock_ver li_grupal" onclick="stock_detalle('<?php echo $_id_stock; ?>','<?php echo $_id_insumo; ?>','<?php echo $_insumo; ?>','<?php echo $_proveedor; ?>','<?php echo $_medida; ?>','<?php echo $_valor; ?>','<?php echo $_stock; ?>','<?php echo $_stock; ?>')"><img src='img/articulo_flecha.svg'></li>          
                     </ul>
                 </div>
                 <?php
@@ -231,28 +231,21 @@ if(isset($_GET['ord'])){
 
         function stock_detalle(id_stock,id_insumo,insumo,proveedor,medida,valor,stock,busqueda) { 
             var parametros = {"id_stock":id_stock,"id_insumo":id_insumo,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor":valor,"stock":stock,"busqueda":busqueda};
-            
-            $(".li_stock_ver").click(function(){                
-               
-                if ($(this).hasClass("active")){                                       
-                    $.ajax({
-                        data: parametros,            
-                        url: 'componentes/stock_detalle.php',
-                        type: 'POST',
-                        beforeSend: function (response) { 
-                            loadingOnColumna();                                 
-                        }, 
-                        success: function(data) {                        
-                            document.getElementById("col2").innerHTML = data;
-                        },
-                        complete: function(response) {
-                            setTimeout(function() { loadingOffColumna(); },1000);
-                        }
-                    });            
-                } else {
-                    document.getElementById("col2").innerHTML = '';         
-                }                
-            });            
+            $.ajax({
+                data: parametros,            
+                url: 'componentes/stock_detalle.php',
+                type: 'POST',
+                beforeSend: function (response) { 
+                    loadingOnColumna();
+                    selectLi(parametros.id_stock);                                 
+                }, 
+                success: function(data) {                        
+                    document.getElementById("col2").innerHTML = data;
+                },
+                complete: function(response) {
+                    setTimeout(function() { loadingOffColumna(); },1000);
+                }
+            });      
         } 
 
         // function envia_etiqueta(comprobante,tipo,letra,sucursal,cliente,cantidad,op,empresa,fecha) {
@@ -276,6 +269,12 @@ if(isset($_GET['ord'])){
         //         }
         //     });
         // }
+
+        function selectLi(data) { 
+            $('.li_stock_ver').removeClass("active");            
+            $('.id_stock_'+data).addClass("active");
+            
+        }
 
         function loadingOnColumna() { 
             $(".loading_pop_up_columna").fadeIn(0);
