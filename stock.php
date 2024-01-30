@@ -272,8 +272,7 @@ if(isset($_GET['ord'])){
 
         function selectLi(data) { 
             $('.li_stock_ver').removeClass("active");            
-            $('.id_stock_'+data).addClass("active");
-            
+            $('.id_stock_'+data).addClass("active");            
         }
 
         function loadingOnColumna() { 
