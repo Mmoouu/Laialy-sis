@@ -1,1 +1,5 @@
-insumos eliminar y desactivar pendiente a terminado de platos "repercute"
+- insumos eliminar y desactivar pendiente a terminado de platos "repercute"
+
+
+- revisar copia de insumos, no se puede repetir "cod"
+
