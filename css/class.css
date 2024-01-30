@@ -2308,18 +2308,28 @@ input:-webkit-autofill {
 }
 
 .li_stock_ver img {
+    transform: rotate(180deg);
     height: 33px;
     display: block;
     margin: 0 auto;
 }
 
 .li_stock_ver:hover {
-    background-color: #5d98d4;
+    
     transition: 0.5s;
     -o-transition: 0.5s;
     -ms-transition: 0.5s;
     -moz-transition: 0.5s;
     -webkit-transition: 0.5s;
+}
+
+.li_stock_ver img:hover{
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    transform: rotate(0deg);
 }
 
 .li_stock_ver.active {
@@ -2336,6 +2346,7 @@ input:-webkit-autofill {
 }
 
 .li_stock_ver.active img {
+    transform: rotate(0deg);
     height: 33px;
     display: block;
     margin: 0 auto;
@@ -2347,7 +2358,7 @@ input:-webkit-autofill {
 }
 
 .li_stock_ver.active:hover {
-    background-color: #5d98d4;
+    /* background-color: #5d98d4; */
     transition: 0.5s;
     -o-transition: 0.5s;
     -ms-transition: 0.5s;
@@ -2355,14 +2366,14 @@ input:-webkit-autofill {
     -webkit-transition: 0.5s;
 }
 
-.li_stock_ver.active:hover img {
+/* .li_stock_ver.active:hover img {
     transform: rotate(180deg);
     transition: 0.5s;
     -o-transition: 0.5s;
     -ms-transition: 0.5s;
     -moz-transition: 0.5s;
     -webkit-transition: 0.5s;
-}
+} */
 
 .li_stock_visto {
     width: 4.2%;

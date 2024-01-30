@@ -1,5 +1,6 @@
 <?php
-$caca = $_POST['id_stock'];
+$id_stock = $_POST['id_stock'];
+$id_insumo = $_POST['id_stock'];
 ?>
 <div id="columna_2_stock">
     <div id="header_de_plato">

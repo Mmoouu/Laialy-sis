@@ -30,6 +30,7 @@ $platos_laialy = ""; $insumos_laialy = ""; $stock_laialy = ""; $menu_laialy = ""
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET['nav'])){
     $nav = $_GET['nav'];
+    $nav_insumos = 'insumos_laialy';
     if ($nav == "stock_laialy"){
         $titulo_sisint = "Stock Laialy";
         $stock_laialy = "active";
@@ -54,7 +55,7 @@ if(isset($_GET['busqueda'])){
         $aclaracion_inactivo = ""; 
         $ver_ver = "";   
     } 
-    $where = "WHERE activo = ".$ver_activo_base." AND insumo LIKE '%".utf8_decode($busqueda)."%'";
+    $where = "WHERE activo = ".$ver_activo_base." AND insumo LIKE '%".mb_convert_encoding($busqueda, "UTF-8", mb_detect_encoding($busqueda))."%'";
 } else {    
     $guarda_busqueda = "";
     if(isset($_GET['ver'])){
@@ -154,16 +155,16 @@ if(isset($_GET['ord'])){
         <div id="tabla_sisint" class="tabla_sisint"> 
             <?php            
             require("../conexion.laialy.php");             
-            $consulta_de_stock = mysqli_query($conexion,  "SELECT DISTINCT id_insumo, insumo FROM $nav $where ORDER BY id ASC");
+            $consulta_de_insumos = mysqli_query($conexion,  "SELECT * FROM $nav_insumos $where ORDER BY id ASC");
             mysqli_close($conexion);
 
-            if(!$consulta_de_stock || mysqli_num_rows($consulta_de_stock) == 0){            
+            if(!$consulta_de_insumos || mysqli_num_rows($consulta_de_insumos) == 0){            
                 echo "<div style='width:500px; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>".$resultado_busqueda."</p></div>";
             } else {
-                while ($listado_de_stock = mysqli_fetch_array($consulta_de_stock)){   
+                while ($listado_de_insumos = mysqli_fetch_array($consulta_de_insumos)){   
 
                     require("../conexion.laialy.php");
-                    $_id_insumo = $listado_de_stock['id_insumo'];
+                    $_id_insumo = $listado_de_insumos['id'];
                     $_valor = 0;
                     $_stock = 0;
                     $_insumo = $listado_de_stock["insumo"];
@@ -231,21 +232,27 @@ if(isset($_GET['ord'])){
 
         function stock_detalle(id_stock,id_insumo,insumo,proveedor,medida,valor,stock,busqueda) { 
             var parametros = {"id_stock":id_stock,"id_insumo":id_insumo,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor":valor,"stock":stock,"busqueda":busqueda};
-            $.ajax({
-                data: parametros,            
-                url: 'componentes/stock_detalle.php',
-                type: 'POST',
-                beforeSend: function (response) { 
-                    loadingOnColumna();
-                    selectLi(parametros.id_stock);                                 
-                }, 
-                success: function(data) {                        
-                    document.getElementById("col2").innerHTML = data;
-                },
-                complete: function(response) {
-                    setTimeout(function() { loadingOffColumna(); },1000);
-                }
-            });      
+            
+            if($('.id_stock_'+parametros.id_stock).hasClass("active") ){
+                document.getElementById("col2").innerHTML = '';
+                $('.id_stock_'+parametros.id_stock).removeClass("active");
+            } else {
+                $.ajax({
+                    data: parametros,            
+                    url: 'componentes/stock_detalle.php',
+                    type: 'POST',
+                    beforeSend: function (response) { 
+                        loadingOnColumna();
+                        selectLi(parametros.id_stock);                                 
+                    }, 
+                    success: function(data) {                        
+                        document.getElementById("col2").innerHTML = data;
+                    },
+                    complete: function(response) {
+                        setTimeout(function() { loadingOffColumna(); },1000);
+                    }
+                }); 
+            }                 
         } 
 
         // function envia_etiqueta(comprobante,tipo,letra,sucursal,cliente,cantidad,op,empresa,fecha) {
@@ -270,9 +277,9 @@ if(isset($_GET['ord'])){
         //     });
         // }
 
-        function selectLi(data) { 
+        function selectLi(id) { 
             $('.li_stock_ver').removeClass("active");            
-            $('.id_stock_'+data).addClass("active");            
+            $('.id_stock_'+id).addClass("active");            
         }
 
         function loadingOnColumna() { 
