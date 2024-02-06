@@ -5,7 +5,10 @@ $insumo = $_POST['insumo'];
 $cod = $_POST['cod'];
 $proveedor = $_POST['proveedor'];
 $medida = $_POST['medida'];
-// $busqueda = $_POST['busqueda'];  
+$valor_insumo = $_POST['valor_insumo'];
+$stock_insumo = $_POST['stock_insumo'];
+
+$busqueda = $_POST['busqueda'];  
 
 $nav = "stock_laialy";
 $resultado_consulta = "No hay stock registrado";
@@ -43,25 +46,42 @@ mysqli_close($conexion);
                 echo "<div style='width:500px; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>".$resultado_consulta."</p></div>";
             } else {
                 while ($listado_de_stock = mysqli_fetch_array($consulta_de_stock)){
-
-                    echo "
-                        <tr class='class_materiales'>
-                            <td><p>".$listado_de_stock['insumo']."
-                                <span>+</span>
-                                <span>-</span>
+                    $id_stock = $listado_de_stock['id'];
+                    $valor_stock = $listado_de_stock['valor'];
+                    $stock_stock = $listado_de_stock['stock'];
+                    ?>
+                        <tr class='class_materiales'>   
+                            <td><p><?php echo $insumo; ?>
+                                <span onclick="stockIngreso('<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>','<?php echo $busqueda; ?>')">+</span>
+                                <span onclick="stockEgreso('<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>','<?php echo $busqueda; ?>')">-</span>
                             </p></td>
-                            <td><p>".$listado_de_stock['creacion']."</p></td>
-                            <td><p>".$listado_de_stock['dia_mod']."-".$listado_de_stock['mes_mod']."-".$listado_de_stock['anio_mod']."</p></td>
-                            <td><p>$ ".$listado_de_stock['valor']."</p></td>  
-                            <td><p>".$listado_de_stock['stock']." KG</p></td>                   
+                            <td><p><?php echo $listado_de_stock['creacion']; ?></p></td>
+                            <td><p><?php echo $listado_de_stock['dia_mod']; ?>-<?php echo $listado_de_stock['mes_mod']; ?>-<?php echo $listado_de_stock['anio_mod']; ?></p></td>
+                            <td><p>$ <?php echo $valor_stock; ?></p></td>  
+                            <td><p><?php echo $stock_stock; ?> KG</p></td>                   
+                        </tr>                    
+                        <tr>
+                            <td><p></p></td>
+                            <td><p></p></td>
+                            <td><p></p></td>
+                            <td><p></p></td>
+                            <td><p></p></td>        
                         </tr>
                         <tr class='class_insumos'>
                             <td><p>Historial de consumo <span>v</span></p></td>
                             <td><p></p></td>
                             <td><p></p></td>
-                            <td><p></p></td>                    
+                            <td><p></p></td>  
+                            <td><p></p></td>                  
                         </tr>
-                    "; 
+                        <tr style='border-bottom:1px solid gray;'>
+                            <td><p></p></td>
+                            <td><p></p></td>
+                            <td><p></p></td>
+                            <td><p></p></td>
+                            <td><p></p></td>        
+                        </tr>
+                    <?php 
                 }
             }
             /////////////////////////////FIN LISTADO STOCK/////////////////////////////////////
@@ -152,3 +172,4 @@ mysqli_close($conexion);
         </div>    
     </div>        
 </div>
+

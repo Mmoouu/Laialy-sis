@@ -1,6 +1,6 @@
 <?php
 $categoria_selec = $_GET['id'];
-require("../conexion.laialy.php");
+require("../../conexion.laialy.php");
 $consulta_de_subcategorias = mysqli_query($conexion, "SELECT * FROM subcategorias WHERE id_categoria = '$categoria_selec'");
 mysqli_close($conexion);
 ?>

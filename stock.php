@@ -174,7 +174,7 @@ if(isset($_GET['ord'])){
                     $proveedor_listado = $listado_de_insumos["proveedor"];
                     $_medida = $listado_de_insumos["medida"];
                     $_creacion = $listado_de_insumos['creacion'];
-                    $_activo = $listado_de_insumos['activo'];
+                    $_activo = $listado_de_insumos['activo'];   
                     $_hora = $listado_de_insumos['hora_mod'];                    
                     $_ultima_fecha = $listado_de_insumos['dia_mod']."-".$listado_de_insumos['mes_mod']."-".$listado_de_insumos['anio_mod'];
 
@@ -242,9 +242,68 @@ if(isset($_GET['ord'])){
             }                 
         } 
 
+        function sumaStock(valor,stock) { 
+            var parametros = {"valor":valor,"stock":stock};           
+            
+            $.ajax({
+                data: parametros,            
+                url: 'componentes/stock_guardar.php',
+                type: 'POST',
+                success: function(data) {                        
+                    alert("sucess");
+                }
+            }); 
+                            
+        } 
+
+        function stockIngreso(id_stock,id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_insumo,valor_stock,stock_stock,busqueda) { 
+            var parametros = {"id_stock":id_stock,"id_insumo":id_insumo,"cod":cod,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor_insumo":valor_insumo,"stock_insumo":stock_insumo,"valor_stock":valor_stock,"stock_stock":stock_stock,"busqueda":busqueda};   
+            $.ajax({
+                data: parametros,            
+                url: 'componentes/stock_ingreso.php',
+                type: 'POST', 
+                beforeSend: function (response) { 
+                    loadingOnColumna();                        
+                },                 
+                success: function(data) {                        
+                    document.getElementById("col2").innerHTML = data;
+                },
+                complete: function(response) {
+                    setTimeout(function() { loadingOffColumna(); },1000);
+                }                
+            });             
+        }
+
+        function stockEgreso(tipo,id_stock,id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_insumo,valor_stock,stock_stock,busqueda) { 
+            var parametros = {"tipo":tipo,"id_stock":id_stock,"id_insumo":id_insumo,"cod":cod,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor_insumo":valor_insumo,"stock_insumo":stock_insumo,"valor_stock":valor_stock,"stock_stock":stock_stock,"busqueda":busqueda};   
+            $.ajax({
+                data: parametros,            
+                url: 'componentes/stock_egreso.php',
+                type: 'POST',                 
+                beforeSend: function (response) { 
+                    loadingOnColumna();                        
+                },                 
+                success: function(data) {                        
+                    document.getElementById("col2").innerHTML = data;
+                },
+                complete: function(response) {
+                    setTimeout(function() { loadingOffColumna(); },1000);
+                }                  
+            });             
+        }
+
+        function stockCancel() { 
+            document.getElementById("col2").innerHTML = '';
+        }
+
+
         function selectLi(id) { 
             $('.li_stock_ver').removeClass("active");            
             $('.id_insumo_'+id).addClass("active");            
+        }
+
+        function loadingStockInner() { 
+            $(".loading_pop_up_columna").fadeIn(0);
         }
 
         function loadingOnColumna() { 

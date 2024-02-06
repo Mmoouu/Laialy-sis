@@ -65,7 +65,6 @@ require("../conexion.laialy.php");
 $consulta_de_stock = mysqli_query($conexion, "SELECT * FROM $nav_stock WHERE id ='$get_id_insumo'");
 $listado_de_stock = mysqli_fetch_array($consulta_de_stock);
 $consulta_stock_ly_id = $listado_de_stock['id'];
-$consulta_stock_ly_insumo = mb_convert_encoding($listado_de_stock['insumo'], "UTF-8", mb_detect_encoding($listado_de_stock['insumo']));
 $consulta_stock_ly_valor = $listado_de_stock['valor'];
 $consulta_stock_ly_stock = $listado_de_stock['stock'];
 $consulta_stock_ly_creacion = $listado_de_stock['creacion'];
@@ -116,7 +115,7 @@ mysqli_close($conexion);
         <form class="fomulario_nuevo_ingreso" name="formulario_nuevo_ingreso" action="" method="post" enctype="multipart/form-data">
             <div class="fneworder_dos">
                 <label><p>Cod</p></label>
-                <input type="text" name="cod" value="<?php echo $consulta_insumo_ly_cod; ?>" readonly/>
+                <input type="text" name="cod" value="<?php echo $consulta_insumo_ly_cod; ?>"/>
             </div>
             <div class="espacio"><p></p></div>
             <div class="fneworder_dos">
@@ -131,7 +130,7 @@ mysqli_close($conexion);
             </div>
             <div class="fneworder_dos">
                 <label><p>Categoria<?php echo time(); ?></p></label>
-                <select type="text" name="categoria" id="" onchange="from(document.formulario_nuevo_ingreso.categoria.value,'subcategoria','subcategoria_general.php')">
+                <select type="text" name="categoria" id="" onchange="from(document.formulario_nuevo_ingreso.categoria.value,'subcategoria','componentes/insumos_subcategoria_form.php')">
                     <?php 
                     require("../conexion.laialy.php");
                     $consulta_de_categorias_sel = mysqli_query($conexion, "SELECT * FROM categorias WHERE id = '$consulta_insumo_ly_categoria'");
@@ -208,66 +207,64 @@ mysqli_close($conexion);
                 $form_mes_mod = date("m");
                 $form_anio_mod = date("y");
                 $form_hora_mod = date('His'); 
+
+                $pagina_regreso = $_GET['pagina'];
+                $busqueda_regreso = $_GET['busqueda'];
                 
                 if ($form_cod !== $consulta_insumo_ly_cod || $form_insumo !== $consulta_insumo_ly_insumo || $form_categoria !== $consulta_insumo_ly_categoria || $form_subcategoria !== $consulta_insumo_ly_subcategoria || $form_medida !== $consulta_insumo_ly_medida || $form_proveedor !== $consulta_insumo_ly_proveedor){                    
                 
                     require("../conexion.laialy.php");
-
-                    // UPDATE EN INSUMOS
-                    mysqli_query($conexion, "UPDATE $nav SET insumo='$form_insumo', categoria='$form_categoria', subcategoria='$form_subcategoria', medida='$form_medida', proveedor='$form_proveedor', activo='$form_activo', dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod' WHERE id='$get_id_insumo'");
-                                    
-                    // GUARDADO HISTORIAL DE INSUMOS
-                    if ($form_cod !== $consulta_insumo_ly_cod){ $historial_cod = "<cod=".$form_cod.">"; } else { $historial_cod = ""; }
-                    if ($form_insumo !== $consulta_insumo_ly_insumo){ $historial_insumo = "<nombre=".$form_insumo.">"; } else { $historial_insumo = ""; }
-                    if ($form_categoria !== $consulta_insumo_ly_categoria){ $historial_categoria = "<categoria=".$form_categoria.">"; } else { $historial_categoria = ""; }
-                    if ($form_subcategoria !== $consulta_insumo_ly_subcategoria){ $historial_subcategoria = "<subcategoria=".$form_subcategoria.">"; } else { $historial_subcategoria = ""; }
-                    if ($form_medida !== $consulta_insumo_ly_medida){ $historial_medida = "<medida=".$form_medida.">"; } else { $historial_medida = ""; }
-                    if ($form_proveedor !== $consulta_insumo_ly_proveedor){ $historial_proveedor = "<proveedor=".$form_proveedor.">"; } else { $historial_proveedor = ""; }                    
-                    $cambio_modificacion = $historial_cod.$historial_insumo.$historial_categoria.$historial_subcategoria.$historial_medida.$historial_proveedor;
-                    $nueva_fecha = $form_dia_mod."-".$form_mes_mod."-".$form_anio_mod;                    
-                    mysqli_query($conexion, "INSERT INTO $nav_historial (id_historial, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'$get_id_insumo','$consulta_insumo_ly_cod','$consulta_insumo_ly_insumo','$consulta_insumo_ly_categoria','$consulta_insumo_ly_subcategoria','$consulta_insumo_ly_medida','$consulta_insumo_ly_proveedor','$cambio_modificacion','$consulta_insumo_ly_fecha','$nueva_fecha','$consulta_insumo_ly_hora_mod','$form_hora_mod')");
+                    $consulta_insumo = mysqli_query($conexion, "SELECT * FROM $nav WHERE cod='$form_cod'");
                     
-                    //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
-                    $log_valor = "ID ".$get_id_insumo." - ".$cambio_modificacion;
-                    $log_accion = "Modifica Insumo";
-                    require("log.php");
-                    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                    // UPDATE EN STOCK
-                    mysqli_query($conexion, "UPDATE $nav_stock SET insumo='$form_insumo',dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod', activo='$form_activo' WHERE id_insumo='$get_id_insumo' ");
-
-                    // GUARDADO HISTORIAL DE STOCK
-                    if ($form_insumo !== $consulta_insumo_ly_insumo){ 
-                        $historial_stock = "<nombre=".$form_insumo.">";
-                        mysqli_query($conexion, "INSERT INTO $nav_stock_historial (id_historial, id_stock, id_insumo, insumo, valor, stock, tipo, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'$consulta_stock_ly_id','$get_id_insumo','$consulta_stock_ly_insumo','$consulta_stock_ly_valor','$consulta_stock_ly_stock','dat','$historial_stock','$consulta_stock_ly_fecha','$nueva_fecha','$consulta_stock_ly_hora_mod','$form_hora_mod')");                            
-                    
+                    if (!$consulta_insumo || mysqli_num_rows($consulta_insumo) == 0){
+                        // UPDATE EN INSUMOS
+                        mysqli_query($conexion, "UPDATE $nav SET cod='$form_cod', insumo='$form_insumo', categoria='$form_categoria', subcategoria='$form_subcategoria', medida='$form_medida', proveedor='$form_proveedor', activo='$form_activo', dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod' WHERE id='$get_id_insumo'");
+                                        
+                        // GUARDADO HISTORIAL DE INSUMOS
+                        if ($form_cod !== $consulta_insumo_ly_cod){ $historial_cod = "<cod=".$form_cod.">"; } else { $historial_cod = ""; }
+                        if ($form_insumo !== $consulta_insumo_ly_insumo){ $historial_insumo = "<nombre=".$form_insumo.">"; } else { $historial_insumo = ""; }
+                        if ($form_categoria !== $consulta_insumo_ly_categoria){ $historial_categoria = "<categoria=".$form_categoria.">"; } else { $historial_categoria = ""; }
+                        if ($form_subcategoria !== $consulta_insumo_ly_subcategoria){ $historial_subcategoria = "<subcategoria=".$form_subcategoria.">"; } else { $historial_subcategoria = ""; }
+                        if ($form_medida !== $consulta_insumo_ly_medida){ $historial_medida = "<medida=".$form_medida.">"; } else { $historial_medida = ""; }
+                        if ($form_proveedor !== $consulta_insumo_ly_proveedor){ $historial_proveedor = "<proveedor=".$form_proveedor.">"; } else { $historial_proveedor = ""; }                    
+                        $cambio_modificacion = $historial_cod.$historial_insumo.$historial_categoria.$historial_subcategoria.$historial_medida.$historial_proveedor;
+                        $nueva_fecha = $form_dia_mod."-".$form_mes_mod."-".$form_anio_mod;                    
+                        mysqli_query($conexion, "INSERT INTO $nav_historial (id_historial, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'$get_id_insumo','$consulta_insumo_ly_cod','$consulta_insumo_ly_insumo','$consulta_insumo_ly_categoria','$consulta_insumo_ly_subcategoria','$consulta_insumo_ly_medida','$consulta_insumo_ly_proveedor','$cambio_modificacion','$consulta_insumo_ly_fecha','$nueva_fecha','$consulta_insumo_ly_hora_mod','$form_hora_mod')");
+                        
                         //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
-                        $log_valor = "ID ".$consulta_stock_ly_id." - ".$historial_stock;
-                        $log_accion = "Modifica Stock";
+                        $log_valor = "ID ".$get_id_insumo." - ".$cambio_modificacion;
+                        $log_accion = "Modifica Insumo";
+                        require("log.php");
+                        ////////////////////////////////////////////////////////////////////////////////////////////////////////  
+
+                    } else if ($form_cod == $consulta_insumo_ly_cod){
+
+                        mysqli_query($conexion, "UPDATE $nav SET cod='$form_cod', insumo='$form_insumo', categoria='$form_categoria', subcategoria='$form_subcategoria', medida='$form_medida', proveedor='$form_proveedor', activo='$form_activo', dia_mod='$form_dia_mod', mes_mod='$form_mes_mod', anio_mod='$form_anio_mod', hora_mod='$form_hora_mod' WHERE id='$get_id_insumo'");
+                                        
+                        // GUARDADO HISTORIAL DE INSUMOS
+                        if ($form_cod !== $consulta_insumo_ly_cod){ $historial_cod = "<cod=".$form_cod.">"; } else { $historial_cod = ""; }
+                        if ($form_insumo !== $consulta_insumo_ly_insumo){ $historial_insumo = "<nombre=".$form_insumo.">"; } else { $historial_insumo = ""; }
+                        if ($form_categoria !== $consulta_insumo_ly_categoria){ $historial_categoria = "<categoria=".$form_categoria.">"; } else { $historial_categoria = ""; }
+                        if ($form_subcategoria !== $consulta_insumo_ly_subcategoria){ $historial_subcategoria = "<subcategoria=".$form_subcategoria.">"; } else { $historial_subcategoria = ""; }
+                        if ($form_medida !== $consulta_insumo_ly_medida){ $historial_medida = "<medida=".$form_medida.">"; } else { $historial_medida = ""; }
+                        if ($form_proveedor !== $consulta_insumo_ly_proveedor){ $historial_proveedor = "<proveedor=".$form_proveedor.">"; } else { $historial_proveedor = ""; }                    
+                        $cambio_modificacion = $historial_cod.$historial_insumo.$historial_categoria.$historial_subcategoria.$historial_medida.$historial_proveedor;
+                        $nueva_fecha = $form_dia_mod."-".$form_mes_mod."-".$form_anio_mod;                    
+                        mysqli_query($conexion, "INSERT INTO $nav_historial (id_historial, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'$get_id_insumo','$consulta_insumo_ly_cod','$consulta_insumo_ly_insumo','$consulta_insumo_ly_categoria','$consulta_insumo_ly_subcategoria','$consulta_insumo_ly_medida','$consulta_insumo_ly_proveedor','$cambio_modificacion','$consulta_insumo_ly_fecha','$nueva_fecha','$consulta_insumo_ly_hora_mod','$form_hora_mod')");
+                        
+                        //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
+                        $log_valor = "ID ".$get_id_insumo." - ".$cambio_modificacion;
+                        $log_accion = "Modifica Insumo";
                         require("log.php");
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    }                    
 
-                    // if ($nav == "insumos_laialy"){$nav_materiales = "materiales_laialy"; $nav_platos = "platos_laialy";}                  
-                    // $consulta_de_materiales = mysqli_query($conexion, "SELECT * FROM $nav_materiales WHERE insumos LIKE '$get_id_insumo-%' OR insumos LIKE '%-$get_id_insumo-%' OR insumos LIKE '%-$get_id_insumo' OR insumos LIKE '$get_id_insumo'");                    
-                    // while ($listado_de_materiales = mysqli_fetch_array($consulta_de_materiales)){
-                    //     $id_para_pasar = $listado_de_materiales['id_plato'];                        
-                    //     $id_para_pasar_material = $listado_de_materiales['id_material'];  
-                        
-                    //     if ($listado_de_materiales['dat'] == "0"){
-                    //         $id_insumo_actualizado = $get_id_insumo;    
-                    //     } else { 
-                    //         $id_insumo_actualizado = $listado_de_materiales['dat']."-".$get_id_insumo; 
-                    //     }                        
-                        
-                    //     mysqli_query($conexion, "UPDATE $nav_materiales SET dat='$id_insumo_actualizado' WHERE id_material = '$id_para_pasar_material'");
-                    //     mysqli_query($conexion, "UPDATE $nav_platos SET mod_txt='1' WHERE id_plato = '$id_para_pasar'");
-                    // }       
+                    } else {
+                        echo "<script language=Javascript> location.href=\"insumos_modificar.php?nav=$nav&id=$get_id_insumo&mensaje=codigo_repetido&pagina=1\";</script>";
+                    }      
                     
                     mysqli_close($conexion);
 
-                    $pagina_regreso = $_GET['pagina'];
-                    $busqueda_regreso = $_GET['busqueda'];
+                    
                     echo "<script language=Javascript> location.href=\"insumos.php?nav=$nav&mensaje=modificar_insumo&busqueda=$busqueda_regreso&pagina=$pagina_regreso#view_$get_id_insumo\";</script>";                    
                 } else {                    
                     echo "<script language=Javascript> location.href=\"insumos.php?nav=$nav&mensaje=no_modificar_insumo&busqueda=$busqueda_regreso&pagina=$pagina_regreso#view_$get_id_insumo\";</script>";

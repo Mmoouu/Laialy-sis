@@ -107,7 +107,7 @@ mysqli_close($conexion);
             </div>
             <div class="fneworder_dos">
                 <label><p>Categoria</p></label>
-                <select type="text" name="categoria" required id="" onchange="from(document.formulario_nuevo_ingreso.categoria.value,'subcategoria','subcategoria_general.php')">
+                <select type="text" name="categoria" required id="" onchange="from(document.formulario_nuevo_ingreso.categoria.value,'subcategoria','componentes/insumos_subcategoria_form.php')">
                     <?php 
                     require("../conexion.laialy.php");
                     $consulta_de_categorias_sel = mysqli_query($conexion, "SELECT * FROM categorias WHERE id = '$consulta_insumo_ly_categoria'");
@@ -186,36 +186,43 @@ mysqli_close($conexion);
                 $form_dia_mod = date("d");
                 $form_mes_mod = date("m");
                 $form_anio_mod = date("y");
-                $form_hora_mod = date('His');  
+                $form_hora_mod = date('His'); 
+
                 require("../conexion.laialy.php");
-                mysqli_query($conexion, "INSERT INTO $nav (id, cod, insumo, categoria, subcategoria, medida, proveedor, valor, stock, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$form_cod','$form_insumo','$form_categoria','$form_subcategoria','$form_medida','$form_proveedor','$form_valor','$form_stock','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
-                
-                //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
-                $log_valor = "ID ".$get_id_insumo;
-                $log_accion = "Insumo Nuevo Copia";
-                require("log.php");
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                $consulta_insumo = mysqli_query($conexion, "SELECT * FROM $nav WHERE cod='$form_cod'");
+                if (!$consulta_insumo || mysqli_num_rows($consulta_insumo) == 0){
+                    mysqli_query($conexion, "INSERT INTO $nav (id, cod, insumo, categoria, subcategoria, medida, proveedor, valor, stock, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$form_cod','$form_insumo','$form_categoria','$form_subcategoria','$form_medida','$form_proveedor','$form_valor','$form_stock','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
+                    
+                    //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
+                    $log_valor = "ID ".$get_id_insumo;
+                    $log_accion = "Insumo Nuevo Copia";
+                    require("log.php");
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                $consulta_id = mysqli_query($conexion, "SELECT id FROM $nav ORDER BY id DESC");                    
-                $listado_id = mysqli_fetch_array($consulta_id);
-                $last_id = $listado_id['id'];
+                    $consulta_id = mysqli_query($conexion, "SELECT id FROM $nav ORDER BY id DESC");                    
+                    $listado_id = mysqli_fetch_array($consulta_id);
+                    $last_id = $listado_id['id'];
 
-                mysqli_query($conexion, "INSERT INTO $nav_stock (id, id_insumo, insumo, valor, stock, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$last_id','$form_insumo','$form_valor','$form_stock','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
-                
-                $consulta_id_stock = mysqli_query($conexion, "SELECT id FROM $nav_stock ORDER BY id DESC");                    
-                $listado_id_stock = mysqli_fetch_array($consulta_id_stock);
-                $last_id_stock = $listado_id_stock['id'];
+                    mysqli_query($conexion, "INSERT INTO $nav_stock (id, id_insumo, valor, stock, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$last_id','$form_valor','$form_stock','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
+                    
+                    $consulta_id_stock = mysqli_query($conexion, "SELECT id FROM $nav_stock ORDER BY id DESC");                    
+                    $listado_id_stock = mysqli_fetch_array($consulta_id_stock);
+                    $last_id_stock = $listado_id_stock['id'];
 
-                //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
-                $log_valor = "ID: ".$last_id_stock;
-                $log_accion = "Stock Nuevo Copia";
-                require("log.php");
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
+                    $log_valor = "ID: ".$last_id_stock;
+                    $log_accion = "Stock Nuevo Copia";
+                    require("log.php");
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+                    $pagina_regreso = $_GET['pagina'];  
+                    $busqueda_regreso = $_GET['busqueda'];
+                    
+                    echo "<script language=Javascript> location.href=\"insumos.php?nav=$nav&mensaje=nuevo_insumo&busqueda=$busqueda_regreso&pagina=$pagina_regreso#view_$get_id_insumo\";</script>";
+                } else {
+                    echo "<script language=Javascript> location.href=\"insumos_copiar.php?nav=$nav&id=$get_id_insumo&mensaje=codigo_repetido\";</script>";
+                }
                 mysqli_close($conexion);
-                $pagina_regreso = $_GET['pagina'];  
-                $busqueda_regreso = $_GET['busqueda'];
-                echo "<script language=Javascript> location.href=\"insumos.php?nav=$nav&mensaje=nuevo_insumo&busqueda=$busqueda_regreso&pagina=$pagina_regreso#view_$get_id_insumo\";</script>";
             }
         ?>
     </div>
