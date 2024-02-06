@@ -8,7 +8,7 @@ $medida = $_POST['medida'];
 $valor_insumo = $_POST['valor_insumo'];
 $stock_insumo = $_POST['stock_insumo'];
 
-
+$id_stock = $_POST['id_stock'];
 $valor_stock = $_POST['valor_stock'];
 $stock_stock = $_POST['stock_stock'];
 
