@@ -3386,6 +3386,17 @@ height: 30px;
     border-left: 1px solid #dedede;
     overflow-y: scroll;
 }
+.col3 {
+    position: absolute;
+    left: 49%;
+    right: 0%;
+    height: 100%;
+    float: left;
+    padding-left: 1%;
+    overflow: hidden;
+    border-left: 1px solid #dedede;
+    overflow-y: scroll;
+}
 
 .mat {
     width: 97%;

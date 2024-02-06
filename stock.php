@@ -214,14 +214,16 @@ if(isset($_GET['ord'])){
 
     <div class="loading_pop_up_columna"><img src="img/loading.gif"><p>Cargando</p></div>
     <div id="col2"></div>
+    <div id="col3"></div>
     
     <script type="text/javascript">
 
-        function stock_detalle(id_insumo,cod,insumo,proveedor,medida,valor,stock,busqueda) { 
-            var parametros = {"id_insumo":id_insumo,"cod":cod,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor":valor,"stock":stock,"busqueda":busqueda};
+        function stock_detalle(id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_insumo,busqueda) { 
+            var parametros = {"id_insumo":id_insumo,"cod":cod,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor_insumo":valor_insumo,"stock_insumo":stock_insumo,"busqueda":busqueda};
             
             if($('.id_insumo_'+parametros.id_insumo).hasClass("active") ){
                 document.getElementById("col2").innerHTML = '';
+                document.getElementById("col3").innerHTML = '';
                 $('.id_insumo_'+parametros.id_insumo).removeClass("active");
             } else {
                 $.ajax({
@@ -232,7 +234,8 @@ if(isset($_GET['ord'])){
                         loadingOnColumna();
                         selectLi(parametros.id_insumo);                                 
                     }, 
-                    success: function(data) {                        
+                    success: function(data) {    
+                        document.getElementById("col3").innerHTML = '';                    
                         document.getElementById("col2").innerHTML = data;
                     },
                     complete: function(response) {
@@ -266,7 +269,7 @@ if(isset($_GET['ord'])){
                     loadingOnColumna();                        
                 },                 
                 success: function(data) {                        
-                    document.getElementById("col2").innerHTML = data;
+                    document.getElementById("col3").innerHTML = data;
                 },
                 complete: function(response) {
                     setTimeout(function() { loadingOffColumna(); },1000);
@@ -284,7 +287,7 @@ if(isset($_GET['ord'])){
                     loadingOnColumna();                        
                 },                 
                 success: function(data) {                        
-                    document.getElementById("col2").innerHTML = data;
+                    document.getElementById("col3").innerHTML = data;
                 },
                 complete: function(response) {
                     setTimeout(function() { loadingOffColumna(); },1000);
@@ -292,18 +295,20 @@ if(isset($_GET['ord'])){
             });             
         }
 
-        function stockCancel() { 
-            document.getElementById("col2").innerHTML = '';
+        function stockCancel() {
+            loadingOnColumna(); 
+            document.getElementById("col3").innerHTML = '';
+            setTimeout(function() { loadingOffColumna(); },1000);
         }
-
 
         function selectLi(id) { 
             $('.li_stock_ver').removeClass("active");            
             $('.id_insumo_'+id).addClass("active");            
         }
 
-        function loadingStockInner() { 
-            $(".loading_pop_up_columna").fadeIn(0);
+        function desSelectLi(id) { 
+            $('.li_stock_ver').removeClass("active");            
+            $('.id_insumo_'+id).removeClass("active");            
         }
 
         function loadingOnColumna() { 
