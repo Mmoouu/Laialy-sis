@@ -55,6 +55,7 @@ mysqli_close($conexion);
                             <td><p><?php echo $insumo; ?>
                                 <span onclick="stockIngreso('<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>','<?php echo $busqueda; ?>')">+</span>
                                 <span onclick="stockEgreso('<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>','<?php echo $busqueda; ?>')">-</span>
+                                <span onclick="stockValor('<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>','<?php echo $busqueda; ?>')">Cambiar</span>
                             </p></td>
                             <td><p><?php echo $listado_de_stock['creacion']; ?></p></td>
                             <td><p><?php echo $listado_de_stock['dia_mod']; ?>-<?php echo $listado_de_stock['mes_mod']; ?>-<?php echo $listado_de_stock['anio_mod']; ?></p></td>

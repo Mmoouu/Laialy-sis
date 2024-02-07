@@ -37,8 +37,8 @@ $accion = "+";
             <div class='fneworder last_item'>                                        
                 <input type='text' name='aclaracion' id='aclaracion_form' placeholder='Motivo de Cambio'/>
             </div>
-            <button class="stock_button btn_stock_aceptar" onclick="guardarStock('<?php echo $accion; ?>','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>',document.getElementById('valor_form').value,document.getElementById('stock_form').value,document.getElementById('aclaracion_form').value,'<?php echo $busqueda; ?>')">Aceptar</button>
-            <button class="stock_button btn_stock_cancelar" onclick="cerrarCol3()">Cancelar</button>  
+            <div class="stock_button btn_stock_aceptar" onclick="guardarStock('<?php echo $accion; ?>','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>',document.getElementById('valor_form').value,document.getElementById('stock_form').value,document.getElementById('aclaracion_form').value,'<?php echo $busqueda; ?>')">Aceptar</div>
+            <div class="stock_button btn_stock_cancelar" onclick="cerrarCol3()">Cancelar</div>  
         </form>       
     </div>
     <div id="footer_de_plato">

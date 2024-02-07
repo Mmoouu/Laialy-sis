@@ -2015,6 +2015,9 @@ input:-webkit-autofill {
     color: #fff;
     cursor: pointer;
     font-size: 100%;
+    text-align: center;
+    font-family: medium;
+    line-height: 40px;
 }
 
 .fomulario_nuevo_ingreso_col2 .btn_stock_aceptar {
@@ -2943,20 +2946,29 @@ height: 30px;
     color: #fff;
 }
 
-.class_materiales span:first-child {
+.class_materiales span:nth-child(1) {
     background-color: #49a9c9;
 }
 
-.class_materiales span:last-child {
+.class_materiales span:nth-child(2) {
     background-color: #c9494d;
     margin-left: 30px;
 }
 
-.class_materiales span:first-child:hover {
+.class_materiales span:nth-child(3) {
+    background-color: #c9494d;
+    margin-left: 60px;
+}
+
+.class_materiales span:nth-child(1):hover {
     background-color: #317a92;
 }
 
-.class_materiales span:last-child:hover {
+.class_materiales span:nth-child(2):hover {
+    background-color: #8b3033;
+}
+
+.class_materiales span:nth-child(3):hover {
     background-color: #8b3033;
 }
 
