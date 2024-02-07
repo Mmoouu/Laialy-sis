@@ -1984,7 +1984,7 @@ input:-webkit-autofill {
     padding: 0px 0px;
     border: none;
     border-radius: 5px;
-    background-color: #29abe2;
+    background-color:#298fd9;
     color: #fff;
     cursor: pointer;
     font-size: 100%;
@@ -2000,6 +2000,42 @@ input:-webkit-autofill {
 }
 
 .fomulario_nuevo_ingreso_col2 button:focus {
+    outline: 0px;
+}
+
+.fomulario_nuevo_ingreso_col2 .stock_button {
+    display: block;
+    width: 47.5%;
+    cursor: pointer;
+    height: 40px;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 100%;
+}
+
+.fomulario_nuevo_ingreso_col2 .btn_stock_aceptar {
+    float: left;
+    background-color: #57b877;
+}
+
+.fomulario_nuevo_ingreso_col2 .btn_stock_cancelar {
+    float: right;
+    background-color: #c24051;
+}
+
+.fomulario_nuevo_ingreso_col2 .btn_stock_aceptar:hover {
+    background-color: #488f5f;
+}
+
+.fomulario_nuevo_ingreso_col2 .btn_stock_cancelar:hover {
+    background-color: #963a46;
+}
+
+.fomulario_nuevo_ingreso_col2 .stock_button:focus {
     outline: 0px;
 }
 
@@ -2780,6 +2816,29 @@ input:-webkit-autofill {
     font-size: 14px;
     text-align: right;
     padding: 5px 10px;
+}
+
+#dat_de_plato button {
+    font-family: text;
+    color: #fff;
+    background-color:#5b5b5b;
+    margin-top: 14px;
+    border: none;
+    text-align: center;
+    border-radius: 15px;
+    float: right;
+    font-size: 14px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+#dat_de_plato button:hover {
+    background-color: #af1d1d;
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
 }
 
 /* COLUMNA 2 DATOS DE platos */

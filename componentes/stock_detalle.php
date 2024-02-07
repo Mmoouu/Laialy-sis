@@ -21,8 +21,8 @@ mysqli_close($conexion);
 <div id="columna_2_stock">
     <div id="header_de_plato">
         <div id="num_de_plato"><p>Detalle de Stock</p></div>
-        <!-- <div id="img_de_plato"></div>   -->
-        <div id="dat_de_plato"></div>
+        <div id="img_de_plato"><p></p></div>  
+        <div id="dat_de_plato"><button onclick="cerrarCol2()">Cerrar</button></div>
     </div>
     <div id="desarr_de_stock">
         <table>

@@ -213,16 +213,15 @@ if(isset($_GET['ord'])){
     </div>    
 
     <div class="loading_pop_up_columna"><img src="img/loading.gif"><p>Cargando</p></div>
-    <div id="col2"></div>
+    <div id="col2"><div id='columna_2_stock'><div style='width:100%; heigh:20%; display:block; margin:40% 0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>Seleccione un Insumo</p></div></div></div>
     <div id="col3"></div>
     
     <script type="text/javascript">
 
         function stock_detalle(id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_insumo,busqueda) { 
             var parametros = {"id_insumo":id_insumo,"cod":cod,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor_insumo":valor_insumo,"stock_insumo":stock_insumo,"busqueda":busqueda};
-            
             if($('.id_insumo_'+parametros.id_insumo).hasClass("active") ){
-                document.getElementById("col2").innerHTML = '';
+                document.getElementById("col2").innerHTML = "<div id='columna_2_stock'><div style='width:100%; heigh:20%; display:block; margin:40% 0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>Seleccione un Insumo</p></div></div>";
                 document.getElementById("col3").innerHTML = '';
                 $('.id_insumo_'+parametros.id_insumo).removeClass("active");
             } else {
@@ -245,18 +244,16 @@ if(isset($_GET['ord'])){
             }                 
         } 
 
-        function sumaStock(valor,stock) { 
-            var parametros = {"valor":valor,"stock":stock};           
-            
+        function guardarStock(accion,id_stock,id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_insumo,valor_stock,stock_stock,valor,stock,aclaracion,busqueda) { 
+            var parametros = {"accion":accion,"id_stock":id_stock,"id_insumo":id_insumo,"cod":cod,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor_insumo":valor_insumo,"stock_insumo":stock_insumo,"valor_stock":valor_stock,"stock_stock":stock_stock,"valor":valor,"stock":stock,"aclaracion":aclaracion,"busqueda":busqueda}; 
             $.ajax({
                 data: parametros,            
                 url: 'componentes/stock_guardar.php',
                 type: 'POST',
                 success: function(data) {                        
-                    alert("sucess");
+                    document.getElementById("col3").innerHTML = data;        
                 }
-            }); 
-                            
+            });                             
         } 
 
         function stockIngreso(id_stock,id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_insumo,valor_stock,stock_stock,busqueda) { 
@@ -277,8 +274,8 @@ if(isset($_GET['ord'])){
             });             
         }
 
-        function stockEgreso(tipo,id_stock,id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_insumo,valor_stock,stock_stock,busqueda) { 
-            var parametros = {"tipo":tipo,"id_stock":id_stock,"id_insumo":id_insumo,"cod":cod,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor_insumo":valor_insumo,"stock_insumo":stock_insumo,"valor_stock":valor_stock,"stock_stock":stock_stock,"busqueda":busqueda};   
+        function stockEgreso(id_stock,id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_insumo,valor_stock,stock_stock,busqueda) { 
+            var parametros = {"id_stock":id_stock,"id_insumo":id_insumo,"cod":cod,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor_insumo":valor_insumo,"stock_insumo":stock_insumo,"valor_stock":valor_stock,"stock_stock":stock_stock,"busqueda":busqueda};   
             $.ajax({
                 data: parametros,            
                 url: 'componentes/stock_egreso.php',
@@ -295,20 +292,22 @@ if(isset($_GET['ord'])){
             });             
         }
 
-        function stockCancel() {
-            loadingOnColumna(); 
-            document.getElementById("col3").innerHTML = '';
+        function cerrarCol2() { 
+            loadingOnColumna();
+            $('.li_stock_ver').removeClass("active");
+            document.getElementById("col2").innerHTML = "<div id='columna_2_stock'><div style='width:100%; heigh:20%; display:block; margin:40% 0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>Seleccione un Insumo</p></div></div>";                      
+            setTimeout(function() { loadingOffColumna(); },1000);
+        }
+
+        function cerrarCol3() { 
+            loadingOnColumna();
+            document.getElementById("col3").innerHTML = '';           
             setTimeout(function() { loadingOffColumna(); },1000);
         }
 
         function selectLi(id) { 
             $('.li_stock_ver').removeClass("active");            
             $('.id_insumo_'+id).addClass("active");            
-        }
-
-        function desSelectLi(id) { 
-            $('.li_stock_ver').removeClass("active");            
-            $('.id_insumo_'+id).removeClass("active");            
         }
 
         function loadingOnColumna() { 
