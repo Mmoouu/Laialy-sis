@@ -3,3 +3,4 @@
 
 - revisar copia de insumos, no se puede repetir "cod" [OK]
 
+- agregar busqueda
