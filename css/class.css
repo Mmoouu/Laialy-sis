@@ -2484,6 +2484,7 @@ input:-webkit-autofill {
 
 #desarr_de_stock table tr td:first-child p {
     text-align: left;
+    width: 200px;
 }
 
 #desarr_de_stock table tr td p {
@@ -2923,7 +2924,7 @@ height: 30px;
 }
 
 .class_materiales span {
-    font-size: 12px;
+    font-size: 10px;
     font-family: text;
     margin-left: 10px;
     cursor: pointer;
@@ -2936,10 +2937,10 @@ height: 30px;
     overflow: hidden;
     line-height: 16px;
     width: 16px;
+    padding: 3px 1px 0px 1px;
 }
 
 .class_materiales span:hover {
-    font-size: 12px;
     font-family: text;
     margin-left: 10px;
     cursor: pointer;
@@ -2947,29 +2948,29 @@ height: 30px;
 }
 
 .class_materiales span:nth-child(1) {
-    background-color: #49a9c9;
+    background-color: #c8c8c8;
 }
 
 .class_materiales span:nth-child(2) {
-    background-color: #c9494d;
-    margin-left: 30px;
+    background-color: #c8c8c8;
+    margin-left: 35px;
 }
 
 .class_materiales span:nth-child(3) {
-    background-color: #c9494d;
+    background-color: #c8c8c8;
     margin-left: 60px;
 }
 
 .class_materiales span:nth-child(1):hover {
-    background-color: #317a92;
+    background-color: #90d7b5;
 }
 
 .class_materiales span:nth-child(2):hover {
-    background-color: #8b3033;
+    background-color: #cf888a;
 }
 
 .class_materiales span:nth-child(3):hover {
-    background-color: #8b3033;
+    background-color: #89bbcc;
 }
 
 .class_insumos {

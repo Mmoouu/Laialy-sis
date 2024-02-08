@@ -8,8 +8,6 @@ $medida = $_POST['medida'];
 $valor_insumo = $_POST['valor_insumo'];
 $stock_insumo = $_POST['stock_insumo'];
 
-$busqueda = $_POST['busqueda'];  
-
 $nav = "stock_laialy";
 $resultado_consulta = "No hay stock registrado";
 
@@ -53,8 +51,9 @@ mysqli_close($conexion);
                     ?>
                         <tr class='class_materiales'>   
                             <td><p><?php echo $insumo; ?>
-                                <span onclick="stockIngreso('<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>','<?php echo $busqueda; ?>')">+</span>
-                                <span onclick="stockEgreso('<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>','<?php echo $busqueda; ?>')">-</span>
+                                <span onclick="editStock('suma','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>')">&#10133;</span>
+                                <span onclick="editStock('resta','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>')">&#10134;</span>
+                                <span onclick="editStock('valor','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>')">&#9999;&#65039;</span>
                             </p></td>
                             <td><p><?php echo $listado_de_stock['creacion']; ?></p></td>
                             <td><p><?php echo $listado_de_stock['dia_mod']; ?>-<?php echo $listado_de_stock['mes_mod']; ?>-<?php echo $listado_de_stock['anio_mod']; ?></p></td>
@@ -68,14 +67,14 @@ mysqli_close($conexion);
                             <td><p></p></td>
                             <td><p></p></td>        
                         </tr>
-                        <tr class='class_insumos'>
+                        <!-- <tr class='class_insumos'>
                             <td><p>Historial de consumo <span>v</span></p></td>
                             <td><p></p></td>
                             <td><p></p></td>
                             <td><p></p></td>  
                             <td><p></p></td>                  
-                        </tr>
-                        <tr style='border-bottom:1px solid gray;'>
+                        </tr> -->
+                        <tr>
                             <td><p></p></td>
                             <td><p></p></td>
                             <td><p></p></td>
