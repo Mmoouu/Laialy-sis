@@ -18,14 +18,21 @@ mysqli_close($conexion);
 ?>
 <div id="columna_2_stock">
     <div id="header_de_plato">
-        <div id="num_de_plato"><p>Detalle de Stock</p></div>
-        <div id="img_de_plato"><p></p></div>  
+        <div id="num_de_stock"><p>Detalle de Stock</p></div>
+        <div id="img_de_plato">
+            <img src="img/mas.svg" class="imagen_activa" onclick="stockIngreso('<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>')"/>
+            <img src="img/menos.svg" class="imagen_activa" onclick="stockEgreso('<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>')"/>
+            <img src="img/excel.svg" class="imagen_inactiva"/>            
+            <img src="img/hist.svg" class="imagen_inactiva"/>            
+            <img src="img/imp.svg" class="imagen_inactiva"/>
+            <img src="img/eliminar.svg" class="imagen_inactiva"/>
+        </div>  
         <div id="dat_de_plato"><button onclick="cerrarCol2()">Cerrar</button></div>
     </div>
     <div id="desarr_de_stock">
         <table>
             <tr class="class_titulos">
-                <td><p>COD <?php echo $cod; ?> <span>+</span></p></td>
+                <td><p>COD <?php echo $cod; ?></p></td>
                 <td><p>FECHA</p></td>
                 <td><p>FECHA MOD</p></td>
                 <td><p>VALOR</p></td>
@@ -51,9 +58,9 @@ mysqli_close($conexion);
                     ?>
                         <tr class='class_materiales'>   
                             <td><p><?php echo $insumo; ?>
-                                <span onclick="editStock('suma','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>')">&#10133;</span>
-                                <span onclick="editStock('resta','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>')">&#10134;</span>
-                                <span onclick="editStock('valor','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>')">&#9999;&#65039;</span>
+                                <span onclick="stockEdit('suma','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>')">&#10133;</span>
+                                <span onclick="stockEdit('resta','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>')">&#10134;</span>
+                                <span onclick="stockEdit('valor','<?php echo $id_stock; ?>','<?php echo $id_insumo; ?>','<?php echo $cod; ?>','<?php echo $insumo; ?>','<?php echo $proveedor; ?>','<?php echo $medida; ?>','<?php echo $valor_insumo; ?>','<?php echo $stock_insumo; ?>','<?php echo $valor_stock; ?>','<?php echo $stock_stock; ?>')">&#9999;&#65039;</span>
                             </p></td>
                             <td><p><?php echo $listado_de_stock['creacion']; ?></p></td>
                             <td><p><?php echo $listado_de_stock['dia_mod']; ?>-<?php echo $listado_de_stock['mes_mod']; ?>-<?php echo $listado_de_stock['anio_mod']; ?></p></td>
@@ -159,7 +166,7 @@ mysqli_close($conexion);
     </div>
     <div id="footer_de_plato">
         <div class="est_de_plato">
-            <h1>GARBANZO</h1>
+            <h1><?php echo Strtoupper($insumo);?></h1>
             <p>Proveedor <?php echo $proveedor; ?></p>          
         </div>
         <div class="est_de_plato">

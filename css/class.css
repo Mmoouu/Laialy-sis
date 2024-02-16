@@ -2563,20 +2563,31 @@ input:-webkit-autofill {
     margin-top: 8px;
     background-color: #f3f3f3;
     width: 40%;
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
     align-content: center;
     border-radius: 15px;
     /* border-left: 1px solid #f3f3f3;
     border-right: 1px solid #f3f3f3; */
-    padding: 0px 0 0 5%;
+    padding: 0px;
 }
 
-#img_de_stock img {
-    width: 14.5%;
-    height: 25px;
-    display: flex;
-    align-content: center;
+#img_de_stock p {
+    margin: 0px;
+    font-family: text;
+    color: #3b3b3b;
+    line-height: 24px;
+    font-size: 14px;
+    text-align: center;
+    padding: 5px 10px;
+}
+
+#img_de_stock p span{
+    font-family: bold;
+    color: #5b5b5b;
+    line-height: 24px;
+    font-size: 14px;
+    text-align: center;
 }
 
 #dat_de_stock {
@@ -2594,6 +2605,26 @@ input:-webkit-autofill {
     text-align: right;
     padding: 5px 10px;
 }
+
+#stock_mensaje_form{
+    margin-top: 40px;
+    font-family: medium;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 678px;
+    padding: 10px;
+    text-align: center;
+    display: none;
+}
+
+#stock_mensaje_form.no{
+    border: 1px solid rgb(199, 94, 99);
+}
+
+#stock_mensaje_form.si{
+    border: 1px solid rgb(109, 151, 104);
+}
+
 
 /* COLUMNA 2 DATOS DE platos */
 #desarr_de_plato {
@@ -4062,6 +4093,36 @@ height: 30px;
     height: 30px;
     width: 30px;
 }
+
+/* .barra{
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    height: 30px;
+}
+
+.barra_azul{
+    background-color: #247cc0;
+    border-radius: 5px;
+    display: block;
+    height: 30px;
+    line-height: 25px;
+    text-align: center;
+    width: 0%;
+}
+
+.barra_verde{
+    background-color: #2ea265 !important;
+}
+
+.barra_roja{
+    background-color: #de3152 !important;
+}
+
+.barra_estado span{
+    color: #fff;
+    font-family: bold;
+    line-height: 25px;
+} */
 
 /* /////////////////////////////////////////////////////////////////////////////////////////// LIBRERIA /////////////////////////////////////////////////////////////////////////////////////////// */
 /* LI MEDIDAS UNICAS BARRA SUPERIOR DE EL LISTADO DE PEDIDOS LIBRERIA */

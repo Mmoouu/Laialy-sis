@@ -86,7 +86,6 @@ if(isset($_GET['ver'])){
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.min.js"></script> 
 <script type="text/javascript" src="js/menu.js"></script>
-<script type="text/javascript" src="js/desplegables.js"></script>
 </head>  
 <body>
 <nav>

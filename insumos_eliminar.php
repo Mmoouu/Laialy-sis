@@ -56,8 +56,7 @@ if(isset($_GET['id'])){
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.min.js"></script> 
-<script type="text/javascript" src="js/menu.js"></script>
-    
+<script type="text/javascript" src="js/menu.js"></script>    
 </head>   
    
 <body>

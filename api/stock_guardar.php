@@ -45,8 +45,12 @@ if($accion == "suma"){
     $aclaracion_mensaje= "manual - stock - ".$aclaracion;
 } else if($accion == "valor"){    
     //no esta terminado
-    $insumo_valor_final = $valor;
-    $insumo_stock_final = $stock_insumo;
+    if($valor_insumo < $valor){
+        $insumo_valor_final = $valor;
+    } else {
+        $insumo_valor_final = $valor_insumo;     
+    }
+    $insumo_stock_final = $stock_insumo;    
     $stock_valor_final = $valor;
     $stock_stock_final = $stock_stock;
     $cambio_mensaje = $valor;
@@ -83,3 +87,5 @@ $fecha_insumo = $dia_insumo."-".$mes_insumo."-".$anio_insumo;
 mysqli_query($conexion, "INSERT INTO insumos_laialy_historial (id_historial, id_insumo, cod, insumo, categoria, subcategoria, medida, proveedor, valor, stock, cambio, fecha, fecha_cambio, hora, hora_cambio) VALUES (null,'$id_insumo','$cod','$insumo','$categoria','$subcategoria','$medida','$proveedor','$valor_insumo','$stock_insumo','$cambio_mensaje','$fecha_insumo','$fecha_cambio','$hora_insumo','$hora_cambio')");
 
 mysqli_close($conexion);
+
+?>

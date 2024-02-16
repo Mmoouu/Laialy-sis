@@ -51,9 +51,7 @@ if(isset($_GET['nav'])){
 <meta charset="utf-8"/>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.min.js"></script> 
-<script type="text/javascript" src="js/menu.js"></script>
-<script type="text/javascript" src="js/ajax.js"></script>
-    
+<script type="text/javascript" src="js/menu.js"></script>    
 </head>  
 <body>
 <nav>

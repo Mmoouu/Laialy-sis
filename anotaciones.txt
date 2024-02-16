@@ -1,6 +1,7 @@
 - insumos eliminar y desactivar pendiente a terminado de platos "repercute"
 
-
 - revisar copia de insumos, no se puede repetir "cod" [OK]
 
 - agregar busqueda
+
+- stock no puede quedar en negativo
