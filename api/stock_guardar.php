@@ -34,11 +34,12 @@ if($accion == "suma"){
     $aclaracion_mensaje= "manual - stock - ".$aclaracion;
 } else if($accion == "resta"){
     $insumo_valor_final = $valor_insumo;
-    if($stock > $stock_insumo){
-        $insumo_stock_final = number_format($stock_insumo);    
-    } else {
-        $insumo_stock_final = number_format($stock_insumo - $stock);
-    }    
+    // if($stock > $stock_insumo){
+    //     $insumo_stock_final = number_format($stock_insumo);    
+    // } else {
+    //     $insumo_stock_final = number_format($stock_insumo - $stock);
+    // }   
+    $insumo_stock_final = number_format($stock_insumo - $stock); 
     $stock_valor_final = $valor_stock;
     $stock_stock_final = number_format($stock_stock - $stock);
     $cambio_mensaje = "- ".$stock;

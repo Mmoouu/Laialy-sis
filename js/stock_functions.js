@@ -7,7 +7,8 @@ function stockLaialy(id_insumo) {
         type: 'POST',
         success: function(data) {
             document.getElementById("col1").innerHTML = data;
-            $('.id_insumo_'+parametros.id_insumo).addClass("active");         
+            $('.id_insumo_'+parametros.id_insumo).addClass("active");
+            console.log(data);         
         }
     });                   
 } 
@@ -30,6 +31,7 @@ function stockDetalle(id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_i
             success: function(data) {    
                 document.getElementById("col3").innerHTML = '';                    
                 document.getElementById("col2").innerHTML = data;
+                console.log(data);
             },
             complete: function(response) {
                 setTimeout(function() { loadingOffColumna(); },1000);
@@ -69,11 +71,14 @@ function stockGuardar(accion,id_stock,id_insumo,cod,insumo,proveedor,medida,valo
                 } else if(parametros.accion == "resta"){
                     var nuevo_valor_insumo = parametros.valor;
                     var nuevo_stock_insumo = (Number(parametros.stock_insumo)) - (Number(parametros.stock));
-                } else if (parametros.accion == "valor"){
-                    //revisar
-                    var nuevo_valor_insumo = parametros.valor;
-                    var nuevo_stock_insumo = parametros.stock_insumo;    
-                }
+                } else if(parametros.accion == "valor"){
+                    if(parametros.valor_insumo < parametros.valor){
+                        var nuevo_valor_insumo = parametros.valor;
+                    } else {
+                        var nuevo_valor_insumo = parametros.valor_insumo;     
+                    }                    
+                    var nuevo_stock_insumo = parametros.stock_insumo;
+                } 
     
                 new Promise(function(resolve) {
                     resolve(stockDetalle(parametros.id_insumo,parametros.cod,parametros.insumo,parametros.proveedor,parametros.medida,nuevo_valor_insumo,nuevo_stock_insumo));
@@ -81,7 +86,9 @@ function stockGuardar(accion,id_stock,id_insumo,cod,insumo,proveedor,medida,valo
                    stockLaialy(parametros.id_insumo);     
                 });
     
-                setTimeout(function() { loadingOffColumna(); },1000);                                 
+                setTimeout(function() { loadingOffColumna(); },1000); 
+                
+                console.log(data);
             }
         }); 
     }                                
@@ -108,16 +115,13 @@ function stockMovimientos(accion,id_insumo,cod,insumo,proveedor,medida,valor_ins
             complete: function(data) {
                 $('.id_insumo_'+parametros.id_insumo).removeClass("active");
     
-                if(parametros.accion == "suma"){
-                    var nuevo_valor_insumo = parametros.valor;
+                if(parametros.accion == "ingreso"){
+                    if(parametros.valor_insumo < parametros.valor){
+                        var nuevo_valor_insumo = parametros.valor;
+                    } else {
+                        var nuevo_valor_insumo = parametros.valor_insumo;     
+                    }                    
                     var nuevo_stock_insumo = (Number(parametros.stock_insumo)) + (Number(parametros.stock));
-                } else if(parametros.accion == "resta"){
-                    var nuevo_valor_insumo = parametros.valor;
-                    var nuevo_stock_insumo = (Number(parametros.stock_insumo)) - (Number(parametros.stock));
-                } else if (parametros.accion == "valor"){
-                    //revisar
-                    var nuevo_valor_insumo = parametros.valor;
-                    var nuevo_stock_insumo = parametros.stock_insumo;    
                 }
     
                 new Promise(function(resolve) {
@@ -126,7 +130,9 @@ function stockMovimientos(accion,id_insumo,cod,insumo,proveedor,medida,valor_ins
                    stockLaialy(parametros.id_insumo);     
                 });
     
-                setTimeout(function() { loadingOffColumna(); },1000);                                 
+                setTimeout(function() { loadingOffColumna(); },1000);
+                
+                console.log(data);
             }
         }); 
     }                                
@@ -143,6 +149,7 @@ function stockEdit(accion,id_stock,id_insumo,cod,insumo,proveedor,medida,valor_i
         },                 
         success: function(data) {                        
             document.getElementById("col3").innerHTML = data;
+            console.log(data);
         },
         complete: function(response) {
             setTimeout(function() { loadingOffColumna(); },1000);
@@ -161,6 +168,7 @@ function stockIngreso(id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_i
         },                 
         success: function(data) {                        
             document.getElementById("col3").innerHTML = data;
+            console.log(data);
         },
         complete: function(response) {
             setTimeout(function() { loadingOffColumna(); },1000);
@@ -179,6 +187,7 @@ function stockEgreso(id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_in
         },                 
         success: function(data) {                        
             document.getElementById("col3").innerHTML = data;
+            console.log(data);
         },
         complete: function(response) {
             setTimeout(function() { loadingOffColumna(); },1000);

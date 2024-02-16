@@ -31,30 +31,33 @@ mysqli_close($conexion);
     </div>
     <div id="desarr_de_stock">
         <table>
-            <tr class="class_titulos">
-                <td><p>COD <?php echo $cod; ?></p></td>
-                <td><p>FECHA</p></td>
-                <td><p>FECHA MOD</p></td>
-                <td><p>VALOR</p></td>
-                <td><p>STOCK</p></td>                    
-            </tr> 
-            <tr class="class_espacio_materiales">
-                <td><p></p></td>
-                <td><p></p></td>  
-                <td><p></p></td>  
-                <td><p></p></td>                  
-            </tr> 
-
             <?php
             /////////////////////////////////LISTADO STOCK/////////////////////////////////////
             if(!$consulta_de_stock || mysqli_num_rows($consulta_de_stock) == 0){            
                 echo "<div style='width:500px; height:50px; display:block; margin:40px auto; top:0px; left:0px;'><p style='font-family:thin; color:#aaaaaa; text-align:center; font-size:3em;'>".$resultado_consulta."</p></div>";
             } else {
+                ?>
+                <tr class="class_titulos">
+                    <td><p>COD <?php echo $cod; ?></p></td>
+                    <td><p>FECHA</p></td>
+                    <td><p>FECHA MOD</p></td>
+                    <td><p>VALOR</p></td>
+                    <td><p>STOCK</p></td>                    
+                </tr> 
+                <tr class="class_espacio_materiales">
+                    <td><p></p></td>
+                    <td><p></p></td>  
+                    <td><p></p></td>  
+                    <td><p></p></td>                  
+                </tr>
+                <?php
+                $valores_stock = array();
+                $stock_total = 0;
+                $stock_count = 0;
                 while ($listado_de_stock = mysqli_fetch_array($consulta_de_stock)){
                     $id_stock = $listado_de_stock['id'];
                     $valor_stock = $listado_de_stock['valor'];
-                    $stock_stock = $listado_de_stock['stock'];                    
-
+                    $stock_stock = $listado_de_stock['stock']; 
                     ?>
                         <tr class='class_materiales'>   
                             <td><p><?php echo $insumo; ?>
@@ -66,7 +69,7 @@ mysqli_close($conexion);
                             <td><p><?php echo $listado_de_stock['dia_mod']; ?>-<?php echo $listado_de_stock['mes_mod']; ?>-<?php echo $listado_de_stock['anio_mod']; ?></p></td>
                             <td><p>$ <?php echo $valor_stock; ?></p></td>  
                             <td><p><?php echo $stock_stock; ?> KG</p></td>                   
-                        </tr>                    
+                        </tr>                                         
                         <tr>
                             <td><p></p></td>
                             <td><p></p></td>
@@ -88,7 +91,10 @@ mysqli_close($conexion);
                             <td><p></p></td>
                             <td><p></p></td>        
                         </tr>
-                    <?php 
+                    <?php                    
+                    array_push($valores_stock, $valor_stock);
+                    $stock_total = number_format($stock_total + $stock_stock);
+                    $stock_count += 1;   
                 }
             }
             /////////////////////////////FIN LISTADO STOCK/////////////////////////////////////
@@ -170,12 +176,17 @@ mysqli_close($conexion);
             <p>Proveedor <?php echo $proveedor; ?></p>          
         </div>
         <div class="est_de_plato">
-            <h1>VALOR PROMEDIO</h1>
-            <p>$ 350</p>
+            <?php
+            
+            
+            
+            ?>
+            <h1>VALOR</h1>
+            <p><?php echo max($valores_stock); ?></p>
         </div>
         <div class="est_de_plato">
             <h1>STOCK TOTAL</h1>
-            <p>75 KG</p>
+            <p><?php echo $stock_total." ".$medida; ?></p>
         </div>    
     </div>        
 </div>

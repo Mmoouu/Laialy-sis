@@ -198,20 +198,20 @@ mysqli_close($conexion);
                     require("log.php");
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                    $consulta_id = mysqli_query($conexion, "SELECT id FROM $nav ORDER BY id DESC");                    
-                    $listado_id = mysqli_fetch_array($consulta_id);
-                    $last_id = $listado_id['id'];
+                    // $consulta_id = mysqli_query($conexion, "SELECT id FROM $nav ORDER BY id DESC");                    
+                    // $listado_id = mysqli_fetch_array($consulta_id);
+                    // $last_id = $listado_id['id'];
 
-                    mysqli_query($conexion, "INSERT INTO $nav_stock (id, id_insumo, valor, stock, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$last_id','$form_valor','$form_stock','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
+                    // mysqli_query($conexion, "INSERT INTO $nav_stock (id, id_insumo, valor, stock, creacion, dia_mod, mes_mod, anio_mod, hora_mod, activo) VALUES (null,'$last_id','$form_valor','$form_stock','$form_creacion','$form_dia_mod','$form_mes_mod','$form_anio_mod','$form_hora_mod','$form_activo')");
                     
-                    $consulta_id_stock = mysqli_query($conexion, "SELECT id FROM $nav_stock ORDER BY id DESC");                    
-                    $listado_id_stock = mysqli_fetch_array($consulta_id_stock);
-                    $last_id_stock = $listado_id_stock['id'];
+                    // $consulta_id_stock = mysqli_query($conexion, "SELECT id FROM $nav_stock ORDER BY id DESC");                    
+                    // $listado_id_stock = mysqli_fetch_array($consulta_id_stock);
+                    // $last_id_stock = $listado_id_stock['id'];
 
                     //////////////////////////////////////////REGISTRO LOG//////////////////////////////////////////////////
-                    $log_valor = "ID: ".$last_id_stock;
-                    $log_accion = "Stock Nuevo Copia";
-                    require("log.php");
+                    // $log_valor = "ID: ".$last_id_stock;
+                    // $log_accion = "Stock Nuevo Copia";
+                    // require("log.php");
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                     $pagina_regreso = $_GET['pagina'];  

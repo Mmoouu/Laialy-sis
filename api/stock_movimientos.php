@@ -23,13 +23,13 @@ $hora_cambio = date('His');
 
 if($accion == "ingreso"){ 
     if($valor_insumo < $valor){
-        $insumo_valor_final = $valor;
+        $insumo_valor_final = number_format($valor);
     } else {
-        $insumo_valor_final = $valor_insumo;     
+        $insumo_valor_final = number_format($valor_insumo);     
     }
 
     $insumo_stock_final = number_format($stock_insumo + $stock);
-    $stock_valor_final = $valor_stock;
+    $stock_valor_final = number_format($valor);
     $stock_stock_final = number_format($stock_stock + $stock);
 
     $cambio_mensaje = $stock." a ".$valor." KG";
@@ -37,9 +37,14 @@ if($accion == "ingreso"){
 }
 
 require("../../conexion.laialy.php");
-mysqli_query($conexion, "UPDATE stock_laialy SET valor='$stock_valor_final', stock='$stock_stock_final', dia_mod='$dia_mod', mes_mod='$mes_mod', anio_mod='$anio_mod', hora_mod='$hora_mod' WHERE id='$id_stock'");
+mysqli_query($conexion, "INSERT INTO stock_laialy (id,id_insumo,valor,stock,creacion,dia_mod,mes_mod,anio_mod,hora_mod,activo) VALUES (null,'$id_insumo','$stock_valor_final','$stock_stock_final','$fecha_cambio','$dia_mod','$mes_mod','$anio_mod','$hora_mod','1')");
+// mysqli_query($conexion, "UPDATE stock_laialy SET valor='$stock_valor_final', stock='$stock_stock_final', dia_mod='$dia_mod', mes_mod='$mes_mod', anio_mod='$anio_mod', hora_mod='$hora_mod' WHERE id='$id_stock'");
 
-$consulta_de_stock = mysqli_query($conexion,  "SELECT * FROM stock_laialy WHERE id = '$id_stock'");
+$consulta_id_stock = mysqli_query($conexion, "SELECT id FROM $nav_stock ORDER BY id DESC");                    
+$listado_id_stock = mysqli_fetch_array($consulta_id_stock);
+$last_id_stock = $listado_id_stock['id'];
+
+$consulta_de_stock = mysqli_query($conexion,  "SELECT * FROM stock_laialy WHERE id = '$last_id_stock'");
 $listado_de_stock = mysqli_fetch_array($consulta_de_stock);
 
 $creacion_stock = $listado_de_stock['creacion'];
@@ -48,8 +53,6 @@ $mes_stock = $listado_de_stock['mes_mod'];
 $anio_stock = $listado_de_stock['anio_mod'];
 $hora_stock = $listado_de_stock['hora_mod'];
 $fecha_stock = $dia_stock."-".$mes_stock."-".$anio_stock;
-
-mysqli_query($conexion, "INSERT INTO stock_laialy_historial (id_historial,id_stock,id_insumo,valor,stock,tipo,cambio,creacion,fecha,fecha_cambio,hora,hora_cambio) VALUES (null,'$id_stock', '$id_insumo', '$valor_stock', '$stock_stock', '$aclaracion_mensaje', '$cambio_mensaje', '$creacion', '$fecha_stock', '$fecha_cambio', '$hora_stock', '$hora_cambio')");
 
 mysqli_query($conexion, "UPDATE insumos_laialy SET valor='$insumo_valor_final', stock='$insumo_stock_final',dia_mod='$dia_mod', mes_mod='$mes_mod', anio_mod='$anio_mod', hora_mod='$hora_mod' WHERE id='$id_insumo'");
 
