@@ -25,7 +25,7 @@ $accion = $_POST['accion'];
     <div id="desarr_de_stock">
         <form class='fomulario_nuevo_ingreso_col2' action='' method='post' enctype='multipart/form-data'>                                   
             <div class='fneworder_dos' style="margin-right:5%;">
-                <label><p>Stock</p></label>                                       
+                <label><p><?php echo $medida; ?></p></label>                                       
                 <input type='number' name='stock' placeholder="0" id='stock_form'/>
             </div> 
             <div class='fneworder_dos last_item'> 

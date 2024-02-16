@@ -23,14 +23,15 @@ $nav = "stock_laialy";
     </div>
     <div id="desarr_de_stock">
         <form class='fomulario_nuevo_ingreso_col2' action='' method='post' enctype='multipart/form-data'>                                   
-            <div class='fneworder_dos' style="margin-right:5%;">
-                <label><p>Valor</p></label>                                       
-                <input type='number' name='valor' placeholder="0" id='valor_form'/>
-            </div> 
-            <div class='fneworder_dos'> 
-                <label><p>Stock</p></label>                                            
+            
+            <div class='fneworder_dos' style="margin-right:5%;"> 
+                <label><p><?php echo $medida; ?></p></label>                                            
                 <input type='number' name='stock' id='stock_form' placeholder='0'/>
             </div>
+            <div class='fneworder_dos'>
+                <label><p><?php echo "Precio ".$medida; ?></p></label>                                       
+                <input type='number' name='valor' placeholder="0" id='valor_form'/>
+            </div> 
             <div class='fneworder last_item'>
                 <label for="adjuntar archivo"><p>Adjuntar Comprobante:</p></label>
                 <input type='file' name='archivo' class="inputfile" id='archivo1' required>

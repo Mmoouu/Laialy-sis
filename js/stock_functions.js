@@ -97,10 +97,10 @@ function stockGuardar(accion,id_stock,id_insumo,cod,insumo,proveedor,medida,valo
 function stockMovimientos(accion,id_insumo,cod,insumo,proveedor,medida,valor_insumo,stock_insumo,valor,stock,adjunto) { 
     var parametros = {"accion":accion,"id_insumo":id_insumo,"cod":cod,"insumo":insumo,"proveedor":proveedor,"medida":medida,"valor_insumo":valor_insumo,"stock_insumo":stock_insumo,"valor":valor,"stock":stock,"adjunto":adjunto}; 
     // if con parametros de stock en 0 y devolucion de mensaje
-    if (parametros.valor == 0){
-        stockMensajeForm('Ingrese un Valor valido','0');
-    } else if(parametros.stock == 0){
-        stockMensajeForm('Ingrese un Stock valido','0');
+    if (parametros.stock == 0 || !parametros.stock){
+        stockMensajeForm('Ingrese un Stock valido<br>No utilice simbolos no numericos como ( ) / - + ,','0');
+    } else if(parametros.valor == 0 || !parametros.valor){
+        stockMensajeForm('Ingrese un Precio valido<br>No utilice simbolos no numericos como ( ) / - + ,','0');
     } else {
         $.ajax({
             data: parametros,            

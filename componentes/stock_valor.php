@@ -18,14 +18,14 @@ $accion = $_POST['accion'];
 
 <div id="columna_2_stock">
     <div id="header_de_plato">
-        <div id="num_de_stock"><p>Modifica Valor de Stock</p></div>
+        <div id="num_de_stock"><p>Modifica Precio de Stock</p></div>
         <div id="img_de_stock"><p><span>Nro: <?php echo $id_stock."</span>"; ?></p></div>  
         <div id="dat_de_plato"><button onclick="cerrarCol3()">Cerrar</button></div>
     </div>
     <div id="desarr_de_stock">
         <form class='fomulario_nuevo_ingreso_col2' action='' method='post' enctype='multipart/form-data'>                                   
             <div class='fneworder_dos' style="margin-right:5%;">
-                <label><p>Nuevo Valor</p></label>                                       
+                <label><p><?php echo "Precio ".$medida; ?></p></label>                                       
                 <input type='number' name='valor' placeholder="0" id='valor_form'/>
             </div> 
             <div class='fneworder_dos last_item'> 
