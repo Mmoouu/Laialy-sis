@@ -32,7 +32,7 @@ if($accion == "ingreso"){
     $stock_valor_final = number_format($valor);
     $stock_stock_final = number_format($stock_stock + $stock);
 
-    $cambio_mensaje = $stock." a ".$valor." KG";
+    $cambio_mensaje = $stock." a ".$valor." ".$medida;
     $aclaracion_mensaje= "ingreso";
 }
 

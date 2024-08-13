@@ -68,7 +68,7 @@ mysqli_close($conexion);
                             <td><p><?php echo $listado_de_stock['creacion']; ?></p></td>
                             <td><p><?php echo $listado_de_stock['dia_mod']; ?>-<?php echo $listado_de_stock['mes_mod']; ?>-<?php echo $listado_de_stock['anio_mod']; ?></p></td>
                             <td><p>$ <?php echo $valor_stock; ?></p></td>  
-                            <td><p><?php echo $stock_stock; ?> KG</p></td>                   
+                            <td><p><?php echo $stock_stock; ?> <?php echo $medida; ?></p></td>                   
                         </tr>                                         
                         <tr>
                             <td><p></p></td>
